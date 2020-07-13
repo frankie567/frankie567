@@ -1,4 +1,4 @@
-### Hi there 👋
+### Bonjour 👋 I'm François Voron
 
 <!--
 **frankie567/frankie567** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
