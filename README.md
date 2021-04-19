@@ -1,16 +1,18 @@
-### Bonjour 👋 I'm François Voron
+### Bonjour, I'm François Voron, from France 🥖🧀
 
-<!--
-**frankie567/frankie567** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+I'm the maintainer of [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for [FastAPI](https://github.com/tiangolo/fastapi).
 
-Here are some ideas to get you started:
+# Open-source projects
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Huge fan of Python, my main projects are related to [FastAPI](https://github.com/tiangolo/fastapi) and, more generally, to asyncio:
+
+* [FastAPI Users](https://github.com/frankie567/fastapi-users), the the #1 authentication library for FastAPI
+* [HTTPX OAuth](https://github.com/frankie567/httpx-oauth), an async OAuth client using HTTPX.
+
+# Who am I?
+
+I'm François Voron, from France 🥖🧀 I'm 30 years-old software developer working essentially in SaaS startups.
+
+Currently, I'm CTO at [BeeMyDesk](https://www.beemydesk.com): we are reinventing professional training by bringing the best experts through innovative online formats to our audience.
+
+[![François Voron's GitHub stats](https://github-readme-stats.vercel.app/api?username=frankie567&count_private=true&show_icons=true&theme=dark)](https://github.com/frankie567)
