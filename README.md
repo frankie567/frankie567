@@ -8,6 +8,7 @@ Huge fan of Python, my main projects are related to [FastAPI](https://github.com
 
 * [FastAPI Users](https://github.com/frankie567/fastapi-users), the the #1 authentication library for FastAPI
 * [HTTPX OAuth](https://github.com/frankie567/httpx-oauth), an async OAuth client using HTTPX.
+* [Starlette CSRF Middleware](https://github.com/frankie567/starlette-csrf), implementing Double Submit Cookie technique to mitigate CSRF.
 
 # Who am I?
 
