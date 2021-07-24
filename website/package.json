@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "npm run build && next export",
+    "link-public-dirs": "rm ./public/posts && ln -s ../posts ./public/posts",
+    "export": "npm run link-public-dirs && npm run build && next export",
     "start": "next start",
     "lint": "next lint"
   },
