@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import * as React from 'react';
 
+import CTA from '../components/CTA';
 import { useCalendly } from '../hooks/calendly';
 
 const Home: React.FunctionComponent = () => {
@@ -39,7 +40,7 @@ const Home: React.FunctionComponent = () => {
                 <p className="text-xl text-gray-400 mb-8" data-aos="zoom-y-out" data-aos-delay="150">I build high-quality softwares with the best technologies to achieve your business goals in a fast-changing environment.</p>
                 <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
                   <div>
-                    <span onClick={() => openCalendly()} className="btn text-white cursor-pointer bg-red-500 hover:bg-red-600 w-full mb-4 sm:w-auto">Book a call</span>
+                    <button onClick={() => openCalendly()} className="btn text-white cursor-pointer bg-red-500 hover:bg-red-600 w-full mb-4 sm:w-auto">Book a call</button>
                     <p className="text-xs">Free 30-minutes call to talk about your project</p>
                   </div>
                 </div>
@@ -58,6 +59,7 @@ const Home: React.FunctionComponent = () => {
 
         </div>
       </section>
+      <CTA />
     </>
   );
 };

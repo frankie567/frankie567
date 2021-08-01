@@ -1,6 +1,5 @@
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'media',
   theme: {
     extend: {
       colors: {
@@ -25,17 +24,6 @@ module.exports = {
           700: '#0064DA',
           800: '#0059C2',
           900: '#004391',
-        },
-        teal: {
-          100: '#E6FFFA',
-          200: '#B2F5EA',
-          300: '#81E6D9',
-          400: '#4FD1C5',
-          500: '#3ABAB4',
-          600: '#319795',
-          700: '#2C7A7B',
-          800: '#285E61',
-          900: '#234E52',
         },
       },
       boxShadow: {
@@ -118,9 +106,43 @@ module.exports = {
           '50%': { transform: 'translateY(-5%)', },
         },
       },
-      zIndex: {
-        '-1': '-1',
-      },
+      customForms: theme => ({
+        default: {
+          'input, textarea, multiselect, select, checkbox, radio': {
+            backgroundColor: theme('colors.white'),
+            borderColor: theme('colors.gray.300'),
+            borderRadius: theme('borderRadius.default'),
+            '&:focus': {
+              outline: undefined,
+              boxShadow: undefined,
+              borderColor: theme('colors.gray.500'),
+            },
+          },
+          'input, textarea, multiselect, select': {
+            backgroundColor: theme('colors.white'),
+            fontSize: undefined,
+            lineHeight: undefined,
+            paddingTop: theme('spacing.3'),
+            paddingRight: theme('spacing.4'),
+            paddingBottom: theme('spacing.3'),
+            paddingLeft: theme('spacing.4'),
+          },
+          'input, textarea': {
+            '&::placeholder': {
+              color: theme('colors.gray.500'),
+            },
+          },
+          select: {
+            paddingRight: theme('spacing.10'),
+            iconColor: theme('colors.gray.400'),
+          },
+          'checkbox, radio': {
+            color: theme('colors.gray.800'),
+            backgroundColor: theme('colors.white'),
+            borderRadius: theme('borderRadius.sm'),
+          },
+        },
+      }),
     },
   },
   variants: {
