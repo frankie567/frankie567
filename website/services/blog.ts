@@ -21,8 +21,17 @@ export const getPostBySlug = async (slug: string): Promise<models.BlogPost> => {
   const { data, content } = matter(file);
   return {
     title: data.title,
-    slug: slug,
+    slug,
     date: data.date,
+    thumbnail: data.thumbnail,
     content,
   };
+};
+
+export const getPosts = async (skip: number, limit: number): Promise<models.BlogPost[]> => {
+  const slugs = await getPostsSlugs();
+  const posts = await Promise.all(slugs.map(getPostBySlug));
+  return posts
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(skip, skip + limit);
 };
