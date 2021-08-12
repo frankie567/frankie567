@@ -23,7 +23,7 @@ const CTA: React.FunctionComponent = () => {
 
               {/* CTA button */}
               <div>
-                <button onClick={() => openCalendly()} className="btn text-red-500 bg-gradient-to-r from-blue-100 to-white" href="#0">Book a call</button>
+                <button onClick={() => openCalendly()} className="btn text-red-500 bg-gradient-to-r from-blue-100 to-white">Book a call</button>
               </div>
 
             </div>

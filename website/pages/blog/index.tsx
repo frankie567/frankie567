@@ -1,27 +1,18 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
+import { GetStaticProps } from 'next';
 import * as React from 'react';
 
-import MarkdownRenderer from '../../components/MarkdownRenderer';
-import * as models from '../../models';
-import { getPosts } from '../../services/blog';
+import BlogPosts, { BlogPostsProps } from '../../components/BlogPosts';
+import { getPosts, getTags } from '../../services/blog';
 
-
-interface BlogProps {
-  posts: models.BlogPost[];
-}
-
-export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
-  const posts = await getPosts(0, 6);
-  return { props: { posts } };
+export const getStaticProps: GetStaticProps<BlogPostsProps> = async () => {
+  const posts = await getPosts(0);
+  const tags = await getTags();
+  return { props: { posts, tags } };
 };
 
-const Blog: React.FunctionComponent<BlogProps> = ({ posts }) => {
+const Blog: React.FunctionComponent<BlogPostsProps> = ({ posts, tags }) => {
   return (
-    <>
-
-    </>
+    <BlogPosts posts={posts} tags={tags} />
   );
 };
 

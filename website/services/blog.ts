@@ -23,15 +23,42 @@ export const getPostBySlug = async (slug: string): Promise<models.BlogPost> => {
     title: data.title,
     slug,
     date: data.date,
+    tags: data.tags,
+    excerpt: data.excerpt,
     thumbnail: data.thumbnail,
     content,
   };
 };
 
-export const getPosts = async (skip: number, limit: number): Promise<models.BlogPost[]> => {
+export const getPosts = async (skip?: number, limit?: number): Promise<models.BlogPost[]> => {
   const slugs = await getPostsSlugs();
   const posts = await Promise.all(slugs.map(getPostBySlug));
   return posts
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .slice(skip, skip + limit);
+    .slice(skip, skip && limit ? skip + limit : undefined);
+};
+
+export const normalizeTag = (tag: string): string => {
+  return tag.toLowerCase().replace(/\s+/g, '-');
+};
+
+export const getTags = async (): Promise<Record<string, string>> => {
+  const posts = await getPosts();
+  const tags: Record<string, string> = {};
+  for (const post of posts) {
+    for (const tag of post.tags) {
+      const normalizedTag = normalizeTag(tag);
+      tags[normalizedTag] = tag;
+    }
+  }
+  return tags;
+};
+
+export const getPostsByTag =  async (normalizedTag: string, skip?: number, limit?: number): Promise<models.BlogPost[]> => {
+  const slugs = await getPostsSlugs();
+  const posts = await Promise.all(slugs.map(getPostBySlug));
+  return posts
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .filter((post) => post.tags.some((tag) => normalizeTag(tag) === normalizedTag))
+    .slice(skip, skip && limit ? skip + limit : undefined);
 };

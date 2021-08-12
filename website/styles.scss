@@ -1,0 +1,31 @@
+@import 'website-styles/additional-styles/utility-patterns.scss';
+
+.text-blog-post {
+  p, img, ol, ul, h1, h2, h3, h4, h5, h6 {
+    @apply mb-8;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  h1 {
+    @extend .h1;
+  }
+
+  h2 {
+    @extend .h2;
+  }
+
+  h3 {
+    @extend .h3;
+  }
+
+  h4 {
+    @extend .h4;
+  }
+}
