@@ -60,7 +60,7 @@ const Header: React.FunctionComponent = () => {
             {/* Logo */}
             <Link href="/" passHref>
               <a className="block">
-                <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="50" alt="François Voron Logo" />
+                <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
               </a>
             </Link>
           </div>

@@ -23,9 +23,12 @@ const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
               {/* Logo */}
               <Link href="/" passHref>
                 <a className="inline-block">
-                  <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="50" alt="François Voron Logo" />
+                  <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
                 </a>
               </Link>
+            </div>
+            <div className="text-sm text-justify text-gray-500">
+              Full-stack web developer and data scientist, I&#39;ve a proven track record working in SaaS industry, with a special focus on Python backends and REST API.
             </div>
           </div>
 
