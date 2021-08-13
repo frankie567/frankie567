@@ -1,12 +1,24 @@
 @import 'website-styles/additional-styles/utility-patterns.scss';
 
 .text-blog-post {
-  p, blockquote, hr, img, ol, ul, h1, h2, h3, h4, h5, h6 {
+  p, blockquote, iframe, pre, hr, img, ol, ul, h1, h2, h3, h4, h5, h6 {
     @apply mb-8;
   }
 
   a {
     @apply text-red-500 font-medium hover:underline;
+  }
+
+  code {
+    @apply rounded bg-gray-800 px-1 py-0.5 text-sm;
+  }
+
+  pre {
+    @apply rounded bg-gray-800 p-4 text-sm;
+  }
+
+  iframe {
+    @apply mx-auto;
   }
 
   blockquote {
@@ -29,7 +41,8 @@
   figure {
     @apply flex flex-col items-center text-center;
     img {
-      @apply max-w-max w-1/2 mb-2;
+      @apply max-w-max w-3/4 mb-2;
+      @apply rounded bg-white bg-opacity-25;
     }
     figcaption {
       @apply text-sm italic;

@@ -4,7 +4,7 @@ date: '2017-06-04T12:00:00.000Z'
 tags:
   - Computer Science
   - History
-excerpt: This is the first article.
+excerpt: Air de cour is a nearly forgotten music genre from the 16th century. We study how this genre could be of interest in the Music Information Retrieval field.
 thumbnail: /posts/images/air-de-cour-interest-music-information-retrieval/illustration-tablatures-moulinie.png
 ---
 

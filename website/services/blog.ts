@@ -35,7 +35,7 @@ export const getPosts = async (skip?: number, limit?: number): Promise<models.Bl
   const slugs = await getPostsSlugs();
   const posts = await Promise.all(slugs.map(getPostBySlug));
   return posts
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(skip, skip && limit ? skip + limit : undefined);
 };
 
@@ -59,7 +59,7 @@ export const getPostsByTag =  async (normalizedTag: string, skip?: number, limit
   const slugs = await getPostsSlugs();
   const posts = await Promise.all(slugs.map(getPostBySlug));
   return posts
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .filter((post) => post.tags.some((tag) => normalizeTag(tag) === normalizedTag))
     .slice(skip, skip && limit ? skip + limit : undefined);
 };
