@@ -1,8 +1,21 @@
 @import 'website-styles/additional-styles/utility-patterns.scss';
 
 .text-blog-post {
-  p, img, ol, ul, h1, h2, h3, h4, h5, h6 {
+  p, blockquote, hr, img, ol, ul, h1, h2, h3, h4, h5, h6 {
     @apply mb-8;
+  }
+
+  a {
+    @apply text-red-500 font-medium hover:underline;
+  }
+
+  blockquote {
+    @apply ring-2 ring-opacity-75 ring-red-500;
+    @apply p-8;
+
+    p:last-child {
+      @apply mb-0;
+    }
   }
 
   ol {
@@ -11,6 +24,20 @@
 
   ul {
     @apply list-disc;
+  }
+
+  figure {
+    @apply flex flex-col items-center text-center;
+    img {
+      @apply max-w-max w-1/2 mb-2;
+    }
+    figcaption {
+      @apply text-sm italic;
+    }
+  }
+
+  hr {
+    @apply w-full h-px pt-px bg-gray-800 border-0;
   }
 
   h1 {

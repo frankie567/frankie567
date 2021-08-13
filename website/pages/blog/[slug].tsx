@@ -7,7 +7,6 @@ import { useMarkdownParser } from '../../hooks/markdown';
 import * as models from '../../models';
 import { getPostsSlugs, getPostBySlug } from '../../services/blog';
 
-
 interface BlogPostProps {
   post: models.BlogPost;
 }
@@ -76,17 +75,15 @@ const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
 
                     {/* Article meta */}
                     <div className="flex items-center mb-6">
-                      <div className="flex flex-shrink-0 mr-3">
-                        <a className="relative" href="#0">
-                          <span className="absolute inset-0 -m-px" aria-hidden="true"><span className="absolute inset-0 -m-px bg-white rounded-full"></span></span>
-                          {/* <img className="relative rounded-full" src={require('../images/news-author-04.jpg').default} width="32" height="32" alt="Author 04" /> */}
-                        </a>
-                      </div>
-                      <div>
-                        <span className="text-gray-600">By </span>
-                        <a className="font-medium hover:underline" href="#0">François Voron</a>
-                        <span className="text-gray-600"> · {new Date(post.date).toDateString()}</span>
-                      </div>
+                        <ul className="flex flex-wrap text-xs font-medium -m-1">
+                          {post.tags.map((tag) =>
+                            <li key={tag} className="mx-1">
+                              <span className="inline-flex text-center py-1 px-3 rounded-full bg-red-500">{tag}</span>
+                            </li>
+                          )}
+                        </ul>
+                      <span className="text-gray-600 mx-1">·</span>
+                      <span className="text-gray-600">{new Date(post.date).toDateString()}</span>
                     </div>
                     <hr className="w-16 h-px pt-px bg-gray-800 border-0 mb-6" />
 

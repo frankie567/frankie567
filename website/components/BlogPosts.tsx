@@ -61,7 +61,7 @@ const BlogPosts: React.FunctionComponent<BlogPostsProps> = ({ posts, tags, selec
                       <ul className="flex flex-wrap text-xs font-medium -m-1">
                         {post.tags.map((tag) =>
                           <li key={tag} className="m-1">
-                            <a className="inline-flex text-center py-1 px-3 rounded-full bg-red-500 hover:bg-red-600 transition duration-150 ease-in-out" href="#0">{tag}</a>
+                            <span className="inline-flex text-center py-1 px-3 rounded-full bg-red-500">{tag}</span>
                           </li>
                         )}
                       </ul>
