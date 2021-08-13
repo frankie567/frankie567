@@ -34,7 +34,7 @@ const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
 
           {/* 2nd block */}
           <div className="lg:col-start-7 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h6 className="text-gray-400 font-medium mb-2">About me</h6>
+            <h3 className="text-gray-400 font-medium mb-2">About me</h3>
             <ul className="text-sm">
               <li className="mb-2">
                 <Link href="/references" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">References</a></Link>
@@ -50,7 +50,7 @@ const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
 
           {/* 3rd block */}
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h6 className="text-gray-400 font-medium mb-2">Open source</h6>
+            <h3 className="text-gray-400 font-medium mb-2">Open source</h3>
             <ul className="text-sm">
               <li className="mb-2">
                 <a href="https://github.com/frankie567/fastapi-users" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">FastAPI Users</a>
@@ -66,7 +66,7 @@ const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
 
           {/* 4th block */}
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h6 className="text-gray-400 font-medium mb-2">Legal</h6>
+            <h3 className="text-gray-400 font-medium mb-2">Legal</h3>
             <ul className="text-sm">
               <li className="mb-2">
                 <Link href="/terms" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Terms</a></Link>

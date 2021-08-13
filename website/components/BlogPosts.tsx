@@ -66,9 +66,9 @@ const BlogPosts: React.FunctionComponent<BlogPostsProps> = ({ posts, tags, selec
                         )}
                       </ul>
                     </div>
-                    <h3 className="text-xl font-bold leading-snug tracking-tight mb-2">
+                    <h2 className="text-xl font-bold leading-snug tracking-tight mb-2">
                       <Link href="/blog/[slug]" as={`/blog/${post.slug}`} passHref><a className="hover:underline">{post.title}</a></Link>
-                    </h3>
+                    </h2>
                   </header>
                   <p className="text-gray-400 flex-grow">{post.excerpt}</p>
                 </article>

@@ -24,6 +24,7 @@ export const getPostBySlug = async (slug: string): Promise<models.BlogPost> => {
     slug,
     date: data.date,
     tags: data.tags,
+    ...data.canonical ? { canonical: data.canonical } : {},
     excerpt: data.excerpt,
     thumbnail: data.thumbnail,
     content,

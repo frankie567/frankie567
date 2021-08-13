@@ -1,14 +1,19 @@
 import AOS from 'aos';
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Metas from '../components/Metas';
 
 import '../website-styles/style.scss';
 import '../styles.scss';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+
   useEffect(() => {
     AOS.init({
       once: true,
@@ -19,13 +24,29 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   });
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">
-        <Component {...pageProps} />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/logo192.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#EF4444" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="François Voron" />
+        <meta property="og:locale" content="en" />
+        <meta property="og:url" content={`${process.env.HOST}${router.asPath}`} />
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:creator" content="@fvoron" />
+        <meta property="twitter:site" content="@fvoron" />
+      </Head>
+      <Metas />
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
+          <Component {...pageProps} />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 

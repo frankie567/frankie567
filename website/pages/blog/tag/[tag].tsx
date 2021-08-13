@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import * as React from 'react';
 
 import BlogPosts, { BlogPostsProps } from '../../../components/BlogPosts';
+import Metas from '../../../components/Metas';
 import { getPostsByTag, getTags } from '../../../services/blog';
 
 
@@ -22,7 +23,10 @@ export const getStaticProps: GetStaticProps<BlogPostsProps> = async ({ params })
 
 const BlogTag: React.FunctionComponent<BlogPostsProps> = ({ posts, tags, selectedTag }) => {
   return (
-    <BlogPosts posts={posts} tags={tags} selectedTag={selectedTag} />
+    <>
+      <Metas title={`${selectedTag && tags[selectedTag]} - Blog - François Voron`} />
+      <BlogPosts posts={posts} tags={tags} selectedTag={selectedTag} />
+    </>
   );
 };
 

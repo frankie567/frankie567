@@ -1,8 +1,10 @@
 import * as React from 'react';
+import Metas from '../components/Metas';
 
 const Terms: React.FunctionComponent = () => {
   return (
     <>
+      <Metas title="Legal terms - François Voron" />
       <section className="relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
