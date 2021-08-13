@@ -17,7 +17,7 @@ const CTA: React.FunctionComponent = () => {
 
               {/* CTA content */}
               <div className="mb-6 lg:mr-16 lg:mb-0 text-center lg:text-left">
-                <h3 className="h3 text-white mb-2">Ready to kick off your project?</h3>
+                <h2 className="h3 text-white mb-2">Ready to kick off your project?</h2>
                 <p className="text-white text-lg opacity-75">Let&#39;s have a free 30-minutes call and talk about how we can work together.</p>
               </div>
 
