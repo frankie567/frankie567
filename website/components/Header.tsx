@@ -11,7 +11,7 @@ const menuItems = [
   { path: "/references", title: "References" },
   { path: "/fastapi-book", title: "FastAPI book" },
   { path: "/blog", title: "Blog" },
-]
+];
 
 const Header: React.FunctionComponent = () => {
   const { events } = useRouter();

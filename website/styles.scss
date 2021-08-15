@@ -1,12 +1,15 @@
 @import 'website-styles/additional-styles/utility-patterns.scss';
 
 .text-blog-post {
+  @apply text-justify;
+
   p, blockquote, iframe, pre, hr, img, ol, ul, h1, h2, h3, h4, h5, h6 {
     @apply mb-8;
   }
 
   a {
     @apply text-red-500 font-medium hover:underline;
+    word-wrap: break-word;
   }
 
   code {
@@ -30,6 +33,10 @@
     }
   }
 
+  ol, ul {
+    @apply list-inside;
+  }
+
   ol {
     @apply list-decimal;
   }
@@ -43,6 +50,7 @@
     img {
       @apply max-w-max w-3/4 mb-2;
       @apply rounded bg-white bg-opacity-25;
+      max-height: max-content;
     }
     figcaption {
       @apply text-sm italic;

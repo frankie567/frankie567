@@ -1,5 +1,8 @@
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: {
+    content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    safelist: [...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => `pl-${i}`)],
+  },
   theme: {
     extend: {
       colors: {
