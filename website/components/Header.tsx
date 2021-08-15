@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Router, { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -13,24 +14,21 @@ const menuItems = [
 ]
 
 const Header: React.FunctionComponent = () => {
+  const { events } = useRouter();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [top, setTop] = useState(true);
   const openCalendly = useCalendly();
 
   const mobileNav = useRef<HTMLDivElement>(null);
 
-  // // close the mobile menu on click outside
-  // useEffect(() => {
-  //   const clickHandler = ({ target }: MouseEvent) => {
-  //     if (!mobileNavOpen) return;
-  //     if (!mobileNavOpen || mobileNav.current?.contains(target as HTMLDivElement)) return;
-  //     setMobileNavOpen(false);
-  //   };
-  //   document.addEventListener('click', clickHandler);
-  //   return () => document.removeEventListener('click', clickHandler);
-  // });
+  // Close the menu on route change
+  useEffect(() => {
+    const handler = () => setMobileNavOpen(false);
+    events.on('routeChangeStart', handler);
+    return () => events.off('routeChangeStart', handler);
+  }, [events]);
 
-  // close the mobile menu if the esc key is pressed
+  // Close the mobile menu if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ key }: KeyboardEvent) => {
       if (!mobileNavOpen || key !== 'Escape') return;
@@ -40,7 +38,7 @@ const Header: React.FunctionComponent = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  // detect whether user has scrolled the page down by 10px
+  // Detect whether user has scrolled the page down by 10px
   useEffect(() => {
     const scrollHandler = () => {
       window.pageYOffset > 10 ? setTop(false) : setTop(true)
