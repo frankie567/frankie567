@@ -12,9 +12,9 @@ const FastAPIBook: React.FunctionComponent = () => {
               <div className="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
                 <h2 className="h2 mb-3">Author of the best-seller book about FastAPI</h2>
                 <p className="text-xl text-gray-400">I'm one of the top experts in the FastAPI community, the #3 most-used web Python framework behind Django and Flask. In collaboration with Packt, one of the leading tech book publishers in the UK, I've wrote a book to learn all the secrets of this framework and how data scientists can leverage its power to build efficient and reliable data science applications.</p>
-                <Link href="/fastapi-book">
+                {/* <Link href="/fastapi-book">
                   <a className="btn text-white bg-red-500 hover:bg-red-600 w-full mt-4 sm:w-auto">Learn more</a>
-                </Link>
+                </Link> */}
               </div>
             </div>
             <div className="w-full max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-4 md:mt-6 order-last" data-aos="fade-left">

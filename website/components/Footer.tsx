@@ -36,12 +36,12 @@ const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
           <div className="lg:col-start-7 sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h3 className="text-gray-400 font-medium mb-2">About me</h3>
             <ul className="text-sm">
-              <li className="mb-2">
+              {/* <li className="mb-2">
                 <Link href="/references" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">References</a></Link>
               </li>
               <li className="mb-2">
                 <Link href="/fastapi-book" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">FastAPI book</a></Link>
-              </li>
+              </li> */}
               <li className="mb-2">
                 <Link href="/blog" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Blog</a></Link>
               </li>
