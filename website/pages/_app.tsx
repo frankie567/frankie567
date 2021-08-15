@@ -37,6 +37,18 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:creator" content="@fvoron" />
         <meta property="twitter:site" content="@fvoron" />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "url": process.env.HOST,
+              "logo": `${process.env.HOST}/logos/francois-voron.svg`,
+            }),
+          }}
+        />
       </Head>
       <Metas />
       <div className="flex flex-col min-h-screen">

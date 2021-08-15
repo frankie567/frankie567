@@ -1,5 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
+import Script from 'next/script';
 import * as React from 'react';
 
 import Metas from '../../components/Metas';
@@ -34,6 +35,26 @@ const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
         description={post.excerpt}
         image={`${process.env.HOST}${post.thumbnail}`}
         canonical={post.canonical}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'http://schema.org',
+            '@type': 'Article',
+            'headline': post.title,
+            'image': [
+              post.thumbnail,
+            ],
+            'datePublished': post.date,
+            'dateModified': post.date,
+            'author': {
+              '@type': "Person",
+              'name': "François Voron",
+              'url': "https://www.francoisvoron.com",
+            },
+          }),
+        }}
       />
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -75,13 +96,13 @@ const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
 
                     {/* Article meta */}
                     <div className="flex items-center mb-6">
-                        <ul className="flex flex-wrap text-xs font-medium -m-1">
-                          {post.tags.map((tag) =>
-                            <li key={tag} className="mx-1">
-                              <span className="inline-flex text-center py-1 px-3 rounded-full bg-red-500">{tag}</span>
-                            </li>
-                          )}
-                        </ul>
+                      <ul className="flex flex-wrap text-xs font-medium -m-1">
+                        {post.tags.map((tag) =>
+                          <li key={tag} className="mx-1">
+                            <span className="inline-flex text-center py-1 px-3 rounded-full bg-red-500">{tag}</span>
+                          </li>
+                        )}
+                      </ul>
                       <span className="text-gray-600 mx-1">·</span>
                       <span className="text-gray-600">{new Date(post.date).toDateString()}</span>
                     </div>
