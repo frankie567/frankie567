@@ -1,4 +1,4 @@
-import { writeFile } from 'fs/promises';
+import { writeFileSync } from 'fs';
 import path from 'path';
 
 import { encode } from 'html-entities';
@@ -39,7 +39,7 @@ const generateAtomFeed = async (): Promise<string> => {
 
 const generateAtomFeedFile = async (): Promise<void> => {
   const atom = await generateAtomFeed();
-  await writeFile(path.join(path.dirname(__dirname), 'out', 'feed.xml'), atom, { flag: 'w+' });
+  writeFileSync(path.join(path.dirname(__dirname), 'out', 'feed.xml'), atom, { flag: 'w+' });
 };
 
 try {

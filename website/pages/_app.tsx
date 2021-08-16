@@ -37,6 +37,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:creator" content="@fvoron" />
         <meta property="twitter:site" content="@fvoron" />
+        <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="François Voron" />
 
         <script
           type="application/ld+json"
