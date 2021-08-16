@@ -17,7 +17,7 @@
   }
 
   pre {
-    @apply rounded bg-gray-800 p-4 text-sm;
+    @apply rounded bg-gray-800 p-4 text-sm overflow-x-scroll;
   }
 
   iframe {
@@ -75,5 +75,9 @@
 
   h4 {
     @extend .h4;
+  }
+
+  iframe {
+    max-width: 100%;
   }
 }
