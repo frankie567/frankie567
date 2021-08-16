@@ -8,7 +8,7 @@ import { useCalendly } from '../hooks/calendly';
 import Transition from './Transition';
 
 const menuItems = [
-  // { path: "/references", title: "References" },
+  { path: "/references", title: "References" },
   // { path: "/fastapi-book", title: "FastAPI book" },
   { path: "/blog", title: "Blog" },
 ];

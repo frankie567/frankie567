@@ -1,6 +1,6 @@
 @import 'website-styles/additional-styles/utility-patterns.scss';
 
-.text-blog-post {
+.text-blog-post, .text-reference {
   @apply text-justify;
 
   p, blockquote, iframe, pre, hr, img, ol, ul, h1, h2, h3, h4, h5, h6 {
