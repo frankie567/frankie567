@@ -55,7 +55,7 @@ export const getTags = async (): Promise<Record<string, string>> => {
   return tags;
 };
 
-export const getPostsByTag =  async (normalizedTag: string, skip?: number, limit?: number): Promise<models.BlogPost[]> => {
+export const getPostsByTag = async (normalizedTag: string, skip?: number, limit?: number): Promise<models.BlogPost[]> => {
   const slugs = await getPostsSlugs();
   const posts = await Promise.all(slugs.map(getPostBySlug));
   return posts
