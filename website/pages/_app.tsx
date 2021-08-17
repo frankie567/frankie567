@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Metas from '../components/Metas';
 
+import 'highlight.js/styles/github-dark.css';
 import '../website-styles/style.scss';
 import '../styles.scss';
 

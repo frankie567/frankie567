@@ -1,9 +1,9 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
-import Script from 'next/script';
 import * as React from 'react';
 
 import Metas from '../../components/Metas';
+import { useHighlight } from '../../hooks/highlight';
 import { useMarkdownParser } from '../../hooks/markdown';
 import * as models from '../../models';
 import { getPostsSlugs, getPostBySlug } from '../../services/blog';
@@ -28,6 +28,8 @@ export const getStaticProps: GetStaticProps<BlogPostProps> = async ({ params }) 
 
 const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
   const { html, headings } = useMarkdownParser(post.content);
+  useHighlight();
+
   return (
     <>
       <Metas
