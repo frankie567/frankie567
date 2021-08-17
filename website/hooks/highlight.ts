@@ -1,10 +1,8 @@
 import hljs from 'highlight.js/lib/core';
-import bash from 'highlight.js/lib/languages/bash';
-import python from 'highlight.js/lib/languages/python';
 import { useEffect } from 'react';
 
-hljs.registerLanguage('bash', bash);
-hljs.registerLanguage('python', python);
+hljs.registerLanguage('bash', require('/node_modules/highlight.js/lib/languages/bash'));
+hljs.registerLanguage('python', require('/node_modules/highlight.js/lib/languages/python'));
 
 export const useHighlight = () => {
   useEffect(() => {
