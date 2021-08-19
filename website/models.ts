@@ -19,3 +19,8 @@ export interface Reference {
   thumbnail: string;
   content: string;
 }
+
+export enum AnalyticsEvent {
+  CALENDLY_OPENED = 'Calendly Opened',
+  CALENDLY_BOOKED = 'Calendly Booked',
+}
