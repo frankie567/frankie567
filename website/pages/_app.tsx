@@ -7,6 +7,7 @@ import ReactGA from 'react-ga';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { MermaidContextProvider } from '../components/Mermaid';
 import Metas from '../components/Metas';
 
 import 'highlight.js/styles/github-dark.css';
@@ -18,7 +19,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID as string);
-    ReactGA.pageview(window.location.pathname +  window.location.search);
+    ReactGA.pageview(window.location.pathname + window.location.search);
     AOS.init({
       once: true,
       disable: 'phone',
@@ -28,7 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   }, []);
 
   useEffect(() => {
-    const handler = () => ReactGA.pageview(window.location.pathname +  window.location.search);
+    const handler = () => ReactGA.pageview(window.location.pathname + window.location.search);
     router.events.on('routeChangeComplete', handler);
     return () => router.events.off('routeChangeComplete', handler);
   }, [router]);
@@ -65,7 +66,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
-          <Component {...pageProps} />
+          <MermaidContextProvider>
+            <Component {...pageProps} />
+          </MermaidContextProvider>
         </main>
         <Footer />
       </div>

@@ -1,9 +1,8 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
-import Script from 'next/script'
 import * as React from 'react';
-import { useEffect } from 'react';
 
+import { MermaidScript, useMermaid } from '../../components/Mermaid';
 import Metas from '../../components/Metas';
 import { useHighlight } from '../../hooks/highlight';
 import { useMarkdownParser } from '../../hooks/markdown';
@@ -31,11 +30,7 @@ export const getStaticProps: GetStaticProps<BlogPostProps> = async ({ params }) 
 const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
   const { html, headings } = useMarkdownParser(post.content);
   useHighlight();
-
-  const onMermaidLoaded = (): void => {
-    // @ts-ignore
-    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
-  };
+  useMermaid();
 
   return (
     <>
@@ -65,7 +60,7 @@ const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
           }),
         }}
       />
-      <Script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" onLoad={onMermaidLoaded} />
+      <MermaidScript />
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
