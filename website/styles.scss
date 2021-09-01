@@ -57,6 +57,16 @@
     }
   }
 
+
+  .mermaid {
+    @apply flex flex-col items-center text-center mb-8;
+    svg {
+      @apply max-w-max mb-2;
+      @apply rounded bg-white bg-opacity-25;
+      max-height: max-content;
+    }
+  }
+
   hr {
     @apply w-full h-px pt-px bg-gray-800 border-0;
   }

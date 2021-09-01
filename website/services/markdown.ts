@@ -86,6 +86,12 @@ export const parseMarkdown = (input: string): ParsedMarkdown => {
       const renderedImage = defaultRenderer.image(href, title, text);
       return `<figure>${renderedImage}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`;
     },
+    code: (code: string, language: string | undefined, isEscaped: boolean): string => {
+      if (language === 'mermaid') {
+        return `<div class="mermaid">${code}</div>`;
+      }
+      return defaultRenderer.code(code, language, isEscaped);
+    },
   };
   // @ts-ignore
   marked.use({ renderer, extensions: [footnote, footnoteRef] });
