@@ -45,7 +45,7 @@
     @apply list-disc;
   }
 
-  figure {
+  figure, figure a {
     @apply flex flex-col items-center text-center;
     img {
       @apply max-w-max w-3/4 mb-2;
@@ -62,7 +62,6 @@
     @apply flex flex-col items-center text-center mb-8;
     svg {
       @apply max-w-max mb-2;
-      @apply rounded bg-white bg-opacity-25;
       max-height: max-content;
     }
   }

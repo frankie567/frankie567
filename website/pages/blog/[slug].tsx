@@ -34,7 +34,7 @@ const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
 
   const onMermaidLoaded = (): void => {
     // @ts-ignore
-    mermaid.initialize({ startOnLoad: true });
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
   };
 
   return (
