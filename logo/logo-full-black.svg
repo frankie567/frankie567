@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 396 148" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1.06512,0,0,1.06512,-368.114,-22.6023)">
+        <text x="342.234px" y="74.3px" style="font-family:'Inter-Black', 'Inter', sans-serif;font-weight:900;font-size:72px;fill:rgb(25,25,25);">F<tspan x="383.548px 430.896px 487.449px " y="74.3px 74.3px 74.3px ">RAN</tspan></text>
+        <text x="538.786px" y="74.3px" style="font-family:'Inter-Black', 'Inter', sans-serif;font-weight:900;font-size:72px;fill:url(#_Linear1);">Ç</text>
+        <text x="593.396px" y="74.3px" style="font-family:'Inter-Black', 'Inter', sans-serif;font-weight:900;font-size:72px;fill:rgb(25,25,25);">O<tspan x="649.948px 670.194px " y="74.3px 74.3px ">IS</tspan></text>
+    </g>
+    <g transform="matrix(1.51711,0,0,1.51711,-521.69,33.8528)">
+        <text x="342.234px" y="74.3px" style="font-family:'Inter-Black', 'Inter', sans-serif;font-weight:900;font-size:72px;fill:rgb(25,25,25);">V<tspan x="395.514px 452.067px 499.415px 555.968px " y="74.3px 74.3px 74.3px 74.3px ">ORON</tspan></text>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(54.6095,0,0,87.1364,538.786,48.1182)"><stop offset="0" style="stop-color:rgb(239,68,68);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(244,114,182);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>
