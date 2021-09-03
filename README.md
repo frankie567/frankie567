@@ -2,7 +2,7 @@
 
 I'm the maintainer of [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for [FastAPI](https://github.com/tiangolo/fastapi).
 
-## 📚 Disover my book: *Building Data Science Applications with FastAPI*
+# 📚 Discover my book: *Building Data Science Applications with FastAPI*
 
 <img src="https://static.packt-cdn.com/products/9781801079211/cover/smaller" alt="Building Data Science Applications with FastAPI" height="256px" align="right">
 
