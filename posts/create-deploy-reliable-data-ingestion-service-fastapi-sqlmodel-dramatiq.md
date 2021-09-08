@@ -120,7 +120,7 @@ The second one, `Document`, is the actual data structure for our SQL database (n
 Let's now have a look at the worker. Basically, it's a Python module containing all the tasks that will be handled by Dramatiq. We also initialize here the various parameters for Dramatiq, especially the broker. Here is how it looks like:
 
 ```py
-from app.predict import CategoryPrediction
+from urllib.parse import urlparse
 from datetime import datetime
 
 import dramatiq
@@ -129,9 +129,19 @@ from sqlmodel import Session
 
 from app.db import engine
 from app.models import Document, DocumentInput
+from app.predict import CategoryPrediction
 from app.settings import settings
 
-redis_broker = RedisBroker(url=settings.redis_url)
+redis_parameters = urlparse(settings.redis_url)
+redis_broker = RedisBroker(
+    host=redis_parameters.hostname,
+    port=redis_parameters.port,
+    username=redis_parameters.username,
+    password=redis_parameters.password,
+    # Heroku Redis with TLS use self-signed certs, so we need to tinker a bit
+    ssl=redis_parameters.scheme == "rediss",
+    ssl_cert_reqs=None,
+)
 dramatiq.set_broker(redis_broker)
 
 
@@ -157,7 +167,7 @@ def ingest_document(document_json: str):
         session.commit()
 ```
 
-The first thing to notice is that we set the broker to be Redis and specify the URL of the server.
+The first thing to notice is that we set the broker to be Redis by specifying the Redis connection parameters.
 
 Then, we have our task definition. As you can see, it's a standard Python function upon which we added the `@dramatiq.actor` decorator. It receives in argument a JSON representation of a `DocumentInput`. Indeed, we can't pass directly Python objects because Dramatiq needs to serialize them before saving into the broker. That's why we first deserialize it back again into a proper `DocumentInput` object.
 
@@ -245,7 +255,7 @@ The first step before deploying to Heroku is to create a `Procfile`. This is a s
 
 ```
 web: uvicorn app.api:app --host 0.0.0.0 --port $PORT
-worker: dramatiq app.worker
+worker: dramatiq -p 4 -t 4 app.worker
 ```
 
 As we said before, we have two main processes:
@@ -353,5 +363,9 @@ I hope you liked this quick walkthrough and that it gave you ideas for your next
 * Build, test, and deploy high performing data science and machine learning systems with FastAPI
 
 [![Building Data Science Applications with FastAPI book](/posts/images/create-deploy-reliable-data-ingestion-service-fastapi-sqlmodel-dramatiq/fastapi-data-science-book-cover.png)](https://www.amazon.com/gp/product/B09926TFQ5)
+
+## Watch the video
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zC670X5_zhw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 See you soon 👋
