@@ -18,7 +18,7 @@ const FastAPIBook: React.FunctionComponent = () => {
               </div>
             </div>
             <div className="w-full max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-4 md:mt-6 order-last" data-aos="fade-left">
-              <Image src="/fastapi-book.jpg" layout="responsive" width="800" height="988" alt="Building Data Science Applications with FastAPI" />
+              <Image src="/fastapi-book.png" layout="responsive" width="800" height="988" alt="Building Data Science Applications with FastAPI" />
             </div>
           </div>
         </div>
