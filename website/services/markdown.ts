@@ -1,4 +1,4 @@
-import marked from 'marked';
+import { marked } from 'marked';
 
 export interface Heading {
   text: string;
@@ -75,10 +75,10 @@ const footnote = {
 
 export const parseMarkdown = (input: string): ParsedMarkdown => {
   const headings: Heading[] = [];
-  const defaultRenderer = new marked.Renderer();
+  const defaultRenderer = new marked.Renderer() as any;
   const detectSlugger = new marked.Slugger();
   const renderer: marked.RendererObject = {
-    heading: (text: string, level, raw: string, slugger: marked.Slugger): string => {
+    heading: (text: string, level, raw: string, slugger: marked.Slugger): string | false => {
       headings.push({ text, level, slug: detectSlugger.slug(raw) });
       return defaultRenderer.heading(text, level, raw, slugger);
     },
