@@ -1,6 +1,6 @@
 ### Bonjour, I'm François Voron, from France 🥖🧀
 
-I'm the maintainer of [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for [FastAPI](https://github.com/tiangolo/fastapi).
+I'm the maintainer of [FastAPI Users](https://github.com/frankie567/fastapi-users), the #<span></span>1 authentication library for [FastAPI](https://github.com/tiangolo/fastapi).
 
 # 📚 Discover my book: *Building Data Science Applications with FastAPI*
 
