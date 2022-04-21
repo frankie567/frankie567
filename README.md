@@ -2,30 +2,36 @@
 
 I'm the maintainer of [FastAPI Users](https://github.com/frankie567/fastapi-users), the #<span></span>1 authentication library for [FastAPI](https://github.com/tiangolo/fastapi).
 
-# 📚 Discover my book: *Building Data Science Applications with FastAPI*
+# Discover Fief, the open-source authentication platform
 
-<img src="https://static.packt-cdn.com/products/9781801079211/cover/smaller" alt="Building Data Science Applications with FastAPI" height="256px" align="right">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/fief-dev/.github/main/logos/logo-full-red.svg?sanitize=true" alt="Fief" width="256">
+</p>
 
-**Develop, manage, and deploy efficient machine learning applications with Python**
+<img src="https://www.fief.dev/illustrations/guard-right.svg" alt="Fief" height="300" align="right">
 
-### What is this book about?
+**Implementing registration, login, social auth is hard and painful. We know it. With our highly secure and open-source users management platform, you can focus on your app while staying in control of your users data.**
 
-This book covers the following exciting features:
-
-* Explore the basics of modern Python and async I/O programming
-* Get to grips with basic and advanced concepts of the FastAPI framework
-* Implement a FastAPI dependency to efficiently run a machine learning model
+* Based on **FastAPI Users**!
+* **Open-source**: self-host it for free or use our hosted version
+* **Bring your own database**: host your database anywhere, we'll take care of the rest
+* **Pre-built login and registration pages**: clean and fast authentication so you don't have to do it yourself
+* **Official Python client** with built-in **FastAPI integration**
 * Integrate a simple face detection algorithm in a FastAPI backend
 * Integrate common Python data science libraries in a web backend
 * Deploy a performant and reliable web backend for a data science application
 
-If you feel this book is for you, get your [copy](https://amzn.to/3kTvgjG) today!
+<p align="center">
+    <a href="https://www.fief.dev"><img width="150px" src="https://raw.githubusercontent.com/fief-dev/.github/main/graphics/join-the-beta-button.svg?sanitize=true" /></a>
+</p>
+<p align="center">It's free!</p>
 
 # Open-source projects
 
-Huge fan of Python, my main projects are related to [FastAPI](https://github.com/tiangolo/fastapi) and, more generally, to asyncio:
+Huge fan of Python, my main projects are related to [FastAPI](https://github.com/tiangolo/fastapi) and users authentication.
 
-* [FastAPI Users](https://github.com/frankie567/fastapi-users), the the #1 authentication library for FastAPI
+* [Fief](https://github.com/fief-dev/fief), an open-source authentication platform
+* [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for FastAPI
 * [HTTPX OAuth](https://github.com/frankie567/httpx-oauth), an async OAuth client using HTTPX.
 * [Starlette CSRF Middleware](https://github.com/frankie567/starlette-csrf), implementing Double Submit Cookie technique to mitigate CSRF.
 
