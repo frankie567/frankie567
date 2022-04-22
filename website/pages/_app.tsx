@@ -65,15 +65,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <Metas />
       <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
-          <MermaidContextProvider>
-            <CalendlyModalProvider>
+        <CalendlyModalProvider>
+          <Header />
+          <main className="flex-grow">
+            <MermaidContextProvider>
               <Component {...pageProps} />
-            </CalendlyModalProvider>
-          </MermaidContextProvider>
-        </main>
-        <Footer />
+            </MermaidContextProvider>
+          </main>
+          <Footer />
+        </CalendlyModalProvider>
       </div>
     </>
   );
