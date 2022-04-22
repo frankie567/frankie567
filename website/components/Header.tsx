@@ -4,7 +4,7 @@ import Router, { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
-import { useCalendly } from '../hooks/calendly';
+import { useOpenCalendly } from '../hooks/calendly';
 import Transition from './Transition';
 
 const menuItems = [
@@ -17,7 +17,7 @@ const Header: React.FunctionComponent = () => {
   const { events } = useRouter();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [top, setTop] = useState(true);
-  const openCalendly = useCalendly();
+  const openCalendly = useOpenCalendly();
 
   const mobileNav = useRef<HTMLDivElement>(null);
 

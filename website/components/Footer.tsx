@@ -2,14 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 
-import { useCalendly } from '../hooks/calendly';
-
 interface FooterProps {
 }
 
 const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
-  const openCalendly = useCalendly();
-
   return (
     <footer>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

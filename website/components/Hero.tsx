@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { useCalendly } from '../hooks/calendly';
+import { useOpenCalendly } from '../hooks/calendly';
 
 const Hero: React.FunctionComponent = () => {
-  const openCalendly = useCalendly();
+  const openCalendly = useOpenCalendly();
 
   return (
     <section className="relative">

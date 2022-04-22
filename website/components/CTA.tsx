@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useCalendly } from '../hooks/calendly';
+import { useOpenCalendly } from '../hooks/calendly';
 
 const CTA: React.FunctionComponent = () => {
-  const openCalendly = useCalendly();
+  const openCalendly = useOpenCalendly();
 
   return (
     <section>

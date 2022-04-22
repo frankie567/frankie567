@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import ReactGA from 'react-ga';
 
+import CalendlyModalProvider from '../components/CalendlyModalProvider';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { MermaidContextProvider } from '../components/Mermaid';
@@ -67,7 +68,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Header />
         <main className="flex-grow">
           <MermaidContextProvider>
-            <Component {...pageProps} />
+            <CalendlyModalProvider>
+              <Component {...pageProps} />
+            </CalendlyModalProvider>
           </MermaidContextProvider>
         </main>
         <Footer />
