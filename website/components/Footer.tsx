@@ -49,13 +49,13 @@ const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
             <h3 className="text-gray-400 font-medium mb-2">Open source</h3>
             <ul className="text-sm">
               <li className="mb-2">
+                <a href="https://www.fief.dev" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Fief</a>
+              </li>
+              <li className="mb-2">
                 <a href="https://github.com/frankie567/fastapi-users" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">FastAPI Users</a>
               </li>
               <li className="mb-2">
                 <a href="https://github.com/frankie567/httpx-oauth" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">HTTPX OAuth</a>
-              </li>
-              <li className="mb-2">
-                <a href="https://github.com/frankie567/starlette-csrf" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Starlette CSRF Middleware</a>
               </li>
             </ul>
           </div>
