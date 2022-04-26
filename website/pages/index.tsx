@@ -6,6 +6,7 @@ import Expertises from '../components/Expertises';
 import FastAPIBook from '../components/FastAPIBook';
 import Hero from '../components/Hero';
 import Metas from '../components/Metas';
+import Testimonials from '../components/Testimonials';
 
 const Home: React.FunctionComponent = () => {
   return (
@@ -13,6 +14,7 @@ const Home: React.FunctionComponent = () => {
       <Metas title="François Voron - Freelance software developer" />
       <Hero />
       <AboutMe />
+      <Testimonials />
       <Expertises />
       <CTA />
       <FastAPIBook />
