@@ -18,7 +18,7 @@ const Testimonials: React.FunctionComponent = () => {
     {
       img: '/testimonials/jeremie-datiplus.jpg',
       alt: 'Jérémie Bennegent - DatiPlus',
-      quote: 'Every mission with François was a success: high quality and code and documentation, deadlines met.\nFrançois knows how to step back and have a clear vision of our challenges to help us take the best decisions.',
+      quote: 'Every mission with François was a success: high quality code and documentation, deadlines met.\nFrançois knows how to step back and have a clear vision of our challenges to help us take the best decisions.',
       name: 'Jérémie Bennegent',
       role: 'CTO',
       team: 'DatiPlus',
