@@ -11,8 +11,8 @@ import Header from '../components/Header';
 import { MermaidContextProvider } from '../components/Mermaid';
 import Metas from '../components/Metas';
 
-import 'highlight.js/styles/github-dark.css';
 import '../website-styles/style.scss';
+import 'highlight.js/styles/github-dark.css';
 import '../styles.scss';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
