@@ -1,6 +1,35 @@
-### Bonjour, I'm François Voron, from France 🥖🧀
+<img src="https://www.francoisvoron.com/francois-voron-light.png" alt="François Voron" height="500" align="right">
 
-I'm the maintainer of [FastAPI Users](https://github.com/frankie567/fastapi-users), the #<span></span>1 authentication library for [FastAPI](https://github.com/tiangolo/fastapi).
+# Make your software projects successful
+
+Hello, I'm **François Voron** 👋
+
+I've 7 years of experience working as CTO and lead developer in top-level startups in the SaaS industry. My expertise allowed those companies to grow with solid technical foundations and generate thousands of dollars in revenue.
+
+<br clear="right"/>
+
+## I'm trusted by the most innovative companies 👇
+
+> François has been tremendously helpful to the development of our platform. Each of his responses has been extremely detailed and thorough, with code snippets, examples, recommendations, and hyperlinks to various resources.
+>
+> François is clearly a subject matter expert in FastAPI and Python, and has been an incredible value-add to our team.
+>
+> **— Jade Chan - Head of Engineering — [Juniper Health Platform](https://www.juniperplatform.com/)**
+
+> Every mission with François was a success: high quality code and documentation, deadlines met.
+>
+> François knows how to step back and have a clear vision of our challenges to help us take the best decisions.
+> 
+> **— Jérémie Bennegent - CTO — [DatiPlus](https://dati-plus.com/)**
+
+# Open-source projects
+
+Huge fan of Python, my main projects are related to [FastAPI](https://github.com/tiangolo/fastapi) and users authentication.
+
+* [Fief](https://github.com/fief-dev/fief), an open-source authentication platform
+* [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for FastAPI
+* [HTTPX OAuth](https://github.com/frankie567/httpx-oauth), an async OAuth client using HTTPX.
+* [Starlette CSRF Middleware](https://github.com/frankie567/starlette-csrf), implementing Double Submit Cookie technique to mitigate CSRF.
 
 # Discover Fief, the open-source authentication platform
 
@@ -18,32 +47,17 @@ I'm the maintainer of [FastAPI Users](https://github.com/frankie567/fastapi-user
 * **Pre-built login and registration pages**: clean and fast authentication so you don't have to do it yourself
 * **Official Python client** with built-in **FastAPI integration**
 
+<br clear="right"/>
+
 <p align="center">
     <a href="https://www.fief.dev"><img width="150px" src="https://raw.githubusercontent.com/fief-dev/.github/main/graphics/join-the-beta-button.svg?sanitize=true" /></a>
 </p>
 <p align="center">It's free!</p>
 
-# Open-source projects
+# Author of the best-seller book about FastAPI
 
-Huge fan of Python, my main projects are related to [FastAPI](https://github.com/tiangolo/fastapi) and users authentication.
+<img src="https://www.francoisvoron.com/fastapi-book.png?auto=format&fit=max&w=3840" alt="François Voron" height="400" align="right">
 
-* [Fief](https://github.com/fief-dev/fief), an open-source authentication platform
-* [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for FastAPI
-* [HTTPX OAuth](https://github.com/frankie567/httpx-oauth), an async OAuth client using HTTPX.
-* [Starlette CSRF Middleware](https://github.com/frankie567/starlette-csrf), implementing Double Submit Cookie technique to mitigate CSRF.
+I'm one of the top experts in the FastAPI community, the #3 most-used web Python framework behind Django and Flask.
 
-# Who am I?
-
-I'm François Voron, from France 🥖🧀 I'm 30 years-old software developer working essentially in SaaS startups.
-
-Currently, I'm CTO at [BeeMyDesk](https://www.beemydesk.com): we are reinventing professional training by bringing the best experts through innovative online formats to our audience.
-
-[![François Voron's GitHub stats](https://github-readme-stats.vercel.app/api?username=frankie567&count_private=true&show_icons=true&theme=dark)](https://github.com/frankie567)
-
-# Support me
-
-If my work is useful for you or if I helped you by answering a question, a small tip is always appreciated ☕️
-
-<p align="center">
-    <a href="https://www.buymeacoffee.com/frankie567"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=frankie567&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00"></a>
-</p>
+In collaboration with Packt, one of the leading tech book publishers in the UK, I've wrote a book to learn all the secrets of this framework and how data scientists can leverage its power to build efficient and reliable data science applications.
