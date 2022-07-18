@@ -8,6 +8,16 @@ I've 7 years of experience working as CTO and lead developer in top-level startu
 
 <br clear="right"/>
 
+## Ask me your questions
+
+When designing new projects or during development, we sometimes need an **external point-of-view** to make sure we **take the best decision** or **help with a blocking issue**.
+
+This is why I started my GitHub Discussions forum: **ask your questions** and **get answers** from one of the top FastAPI experts.
+
+<p align="center">
+    <a href="https://github.com/frankie567/frankie567/discussions/12"><img src="https://md-buttons.onrender.com/button.svg?text=Ask%20my%20question&w=150&bg=ef4444" alt="Ask my question"></a>
+</p>
+
 ## I'm trusted by the most innovative companies 👇
 
 > François has been tremendously helpful to the development of our platform. Each of his responses has been extremely detailed and thorough, with code snippets, examples, recommendations, and hyperlinks to various resources.
