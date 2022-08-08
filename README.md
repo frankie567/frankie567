@@ -1,5 +1,3 @@
-# 🏖 Currently on holiday! I'll be back mid-August!
-
 <img src="https://www.francoisvoron.com/francois-voron-light.png" alt="François Voron" height="500" align="right">
 
 # Make your software projects successful
