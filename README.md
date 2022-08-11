@@ -15,7 +15,7 @@ When designing new projects or during development, we sometimes need an **extern
 This is why I started my GitHub Discussions forum: **ask your questions** and **get answers** from one of the top FastAPI experts.
 
 <p align="center">
-    <a href="https://github.com/frankie567/frankie567/discussions/12"><img src="https://md-btn.deta.dev/button.svg?text=Ask%20my%20question&w=150&bg=ef4444" alt="Ask my question"></a>
+    <a href="https://github.com/frankie567/frankie567/discussions/12"><img src="https://md-btn.deta.dev/button.svg?text=Ask%20my%20question&w=150&h=40&bg=ef4444" alt="Ask my question"></a>
 </p>
 
 ## I'm trusted by the most innovative companies 👇
