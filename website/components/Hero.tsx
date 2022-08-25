@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useOpenCalendly } from '../hooks/calendly';
 
-const Hero: React.FunctionComponent = () => {
+const Hero: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   const openCalendly = useOpenCalendly();
 
   return (

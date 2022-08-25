@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps<ReferenceProps> = async ({ params })
   return { props: { reference } };
 };
 
-const Reference: React.FunctionComponent<ReferenceProps> = ({ reference }) => {
+const Reference: React.FunctionComponent<React.PropsWithChildren<ReferenceProps>> = ({ reference }) => {
   const { html, headings } = useMarkdownParser(reference.content);
   return (
     <>

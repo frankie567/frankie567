@@ -11,7 +11,7 @@ export const getStaticProps: GetStaticProps<ReferencesProps> = async () => {
   return { props: { references } };
 };
 
-const References: React.FunctionComponent<ReferencesProps> = ({ references }) => {
+const References: React.FunctionComponent<React.PropsWithChildren<ReferencesProps>> = ({ references }) => {
   return (
     <>
       <Metas title="References - François Voron" />

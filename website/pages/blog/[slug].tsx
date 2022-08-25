@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps<BlogPostProps> = async ({ params }) 
   return { props: { post } };
 };
 
-const BlogPost: React.FunctionComponent<BlogPostProps> = ({ post }) => {
+const BlogPost: React.FunctionComponent<React.PropsWithChildren<BlogPostProps>> = ({ post }) => {
   const { html, headings } = useMarkdownParser(post.content);
   useHighlight();
   useMermaid();

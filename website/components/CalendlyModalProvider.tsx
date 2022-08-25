@@ -6,7 +6,7 @@ import { AnalyticsEvent } from '../models';
 
 export const CalendlyModalContext = createContext<[boolean, (show: boolean) => void]>([false, () => { }]);
 
-const CalendlyModalProvider: React.FunctionComponent = ({ children }) => {
+const CalendlyModalProvider: React.FunctionComponent<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [show, setShow] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 

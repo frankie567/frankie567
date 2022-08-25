@@ -8,7 +8,7 @@ import Hero from '../components/Hero';
 import Metas from '../components/Metas';
 import Testimonials from '../components/Testimonials';
 
-const Home: React.FunctionComponent = () => {
+const Home: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   return (
     <>
       <Metas title="François Voron - Freelance software developer" />

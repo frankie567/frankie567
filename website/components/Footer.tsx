@@ -5,7 +5,7 @@ import * as React from 'react';
 interface FooterProps {
 }
 
-const Footer: React.FunctionComponent<FooterProps> = ({ }) => {
+const Footer: React.FunctionComponent<React.PropsWithChildren<FooterProps>> = ({ }) => {
   return (
     <footer>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

@@ -9,7 +9,7 @@ interface MetasProps {
   canonical?: string;
 }
 
-const Metas: React.FunctionComponent<MetasProps> = ({ title, description, image, canonical }) => {
+const Metas: React.FunctionComponent<React.PropsWithChildren<MetasProps>> = ({ title, description, image, canonical }) => {
   const router = useRouter();
 
   return (

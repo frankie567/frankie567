@@ -8,7 +8,7 @@ export interface ReferencesProps {
   references: models.Reference[];
 }
 
-const References: React.FunctionComponent<ReferencesProps> = ({ references }) => {
+const References: React.FunctionComponent<React.PropsWithChildren<ReferencesProps>> = ({ references }) => {
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

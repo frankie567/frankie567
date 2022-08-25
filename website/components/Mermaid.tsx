@@ -9,7 +9,7 @@ interface MermaidContextInterface {
 
 const MermaidLoadedContext = React.createContext<MermaidContextInterface>({ loaded: false, toggleLoaded: () => { } });
 
-export const MermaidContextProvider: React.FunctionComponent = ({ children }) => {
+export const MermaidContextProvider: React.FunctionComponent<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [mermaidLoaded, setMermaidLoaded] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export const MermaidContextProvider: React.FunctionComponent = ({ children }) =>
   )
 };
 
-export const MermaidScript: React.FunctionComponent = () => {
+export const MermaidScript: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   const { toggleLoaded } = useContext(MermaidLoadedContext);
 
   const onMermaidLoaded = () => {

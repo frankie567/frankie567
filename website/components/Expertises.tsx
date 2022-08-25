@@ -15,7 +15,7 @@ const EXPERTISES: Expertise[] = [
   { icon: '🔍', title: 'Information retrieval', description: 'Natural Language Processing • Elasticsearch' },
 ]
 
-const Expertises: React.FunctionComponent = () => {
+const Expertises: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   return (
     <section className="relative">
 

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-const FastAPIBook: React.FunctionComponent = () => {
+const FastAPIBook: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   return (
     <section className="relative">
       <div className="pb-12 md:pb-20">

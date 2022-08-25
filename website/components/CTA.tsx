@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useOpenCalendly } from '../hooks/calendly';
 
-const CTA: React.FunctionComponent = () => {
+const CTA: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   const openCalendly = useOpenCalendly();
 
   return (

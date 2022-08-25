@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import Transition from './Transition';
 
-const Testimonials: React.FunctionComponent = () => {
+const Testimonials: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   const [active, setActive] = useState(0);
   const [items] = useState([
     {

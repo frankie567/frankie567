@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps<BlogPostsProps> = async ({ params })
   return { props: { posts, tags, selectedTag: tag } };
 };
 
-const BlogTag: React.FunctionComponent<BlogPostsProps> = ({ posts, tags, selectedTag }) => {
+const BlogTag: React.FunctionComponent<React.PropsWithChildren<BlogPostsProps>> = ({ posts, tags, selectedTag }) => {
   return (
     <>
       <Metas title={`${selectedTag && tags[selectedTag]} - Blog - François Voron`} />

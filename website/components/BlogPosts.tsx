@@ -10,7 +10,7 @@ export interface BlogPostsProps {
   selectedTag?: string;
 }
 
-const BlogPosts: React.FunctionComponent<BlogPostsProps> = ({ posts, tags, selectedTag }) => {
+const BlogPosts: React.FunctionComponent<React.PropsWithChildren<BlogPostsProps>> = ({ posts, tags, selectedTag }) => {
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

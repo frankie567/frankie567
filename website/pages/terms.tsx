@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Metas from '../components/Metas';
 
-const Terms: React.FunctionComponent = () => {
+const Terms: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   return (
     <>
       <Metas title="Legal terms - François Voron" />

@@ -13,7 +13,7 @@ const menuItems = [
   { path: "/blog", title: "Blog" },
 ];
 
-const Header: React.FunctionComponent = () => {
+const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   const { events } = useRouter();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [top, setTop] = useState(true);

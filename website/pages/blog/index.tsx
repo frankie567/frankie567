@@ -11,7 +11,7 @@ export const getStaticProps: GetStaticProps<BlogPostsProps> = async () => {
   return { props: { posts, tags } };
 };
 
-const Blog: React.FunctionComponent<BlogPostsProps> = ({ posts, tags }) => {
+const Blog: React.FunctionComponent<React.PropsWithChildren<BlogPostsProps>> = ({ posts, tags }) => {
   return (
     <>
       <Metas title="Blog - François Voron" />

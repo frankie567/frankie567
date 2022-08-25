@@ -27,7 +27,7 @@ function useIsInitialRender() {
   return isInitialRender.current;
 }
 
-const CSSTransition: React.FunctionComponent<TransitionProps> = ({
+const CSSTransition: React.FunctionComponent<React.PropsWithChildren<TransitionProps>> = ({
   show,
   enter = '',
   enterStart = '',
@@ -97,7 +97,7 @@ const CSSTransition: React.FunctionComponent<TransitionProps> = ({
   )
 }
 
-const Transition: React.FunctionComponent<React.HTMLProps<HTMLElement> & TransitionProps> = ({ show, appear, ...rest }) => {
+const Transition: React.FunctionComponent<React.PropsWithChildren<React.HTMLProps<HTMLElement> & TransitionProps>> = ({ show, appear, ...rest }) => {
   const { parent } = useContext(TransitionContext);
   const isInitialRender = useIsInitialRender();
   const isChild = show === undefined;

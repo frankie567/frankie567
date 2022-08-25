@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-const AboutMe: React.FunctionComponent = () => {
+const AboutMe: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   return (
     <section className="relative">
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
