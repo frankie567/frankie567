@@ -4,33 +4,9 @@
 
 Hello, I'm **François Voron** 👋
 
-I've 7 years of experience working as CTO and lead developer in top-level startups in the SaaS industry. My expertise allowed those companies to grow with solid technical foundations and generate thousands of dollars in revenue.
+I've 8 years of experience working as CTO and lead developer in top-level startups in the SaaS industry. My expertise allowed those companies to grow with solid technical foundations and generate thousands of dollars in revenue.
 
 <br clear="right"/>
-
-## Ask me your questions
-
-When designing new projects or during development, we sometimes need an **external point-of-view** to make sure we **take the best decision** or **help with a blocking issue**.
-
-This is why I started my GitHub Discussions forum: **ask your questions** and **get answers** from one of the top FastAPI experts.
-
-<p align="center">
-    <a href="https://github.com/frankie567/frankie567/discussions/12"><img src="https://md-btn.deta.dev/button.svg?text=Ask%20my%20question&w=150&h=40&bg=ef4444" alt="Ask my question"></a>
-</p>
-
-## I'm trusted by the most innovative companies 👇
-
-> François has been tremendously helpful to the development of our platform. Each of his responses has been extremely detailed and thorough, with code snippets, examples, recommendations, and hyperlinks to various resources.
->
-> François is clearly a subject matter expert in FastAPI and Python, and has been an incredible value-add to our team.
->
-> **— Jade Chan - Head of Engineering — [Juniper Health Platform](https://www.juniperplatform.com/)**
-
-> Every mission with François was a success: high quality code and documentation, deadlines met.
->
-> François knows how to step back and have a clear vision of our challenges to help us take the best decisions.
->
-> **— Jérémie Bennegent - CTO — [DatiPlus](https://dati-plus.com/)**
 
 # Open-source projects
 
@@ -39,7 +15,14 @@ Huge fan of Python, my main projects are related to [FastAPI](https://github.com
 * [Fief](https://github.com/fief-dev/fief), an open-source authentication platform
 * [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for FastAPI
 * [HTTPX OAuth](https://github.com/frankie567/httpx-oauth), an async OAuth client using HTTPX.
+* [HTTPX WS](https://github.com/frankie567/httpx-ws), a WebSocket client for HTTPX.
 * [Starlette CSRF Middleware](https://github.com/frankie567/starlette-csrf), implementing Double Submit Cookie technique to mitigate CSRF.
+
+## Did one of this project helped you? Support me 👇
+
+<p align="center">
+<a href="https://github.com/sponsors/frankie567"><img src="https://md-btn.deta.dev/button.svg?text=Buy%20me%20a%20coffee%20%E2%98%95%EF%B8%8F&bg=ef4444&w=200&h=50"></a>
+</p>
 
 # Discover Fief, the open-source authentication platform
 
