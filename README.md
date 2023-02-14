@@ -21,7 +21,7 @@ Huge fan of Python, my main projects are related to [FastAPI](https://github.com
 ## Did one of this project helped you? Support me 👇
 
 <p align="center">
-<a href="https://github.com/sponsors/frankie567"><img src="https://md-btn.deta.dev/button.svg?text=Buy%20me%20a%20coffee%20%E2%98%95%EF%B8%8F&bg=ef4444&w=200&h=50"></a>
+<a href="https://github.com/sponsors/frankie567"><img src="https://md-buttons.francoisvoron.com/button.svg?text=Buy%20me%20a%20coffee%20%E2%98%95%EF%B8%8F&bg=ef4444&w=200&h=50"></a>
 </p>
 
 # Discover Fief, the open-source authentication platform
@@ -43,7 +43,7 @@ Huge fan of Python, my main projects are related to [FastAPI](https://github.com
 <br clear="right"/>
 
 <p align="center">
-    <a href="https://www.fief.dev"><img src="https://md-btn.deta.dev/button.svg?text=Join%20the%20beta&bg=f43f5e&w=150&px=30" /></a>
+    <a href="https://www.fief.dev"><img src="https://md-buttons.francoisvoron.com/button.svg?text=Join%20the%20beta&bg=f43f5e&w=150&px=30" /></a>
 </p>
 <p align="center">It's free!</p>
 
@@ -56,5 +56,5 @@ I'm one of the top experts in the FastAPI community, the #3 most-used web Python
 In collaboration with Packt, one of the leading tech book publishers in the UK, I've wrote a book to learn all the secrets of this framework and how data scientists can leverage its power to build efficient and reliable data science applications.
 
 <p align="center">
-    <a href="https://www.amazon.com/dp/1801079218"><img src="https://md-btn.deta.dev/button.svg?text=Learn%20more&bg=ef4444" /></a>
+    <a href="https://www.amazon.com/dp/1801079218"><img src="https://md-buttons.francoisvoron.com/button.svg?text=Learn%20more&bg=ef4444" /></a>
 </p>
