@@ -77,13 +77,11 @@ const Reference: React.FunctionComponent<React.PropsWithChildren<ReferenceProps>
                       <div>
                         <hr className="w-full h-px pt-px mt-8 bg-gray-800 border-0" />
                         <div className="mt-6">
-                          <Link href="/references" passHref>
-                            <a className="inline-flex items-center text-base text-red-500 font-medium hover:underline">
-                              <svg className="w-3 h-3 fill-current text-red-500 flex-shrink-0 mr-2" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M.293 5.282L5 .5l1.414 1.436-3 3.048H12v2.032H3.414l3 3.048L5 11.5.293 6.718a1.027 1.027 0 010-1.436z" />
-                              </svg>
-                              <span>References</span>
-                            </a>
+                          <Link href="/references" className="inline-flex items-center text-base text-red-500 font-medium hover:underline">
+                            <svg className="w-3 h-3 fill-current text-red-500 flex-shrink-0 mr-2" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M.293 5.282L5 .5l1.414 1.436-3 3.048H12v2.032H3.414l3 3.048L5 11.5.293 6.718a1.027 1.027 0 010-1.436z" />
+                            </svg>
+                            <span>References</span>
                           </Link>
                         </div>
                       </div>

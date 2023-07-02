@@ -17,10 +17,8 @@ const Footer: React.FunctionComponent<React.PropsWithChildren<FooterProps>> = ({
           <div className="sm:col-span-12 lg:col-span-3">
             <div className="mb-2">
               {/* Logo */}
-              <Link href="/" passHref>
-                <a className="inline-block">
-                  <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
-                </a>
+              <Link href="/" className="inline-block">
+                <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
               </Link>
             </div>
             <div className="text-sm text-justify text-gray-500">
@@ -33,13 +31,13 @@ const Footer: React.FunctionComponent<React.PropsWithChildren<FooterProps>> = ({
             <h3 className="text-gray-400 font-medium mb-2">About me</h3>
             <ul className="text-sm">
               <li className="mb-2">
-                <Link href="/references" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">References</a></Link>
+                <Link href="/references" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">References</Link>
               </li>
               {/*<li className="mb-2">
                 <Link href="/fastapi-book" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">FastAPI book</a></Link>
               </li> */}
               <li className="mb-2">
-                <Link href="/blog" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Blog</a></Link>
+                <Link href="/blog" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Blog</Link>
               </li>
             </ul>
           </div>
@@ -65,7 +63,7 @@ const Footer: React.FunctionComponent<React.PropsWithChildren<FooterProps>> = ({
             <h3 className="text-gray-400 font-medium mb-2">Legal</h3>
             <ul className="text-sm">
               <li className="mb-2">
-                <Link href="/terms" passHref><a className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Terms</a></Link>
+                <Link href="/terms" className="text-gray-500 hover:text-white transition duration-150 ease-in-out">Terms</Link>
               </li>
             </ul>
           </div>

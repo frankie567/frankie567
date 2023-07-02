@@ -28,14 +28,14 @@ const BlogPosts: React.FunctionComponent<React.PropsWithChildren<BlogPostsProps>
           <div className="border-b border-gray-800 pb-4 mb-12">
             <ul className="flex flex-wrap justify-center md:justify-start font-medium -mx-5 -my-1">
               <li className="mx-5 my-1">
-                <Link href="/blog" passHref>
-                  <a className={`${!selectedTag ? 'text-red-500' : 'hover:underline'}`}>All</a>
+                <Link href="/blog" className={`${!selectedTag ? 'text-red-500' : 'hover:underline'}`}>
+                  All
                 </Link>
               </li>
               {Object.keys(tags).sort((tag1, tag2) => tag1.localeCompare(tag2)).map((tag) =>
                 <li key={tag} className="mx-5 my-1">
-                  <Link href="/blog/tag/[tag]" as={`/blog/tag/${tag}`} passHref>
-                    <a className={`${tag === selectedTag ? 'text-red-500' : 'hover:underline'}`}>{tags[tag]}</a>
+                  <Link href="/blog/tag/[tag]" as={`/blog/tag/${tag}`} className={`${tag === selectedTag ? 'text-red-500' : 'hover:underline'}`}>
+                    {tags[tag]}
                   </Link>
                 </li>
               )}
@@ -50,12 +50,10 @@ const BlogPosts: React.FunctionComponent<React.PropsWithChildren<BlogPostsProps>
               {posts.map((post) =>
                 <article key={post.slug} className="flex flex-col h-full" data-aos="zoom-y-out">
                   <header>
-                    <Link href="/blog/[slug]" as={`/blog/${post.slug}`} passHref>
-                      <a className="block mb-6" >
-                        <figure className="relative h-0 pb-9/16 overflow-hidden translate-z-0 rounded">
-                          <Image className="absolute inset-0 w-full h-full object-cover transform scale-105 hover:-translate-y-1 transition duration-700 ease-out" src={post.thumbnail} layout="responsive" width="352" height="198" alt={post.title} />
-                        </figure>
-                      </a>
+                    <Link href="/blog/[slug]" as={`/blog/${post.slug}`} className="block mb-6">
+                      <figure className="relative h-0 pb-9/16 overflow-hidden translate-z-0 rounded">
+                        <Image className="absolute inset-0 w-full h-full object-cover transform scale-105 hover:-translate-y-1 transition duration-700 ease-out" src={post.thumbnail} layout="responsive" width="352" height="198" alt={post.title} />
+                      </figure>
                     </Link>
                     <div className="mb-3">
                       <ul className="flex flex-wrap text-xs font-medium -m-1">
@@ -67,7 +65,7 @@ const BlogPosts: React.FunctionComponent<React.PropsWithChildren<BlogPostsProps>
                       </ul>
                     </div>
                     <h2 className="text-xl font-bold leading-snug tracking-tight mb-2">
-                      <Link href="/blog/[slug]" as={`/blog/${post.slug}`} passHref><a className="hover:underline">{post.title}</a></Link>
+                      <Link href="/blog/[slug]" as={`/blog/${post.slug}`} className="hover:underline">{post.title}</Link>
                     </h2>
                   </header>
                   <p className="text-gray-400 flex-grow">{post.excerpt}</p>

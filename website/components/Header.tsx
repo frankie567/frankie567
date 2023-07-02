@@ -56,10 +56,8 @@ const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => 
           {/* Site branding */}
           <div className="flex-shrink-0 mr-4">
             {/* Logo */}
-            <Link href="/" passHref>
-              <a className="block">
-                <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
-              </a>
+            <Link href="/" className="block">
+              <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
             </Link>
           </div>
 
@@ -68,8 +66,8 @@ const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => 
             <ul className="flex flex-grow justify-end flex-wrap items-center">
               {menuItems.map((item) =>
                 <li key={item.path}>
-                  <Link href={item.path} passHref>
-                    <a className="font-medium hover:text-red-500 px-5 py-3 flex items-center transition duration-150 ease-in-out">{item.title}</a>
+                  <Link href={item.path} className="font-medium hover:text-red-500 px-5 py-3 flex items-center transition duration-150 ease-in-out">
+                    {item.title}
                   </Link>
                 </li>
               )}
@@ -121,8 +119,8 @@ const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => 
                 <ul className="px-5 py-2">
                   {menuItems.map((item) =>
                     <li key={item.path}>
-                      <Link href={item.path} passHref>
-                        <a className="flex hover:text-red-500 py-2">{item.title}</a>
+                      <Link href={item.path} className="flex hover:text-red-500 py-2">
+                        {item.title}
                       </Link>
                     </li>
                   )}

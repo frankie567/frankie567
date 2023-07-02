@@ -29,12 +29,10 @@ const References: React.FunctionComponent<React.PropsWithChildren<ReferencesProp
               {references.map((reference) =>
                 <div key={reference.slug} className="flex flex-col h-full" data-aos="zoom-y-out">
                   <header>
-                    <Link href="/references/[slug]" as={`/references/${reference.slug}`} passHref>
-                      <a className="block mb-6" >
-                        <figure className="relative h-0 pb-9/16 overflow-hidden translate-z-0 rounded">
-                          <Image className="absolute inset-0 w-full h-full object-cover transform scale-105 hover:-translate-y-1 transition duration-700 ease-out" src={reference.thumbnail} layout="responsive" width="352" height="198" alt={reference.title} />
-                        </figure>
-                      </a>
+                    <Link href="/references/[slug]" as={`/references/${reference.slug}`} className="block mb-6">
+                      <figure className="relative h-0 pb-9/16 overflow-hidden translate-z-0 rounded">
+                        <Image className="absolute inset-0 w-full h-full object-cover transform scale-105 hover:-translate-y-1 transition duration-700 ease-out" src={reference.thumbnail} layout="responsive" width="352" height="198" alt={reference.title} />
+                      </figure>
                     </Link>
                     <div className="mb-3">
                       <ul className="flex flex-wrap text-xs font-medium -m-1">
@@ -47,7 +45,7 @@ const References: React.FunctionComponent<React.PropsWithChildren<ReferencesProp
                       </ul>
                     </div>
                     <h2 className="text-xl font-bold leading-snug tracking-tight mb-2">
-                      <Link href="/references/[slug]" as={`/references/${reference.slug}`} passHref><a className="hover:underline">{reference.title}</a></Link>
+                      <Link href="/references/[slug]" as={`/references/${reference.slug}`} className="hover:underline">{reference.title}</Link>
                     </h2>
                   </header>
                   <p className="text-gray-400 flex-grow">{reference.excerpt}</p>
