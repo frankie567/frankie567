@@ -94,7 +94,7 @@ export const parseMarkdown = (input: string): ParsedMarkdown => {
     },
   };
   // @ts-ignore
-  marked.use({ renderer, extensions: [footnote, footnoteRef] });
+  marked.use({ renderer, extensions: [footnote, footnoteRef], mangle: false, headerIds: false, headerPrefix: false });
   const html = marked(input);
 
   return { html, headings };
