@@ -11,8 +11,7 @@ export const getReferencesSlugs = async (): Promise<string[]> => {
   const files = await fs.readdir(referencesDirectory, { withFileTypes: true });
   return files
     .filter((file) => file.isFile() && file.name.endsWith('.md'))
-    .map((file) => file.name.replace(/\.md$/, ''))
-  ;
+    .map((file) => file.name.replace(/\.md$/, ''));
 };
 
 export const getReferenceBySlug = async (slug: string): Promise<models.Reference> => {

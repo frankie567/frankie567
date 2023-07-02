@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 const FastAPIBook: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
@@ -16,13 +15,19 @@ const FastAPIBook: React.FunctionComponent<React.PropsWithChildren<unknown>> = (
               </div>
             </div>
             <div className="w-full max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-4 md:mt-6 order-last" data-aos="fade-left">
-              <Image src="/fastapi-book.png" layout="responsive" width="800" height="988" alt="Building Data Science Applications with FastAPI" />
+              <Image
+                src="/fastapi-book.png"
+                width="800"
+                height="988"
+                alt="Building Data Science Applications with FastAPI"
+                sizes="100vw"
+              />
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default FastAPIBook;

@@ -7,7 +7,13 @@ const AboutMe: React.FunctionComponent<React.PropsWithChildren<unknown>> = () =>
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid grid-cols-12 md:gap-6 border-b border-gray-800">
           <div className="w-full max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-6 md:mt-6 order-last md:order-first" data-aos="fade-right">
-            <Image src="/francois-voron-light.jpg" layout="responsive" width="1280" height="1527" alt="François Voron" />
+            <Image
+              src="/francois-voron-light.jpg"
+              width="1280"
+              height="1527"
+              alt="François Voron"
+              sizes="100vw"
+            />
           </div>
           <div className="max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-6 md:mt-6 text-center flex items-center order-first md:order-last" data-aos="fade-left">
             <div className="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
@@ -19,6 +25,6 @@ const AboutMe: React.FunctionComponent<React.PropsWithChildren<unknown>> = () =>
       </div>
     </section>
   );
-}
+};
 
 export default AboutMe;

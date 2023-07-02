@@ -13,7 +13,7 @@ const EXPERTISES: Expertise[] = [
   { icon: '💾', title: 'Data engineering', description: 'Extraction • Processing • Storage' },
   { icon: '🧠', title: 'Machine learning', description: 'Scikit-learn • OpenCV' },
   { icon: '🔍', title: 'Information retrieval', description: 'Natural Language Processing • Elasticsearch' },
-]
+];
 
 const Expertises: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   return (
@@ -42,6 +42,6 @@ const Expertises: React.FunctionComponent<React.PropsWithChildren<unknown>> = ()
 
     </section>
   );
-}
+};
 
 export default Expertises;

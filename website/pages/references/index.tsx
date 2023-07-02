@@ -2,8 +2,8 @@ import { GetStaticProps } from 'next';
 import * as React from 'react';
 
 import CTA from '../../components/CTA';
-import ReferencesComponent, { ReferencesProps } from '../../components/References';
 import Metas from '../../components/Metas';
+import ReferencesComponent, { ReferencesProps } from '../../components/References';
 import { getReferences } from '../../services/references';
 
 export const getStaticProps: GetStaticProps<ReferencesProps> = async () => {

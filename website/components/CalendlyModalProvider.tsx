@@ -1,4 +1,4 @@
-import { createContext, useEffect, useRef, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
 import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import ReactGA from 'react-ga';
 
@@ -37,7 +37,7 @@ const CalendlyModalProvider: React.FunctionComponent<React.PropsWithChildren<unk
         />
       }
     </CalendlyModalContext.Provider>
-  )
+  );
 };
 
 export default CalendlyModalProvider;

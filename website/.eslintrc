@@ -1,6 +1,33 @@
 {
   "extends": ["next", "next/core-web-vitals"],
+  "plugins": ["react", "simple-import-sort", "unused-imports"],
   "rules": {
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
+    "sort-imports": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "unused-imports/no-unused-imports": "error",
     "react/no-unescaped-entities": "off"
   }
 }

@@ -1,8 +1,8 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticPaths,GetStaticProps } from 'next';
 import Link from 'next/link';
 import * as React from 'react';
-import CTA from '../../components/CTA';
 
+import CTA from '../../components/CTA';
 import Metas from '../../components/Metas';
 import { useMarkdownParser } from '../../hooks/markdown';
 import * as models from '../../models';
@@ -17,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: referencesSlugs.map((slug) => ({ params: { slug } })),
     fallback: false,
-  }
+  };
 };
 
 export const getStaticProps: GetStaticProps<ReferenceProps> = async ({ params }) => {

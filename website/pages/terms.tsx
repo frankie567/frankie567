@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import Metas from '../components/Metas';
 
 const Terms: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {

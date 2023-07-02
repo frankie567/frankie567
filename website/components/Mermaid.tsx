@@ -16,7 +16,7 @@ export const MermaidContextProvider: React.FunctionComponent<React.PropsWithChil
     <MermaidLoadedContext.Provider value={{ loaded: mermaidLoaded, toggleLoaded: () => setMermaidLoaded(true) }}>
       {children}
     </MermaidLoadedContext.Provider>
-  )
+  );
 };
 
 export const MermaidScript: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
@@ -26,7 +26,7 @@ export const MermaidScript: React.FunctionComponent<React.PropsWithChildren<unkn
     toggleLoaded();
     // @ts-ignore
     mermaid.initialize({ startOnLoad: true, theme: 'dark' });
-  }
+  };
 
   return (
     <Script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" onLoad={onMermaidLoaded} />

@@ -1,3 +1,7 @@
+import '../website-styles/style.scss';
+import 'highlight.js/styles/github-dark.css';
+import '../styles.scss';
+
 import AOS from 'aos';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -10,10 +14,6 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { MermaidContextProvider } from '../components/Mermaid';
 import Metas from '../components/Metas';
-
-import '../website-styles/style.scss';
-import 'highlight.js/styles/github-dark.css';
-import '../styles.scss';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -55,10 +55,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "url": process.env.HOST,
-              "logo": `${process.env.HOST}/logos/francois-voron.svg`,
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              'url': process.env.HOST,
+              'logo': `${process.env.HOST}/logos/francois-voron.svg`,
             }),
           }}
         />

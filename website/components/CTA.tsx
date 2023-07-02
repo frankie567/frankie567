@@ -34,6 +34,6 @@ const CTA: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default CTA;

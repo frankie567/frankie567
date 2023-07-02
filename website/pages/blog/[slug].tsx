@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticPaths,GetStaticProps } from 'next';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -7,7 +7,7 @@ import Metas from '../../components/Metas';
 import { useHighlight } from '../../hooks/highlight';
 import { useMarkdownParser } from '../../hooks/markdown';
 import * as models from '../../models';
-import { getPostsSlugs, getPostBySlug } from '../../services/blog';
+import { getPostBySlug,getPostsSlugs } from '../../services/blog';
 
 interface BlogPostProps {
   post: models.BlogPost;
@@ -18,7 +18,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: postsSlugs.map((slug) => ({ params: { slug } })),
     fallback: false,
-  }
+  };
 };
 
 export const getStaticProps: GetStaticProps<BlogPostProps> = async ({ params }) => {
@@ -53,9 +53,9 @@ const BlogPost: React.FunctionComponent<React.PropsWithChildren<BlogPostProps>> 
             'datePublished': post.date,
             'dateModified': post.date,
             'author': {
-              '@type': "Person",
-              'name': "François Voron",
-              'url': "https://www.francoisvoron.com",
+              '@type': 'Person',
+              'name': 'François Voron',
+              'url': 'https://www.francoisvoron.com',
             },
           }),
         }}

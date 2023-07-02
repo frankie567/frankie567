@@ -11,8 +11,7 @@ export const getPostsSlugs = async (): Promise<string[]> => {
   const files = await fs.readdir(postsDirectory, { withFileTypes: true });
   return files
     .filter((file) => file.isFile() && file.name.endsWith('.md'))
-    .map((file) => file.name.replace(/\.md$/, ''))
-  ;
+    .map((file) => file.name.replace(/\.md$/, ''));
 };
 
 export const getPostBySlug = async (slug: string): Promise<models.BlogPost> => {
@@ -24,7 +23,7 @@ export const getPostBySlug = async (slug: string): Promise<models.BlogPost> => {
     slug,
     date: data.date,
     tags: data.tags,
-    ...data.canonical ? { canonical: data.canonical } : {},
+    ...(data.canonical ? { canonical: data.canonical } : {}),
     excerpt: data.excerpt,
     thumbnail: data.thumbnail,
     content,

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useContext,useEffect, useRef } from 'react';
 import { CSSTransition as ReactCSSTransition } from 'react-transition-group';
 
 interface TransitionProps {
@@ -17,13 +17,13 @@ interface TransitionProps {
 
 const TransitionContext = React.createContext<{ parent: TransitionProps }>({
   parent: { show: false, appear: false, isInitialRender: false, unmountOnExit: false },
-})
+});
 
 function useIsInitialRender() {
   const isInitialRender = useRef(true);
   useEffect(() => {
     isInitialRender.current = false;
-  }, [])
+  }, []);
   return isInitialRender.current;
 }
 
@@ -51,7 +51,7 @@ const CSSTransition: React.FunctionComponent<React.PropsWithChildren<TransitionP
 
   const addClasses = (node: HTMLElement, classes: string[]) => {
     classes.length && node.classList.add(...classes);
-  }
+  };
 
   function removeClasses(node: HTMLElement, classes: string[]) {
     classes.length && node.classList.remove(...classes);
@@ -66,36 +66,36 @@ const CSSTransition: React.FunctionComponent<React.PropsWithChildren<TransitionP
       unmountOnExit={removeFromDom}
       in={show}
       addEndListener={(done) => {
-        nodeRef.current?.addEventListener('transitionend', done, false)
+        nodeRef.current?.addEventListener('transitionend', done, false);
       }}
       onEnter={() => {
         if (!removeFromDom && nodeRef.current) nodeRef.current.style.display = 'block';
-        nodeRef.current && addClasses(nodeRef.current, [...enterClasses, ...enterStartClasses])
+        nodeRef.current && addClasses(nodeRef.current, [...enterClasses, ...enterStartClasses]);
       }}
       onEntering={() => {
-        nodeRef.current && removeClasses(nodeRef.current, enterStartClasses)
-        nodeRef.current && addClasses(nodeRef.current, enterEndClasses)
+        nodeRef.current && removeClasses(nodeRef.current, enterStartClasses);
+        nodeRef.current && addClasses(nodeRef.current, enterEndClasses);
       }}
       onEntered={() => {
-        nodeRef.current && removeClasses(nodeRef.current, [...enterEndClasses, ...enterClasses])
+        nodeRef.current && removeClasses(nodeRef.current, [...enterEndClasses, ...enterClasses]);
       }}
       onExit={() => {
-        nodeRef.current && addClasses(nodeRef.current, [...leaveClasses, ...leaveStartClasses])
+        nodeRef.current && addClasses(nodeRef.current, [...leaveClasses, ...leaveStartClasses]);
       }}
       onExiting={() => {
-        nodeRef.current && removeClasses(nodeRef.current, leaveStartClasses)
-        nodeRef.current && addClasses(nodeRef.current, leaveEndClasses)
+        nodeRef.current && removeClasses(nodeRef.current, leaveStartClasses);
+        nodeRef.current && addClasses(nodeRef.current, leaveEndClasses);
       }}
       onExited={() => {
-        nodeRef.current && removeClasses(nodeRef.current, [...leaveEndClasses, ...leaveClasses])
+        nodeRef.current && removeClasses(nodeRef.current, [...leaveEndClasses, ...leaveClasses]);
         if (!removeFromDom && nodeRef.current) nodeRef.current.style.display = 'none';
       }}
     >
       {/* @ts-ignore */}
       <Component ref={nodeRef} {...rest} style={{ display: !removeFromDom ? 'none' : 'block' }}>{children}</Component>
     </ReactCSSTransition>
-  )
-}
+  );
+};
 
 const Transition: React.FunctionComponent<React.PropsWithChildren<React.HTMLProps<HTMLElement> & TransitionProps>> = ({ show, appear, ...rest }) => {
   const { parent } = useContext(TransitionContext);
@@ -109,7 +109,7 @@ const Transition: React.FunctionComponent<React.PropsWithChildren<React.HTMLProp
         show={parent.show}
         {...rest}
       />
-    )
+    );
   }
 
   return (
@@ -125,7 +125,7 @@ const Transition: React.FunctionComponent<React.PropsWithChildren<React.HTMLProp
     >
       <CSSTransition appear={appear} show={show} {...rest} />
     </TransitionContext.Provider>
-  )
-}
+  );
+};
 
 export default Transition;

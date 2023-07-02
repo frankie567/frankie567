@@ -18,7 +18,11 @@ const Footer: React.FunctionComponent<React.PropsWithChildren<FooterProps>> = ({
             <div className="mb-2">
               {/* Logo */}
               <Link href="/" className="inline-block">
-                <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
+                <Image
+                  src="/logos/francois-voron.svg"
+                  width="150"
+                  height="56"
+                  alt="François Voron Logo" />
               </Link>
             </div>
             <div className="text-sm text-justify text-gray-500">

@@ -11,7 +11,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: Object.keys(tags).map((tag) => ({ params: { tag } })),
     fallback: false,
-  }
+  };
 };
 
 export const getStaticProps: GetStaticProps<BlogPostsProps> = async ({ params }) => {

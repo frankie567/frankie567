@@ -13,7 +13,7 @@ const Testimonials: React.FunctionComponent<React.PropsWithChildren<unknown>> = 
       name: 'Jade Chan',
       role: 'Head of Engineering',
       team: 'Juniper Behavioral Health',
-      link: 'https://www.juniperplatform.com'
+      link: 'https://www.juniperplatform.com',
     },
     {
       img: '/testimonials/jeremie-datiplus.jpg',
@@ -22,7 +22,7 @@ const Testimonials: React.FunctionComponent<React.PropsWithChildren<unknown>> = 
       name: 'Jérémie Bennegent',
       role: 'CTO',
       team: 'DatiPlus',
-      link: 'https://dati-plus.com'
+      link: 'https://dati-plus.com',
     },
   ]);
 
@@ -59,7 +59,12 @@ const Testimonials: React.FunctionComponent<React.PropsWithChildren<unknown>> = 
                     leaveEnd="opacity-0 translate-y-8"
                   >
                     <div className="absolute top-0 -mt-12 left-1/2 transform -translate-x-1/2">
-                      <Image className="relative rounded-full" src={item.img} layout="fixed" width="96" height="96" alt={item.alt} />
+                      <Image
+                        className="relative rounded-full"
+                        src={item.img}
+                        width="96"
+                        height="96"
+                        alt={item.alt} />
                     </div>
                     <blockquote className="text-xl font-medium mb-4 whitespace-pre-line">{item.quote}</blockquote>
                     <cite className="block font-bold text-lg not-italic mb-1">{item.name}</cite>
@@ -100,6 +105,6 @@ const Testimonials: React.FunctionComponent<React.PropsWithChildren<unknown>> = 
       </div>
     </section>
   );
-}
+};
 
 export default Testimonials;

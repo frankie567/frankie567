@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -8,9 +8,9 @@ import { useOpenCalendly } from '../hooks/calendly';
 import Transition from './Transition';
 
 const menuItems = [
-  { path: "/references", title: "References" },
+  { path: '/references', title: 'References' },
   // { path: "/fastapi-book", title: "FastAPI book" },
-  { path: "/blog", title: "Blog" },
+  { path: '/blog', title: 'Blog' },
 ];
 
 const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
@@ -41,7 +41,7 @@ const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => 
   // Detect whether user has scrolled the page down by 10px
   useEffect(() => {
     const scrollHandler = () => {
-      window.pageYOffset > 10 ? setTop(false) : setTop(true)
+      window.pageYOffset > 10 ? setTop(false) : setTop(true);
     };
     window.addEventListener('scroll', scrollHandler);
     return () => window.removeEventListener('scroll', scrollHandler);
@@ -57,7 +57,11 @@ const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => 
           <div className="flex-shrink-0 mr-4">
             {/* Logo */}
             <Link href="/" className="block">
-              <Image src="/logos/francois-voron.svg" layout="fixed" width="150" height="56" alt="François Voron Logo" />
+              <Image
+                src="/logos/francois-voron.svg"
+                width="150"
+                height="56"
+                alt="François Voron Logo" />
             </Link>
           </div>
 

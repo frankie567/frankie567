@@ -52,7 +52,14 @@ const BlogPosts: React.FunctionComponent<React.PropsWithChildren<BlogPostsProps>
                   <header>
                     <Link href="/blog/[slug]" as={`/blog/${post.slug}`} className="block mb-6">
                       <figure className="relative h-0 pb-9/16 overflow-hidden translate-z-0 rounded">
-                        <Image className="absolute inset-0 w-full h-full object-cover transform scale-105 hover:-translate-y-1 transition duration-700 ease-out" src={post.thumbnail} layout="responsive" width="352" height="198" alt={post.title} />
+                        <Image
+                          className="absolute inset-0 w-full h-full object-cover transform scale-105 hover:-translate-y-1 transition duration-700 ease-out"
+                          src={post.thumbnail}
+                          width="352"
+                          height="198"
+                          alt={post.title}
+                          sizes="100vw"
+                        />
                       </figure>
                     </Link>
                     <div className="mb-3">
