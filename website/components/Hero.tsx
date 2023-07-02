@@ -30,18 +30,20 @@ const Hero: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
 
           {/* Logos */}
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="flex justify-center items-center"><Image src="/logos/juniper.png" width="150" height="41" alt="Juniper YC 2021" /></div>
+            <div className="flex justify-center items-center"><Image src="/logos/juniper.png" className="object-contain" width="150" height="41" alt="Juniper YC 2021" /></div>
             <div className="flex justify-center"><Image
               src="/logos/groupe-briand.svg"
+              className="object-contain"
               width="150"
               height="100"
               alt="Groupe Briand" /></div>
             <div className="flex justify-center"><Image
               src="/logos/ministere-economie-finances.svg"
+              className="object-contain"
               width="150"
               height="100"
               alt="Ministère de l'Économie, des Finances et de la Relance" /></div>
-            <div className="flex justify-center"><Image src="/logos/datiplus.png" width="150" height="85" alt="DatiPlus" /></div>
+            <div className="flex justify-center"><Image src="/logos/datiplus.png" className="object-contain" width="150" height="50" alt="DatiPlus" /></div>
           </div>
 
         </div>
