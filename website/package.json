@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build:atom": "ncc build generate-atom-feed.ts -o generate-atom-feed && node generate-atom-feed/index.js",
     "build": "next build",
-    "export": "npm run build && next export && npm run build:atom",
+    "export": "npm run build && npm run build:atom",
     "start": "next start",
     "lint": "next lint"
   },
