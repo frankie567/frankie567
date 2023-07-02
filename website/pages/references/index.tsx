@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next';
 import * as React from 'react';
 
-import CTA from '../../components/CTA';
 import Metas from '../../components/Metas';
 import ReferencesComponent, { ReferencesProps } from '../../components/References';
 import { getReferences } from '../../services/references';
@@ -16,7 +15,6 @@ const References: React.FunctionComponent<React.PropsWithChildren<ReferencesProp
     <>
       <Metas title="References - François Voron" />
       <ReferencesComponent references={references} />
-      <CTA />
     </>
   );
 };

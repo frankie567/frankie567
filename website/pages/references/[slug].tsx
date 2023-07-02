@@ -2,7 +2,6 @@ import { GetStaticPaths,GetStaticProps } from 'next';
 import Link from 'next/link';
 import * as React from 'react';
 
-import CTA from '../../components/CTA';
 import Metas from '../../components/Metas';
 import { useMarkdownParser } from '../../hooks/markdown';
 import * as models from '../../models';
@@ -99,7 +98,6 @@ const Reference: React.FunctionComponent<React.PropsWithChildren<ReferenceProps>
           </div>
         </div>
       </section>
-      <CTA />
     </>
   );
 };

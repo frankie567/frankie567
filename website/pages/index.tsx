@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import AboutMe from '../components/AboutMe';
-import CTA from '../components/CTA';
 import Expertises from '../components/Expertises';
 import FastAPIBook from '../components/FastAPIBook';
 import Hero from '../components/Hero';
@@ -16,7 +15,6 @@ const Home: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
       <AboutMe />
       <Testimonials />
       <Expertises />
-      <CTA />
       <FastAPIBook />
     </>
   );

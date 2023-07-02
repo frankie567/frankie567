@@ -75,21 +75,11 @@ const Header: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => 
                   </Link>
                 </li>
               )}
-              <li>
-                <button onClick={() => openCalendly()} className="btn-sm bg-red-500 hover:bg-red-600 ml-3">
-                  Book a call
-                </button>
-              </li>
             </ul>
           </nav>
 
           {/* Mobile menu */}
           <div className="flex md:hidden">
-
-            {/* CTA button */}
-            <button onClick={() => openCalendly()} className="btn-sm bg-red-500 hover:bg-red-600 mr-5">
-              Book a call
-            </button>
 
             {/* Hamburger button */}
             <button

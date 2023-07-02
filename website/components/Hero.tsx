@@ -19,12 +19,6 @@ const Hero: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Make your software projects <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-400">successful</span></h1>
             <div className="max-w-3xl mx-auto">
               <p className="text-xl text-gray-400 mb-8" data-aos="zoom-y-out" data-aos-delay="150">I build high-quality softwares with the best technologies to achieve your business goals in a fast-changing environment.</p>
-              <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
-                <div>
-                  <button onClick={() => openCalendly()} className="btn text-white cursor-pointer bg-red-500 hover:bg-red-600 w-full mb-4 sm:w-auto">Book a call</button>
-                  <p className="text-xs">Free 30-minutes call to talk about your project</p>
-                </div>
-              </div>
             </div>
           </div>
 
