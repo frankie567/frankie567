@@ -11,15 +11,16 @@ const FastAPIBook: React.FunctionComponent<React.PropsWithChildren<unknown>> = (
               <div className="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
                 <h2 className="h2 mb-3">Author of the best-seller book about FastAPI</h2>
                 <p className="text-xl text-gray-400">I'm one of the top experts in the FastAPI community, the #3 most-used web Python framework behind Django and Flask. In collaboration with Packt, one of the leading tech book publishers in the UK, I've wrote a book to learn all the secrets of this framework and how data scientists can leverage its power to build efficient and reliable data science applications.</p>
-                <a href="https://www.amazon.com/dp/1801079218" className="btn text-white bg-red-500 hover:bg-red-600 w-full mt-4 sm:w-auto">Learn more</a>
+                <p className="text-xl text-gray-400">Since Summer 2023, a second edition is available with updated examples and a whole new project to build your very own generative AI system!</p>
+                <a href="https://amzn.to/3QD7Wby" className="btn text-white bg-red-500 hover:bg-red-600 w-full mt-4 sm:w-auto">Learn more</a>
               </div>
             </div>
             <div className="w-full max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-4 md:mt-6 order-last" data-aos="fade-left">
               <Image
-                src="/fastapi-book.png"
+                src="/fastapi-book-v2.png"
                 width="800"
                 height="988"
-                alt="Building Data Science Applications with FastAPI"
+                alt="Building Data Science Applications with FastAPI Second Edition"
                 sizes="100vw"
               />
             </div>

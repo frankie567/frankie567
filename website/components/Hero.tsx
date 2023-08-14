@@ -16,28 +16,38 @@ const Hero: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
 
           {/* Section header */}
           <div className="text-center pb-12 md:pb-16">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Make your software projects <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-400">successful</span></h1>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Software engineer & <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-400">open-source maintainer</span></h1>
             <div className="max-w-3xl mx-auto">
-              <p className="text-xl text-gray-400 mb-8" data-aos="zoom-y-out" data-aos-delay="150">I build high-quality softwares with the best technologies to achieve your business goals in a fast-changing environment.</p>
+              <p className="text-xl text-gray-400 mb-8" data-aos="zoom-y-out" data-aos-delay="150">I'm a seasoned software developer maintaining open-source projects useful for hundreds of businesses</p>
             </div>
           </div>
 
           {/* Logos */}
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="flex justify-center items-center"><Image src="/logos/juniper.png" className="object-contain" width="150" height="41" alt="Juniper YC 2021" /></div>
-            <div className="flex justify-center"><Image
-              src="/logos/groupe-briand.svg"
+          <div className="flex justify-center"><Image
+              src="/logos/polar.svg"
               className="object-contain"
               width="150"
               height="100"
-              alt="Groupe Briand" /></div>
+              alt="Polar" /></div>
             <div className="flex justify-center"><Image
-              src="/logos/ministere-economie-finances.svg"
+              src="/logos/fief.svg"
               className="object-contain"
               width="150"
               height="100"
-              alt="Ministère de l'Économie, des Finances et de la Relance" /></div>
-            <div className="flex justify-center"><Image src="/logos/datiplus.png" className="object-contain" width="150" height="50" alt="DatiPlus" /></div>
+              alt="Fief" /></div>
+            <div className="flex justify-center"><Image
+              src="/logos/fastapi-users.svg"
+              className="object-contain"
+              width="300"
+              height="100"
+              alt="FastAPI Users" /></div>
+            <div className="flex justify-center"><Image
+              src="/logos/packt.svg"
+              className="object-contain"
+              width="150"
+              height="100"
+              alt="Packt" /></div>
           </div>
 
         </div>
