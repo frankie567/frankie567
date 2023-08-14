@@ -1,6 +1,6 @@
 <img src="https://www.francoisvoron.com/francois-voron-light.png" alt="François Voron" height="500" align="right">
 
-# Make your software projects successful
+# Software engineer & open-source maintainer
 
 Hello, I'm **François Voron** 👋
 
@@ -49,12 +49,14 @@ Huge fan of Python, my main projects are related to [FastAPI](https://github.com
 
 # Author of the best-seller book about FastAPI
 
-<img src="https://www.francoisvoron.com/fastapi-book.png?auto=format&fit=max&w=3840" alt="François Voron" height="400" align="right">
+<img src="https://www.francoisvoron.com/fastapi-book-v2.png?auto=format&fit=max&w=3840" alt="Building Data Science Applications with FastAPI Second Edition" height="400" align="right">
 
 I'm one of the top experts in the FastAPI community, the #3 most-used web Python framework behind Django and Flask.
 
 In collaboration with Packt, one of the leading tech book publishers in the UK, I've wrote a book to learn all the secrets of this framework and how data scientists can leverage its power to build efficient and reliable data science applications.
 
+Since Summer 2023, a second edition is available with updated examples and a whole new project to build your very own generative AI system!
+
 <p align="center">
-    <a href="https://www.amazon.com/dp/1801079218"><img src="https://md-buttons.francoisvoron.com/button.svg?text=Learn%20more&bg=ef4444" /></a>
+    <a href="https://amzn.to/3QD7Wby"><img src="https://md-buttons.francoisvoron.com/button.svg?text=Learn%20more&bg=ef4444" /></a>
 </p>
