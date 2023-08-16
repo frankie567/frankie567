@@ -10,7 +10,7 @@ import Testimonials from '../components/Testimonials';
 const Home: React.FunctionComponent<React.PropsWithChildren<unknown>> = () => {
   return (
     <>
-      <Metas title="François Voron - Freelance software developer" />
+      <Metas title="François Voron - Software engineer & open-source maintainer" />
       <Hero />
       <AboutMe />
       <Testimonials />
