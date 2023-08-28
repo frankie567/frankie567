@@ -1,12 +1,8 @@
-<img src="https://www.francoisvoron.com/francois-voron-light.png" alt="François Voron" height="500" align="right">
-
 # Software engineer & open-source maintainer
 
 Hello, I'm **François Voron** 👋
 
 I've 8 years of experience working as CTO and lead developer in top-level startups in the SaaS industry. My expertise allowed those companies to grow with solid technical foundations and generate thousands of dollars in revenue.
-
-<br clear="right"/>
 
 # Open-source projects
 
