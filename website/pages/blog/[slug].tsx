@@ -97,7 +97,7 @@ const BlogPost: React.FunctionComponent<React.PropsWithChildren<BlogPostProps>> 
                   </aside>
 
                   {/* Main content */}
-                  <div>
+                  <div className="min-w-0">
 
                     {/* Article meta */}
                     <div className="flex items-center mb-6">
@@ -114,7 +114,7 @@ const BlogPost: React.FunctionComponent<React.PropsWithChildren<BlogPostProps>> 
                     <hr className="w-16 h-px pt-px bg-gray-800 border-0 mb-6" />
 
                     {/* Article body */}
-                    <div className="text-lg text-blog-post">
+                    <div className="prose prose-invert max-w-full">
                       <div dangerouslySetInnerHTML={{ __html: html }}></div>
                       <div>
                         <hr className="w-full h-px pt-px mt-8 bg-gray-800 border-0" />

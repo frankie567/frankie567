@@ -1,3 +1,4 @@
+import { decode } from 'html-entities';
 import { marked } from 'marked';
 
 export interface Heading {
@@ -79,7 +80,7 @@ export const parseMarkdown = (input: string): ParsedMarkdown => {
   const detectSlugger = new marked.Slugger();
   const renderer: marked.RendererObject = {
     heading: (text: string, level, raw: string, slugger: marked.Slugger): string | false => {
-      headings.push({ text, level, slug: detectSlugger.slug(raw) });
+      headings.push({ text: decode(text), level, slug: detectSlugger.slug(raw) });
       return defaultRenderer.heading(text, level, raw, slugger);
     },
     image: (href: string | null, title: string | null, text: string): string => {
@@ -94,8 +95,64 @@ export const parseMarkdown = (input: string): ParsedMarkdown => {
     },
   };
   // @ts-ignore
-  marked.use({ renderer, extensions: [footnote, footnoteRef], mangle: false, headerIds: false, headerPrefix: false });
-  const html = marked(input);
+  marked.use({ renderer, extensions: [footnote, footnoteRef], mangle: false, headerIds: true });
+  const html = marked.parse(input);
 
   return { html, headings };
+};
+
+export const getExcerpt = (input: string): string => {
+  const renderer: marked.RendererObject = {
+    heading: (text: string, level, raw: string, slugger: marked.Slugger): string | false => {
+      return text;
+    },
+    code: (code: string, language: string | undefined, isEscaped: boolean): string => {
+      return code;
+    },
+    paragraph: (text: string): string => {
+      return text;
+    },
+    strong(text: string) {
+      return text;
+    },
+    em(text: string) {
+      return text;
+    },
+    codespan(text: string) {
+      return text;
+    },
+    del(text: string) {
+      return text;
+    },
+    html(text: string) {
+      return text;
+    },
+    text(text: string) {
+      return text;
+    },
+    link(href: string, title: string | null | undefined, text: string) {
+      return '' + text;
+    },
+    image(href: string, title: string | null, text: string) {
+      return '' + text;
+    },
+    br() {
+      return '';
+    },
+  };
+  marked.use({ renderer });
+  return decode(marked.parse(input.slice(0, 140)));
+};
+
+export const getImages = (input: string): string[] => {
+  let images: string[] = [];
+  const walkTokens = (token: marked.Token) => {
+    if (token.type === 'image') {
+      images.push(token.href);
+    }
+  };
+
+  marked.use({ walkTokens });
+  marked.parse(input);
+  return images;
 };

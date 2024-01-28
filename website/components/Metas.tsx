@@ -25,7 +25,7 @@ const Metas: React.FunctionComponent<React.PropsWithChildren<MetasProps>> = ({ t
       <meta key="og_image" property="og:image" content={image} />
       <meta key="twitter_image" property="twitter:image" content={image} />
 
-      <link rel="canonical" href={canonical || `${process.env.HOST}${router.asPath}`} />
+      {canonical && <link rel="canonical" href={canonical} />}
     </NextHead>
   );
 };

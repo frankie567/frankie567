@@ -11,13 +11,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tailwindcss/forms": "^0.5.0",
+    "@polar-sh/sdk": "^0.2.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
     "@vercel/ncc": "^0.36.0",
     "aos": "^3.0.0-beta.6",
     "autoprefixer": "^10.3.1",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.2.0",
-    "html-entities": "^2.3.2",
+    "html-entities": "^2.4.0",
     "marked": "^5.1.0",
     "next": "^13.4.7",
     "postcss": "^8.3.6",
@@ -27,7 +29,7 @@
     "react-ga": "^3.3.0",
     "react-transition-group": "^4.4.2",
     "sass": "^1.37.5",
-    "tailwindcss": "^3.0.15"
+    "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
     "@types/aos": "^3.0.4",
