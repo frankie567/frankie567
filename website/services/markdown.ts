@@ -1,9 +1,10 @@
 import { decode } from 'html-entities';
-import { marked } from 'marked';
+import { marked, RendererObject,Token, TokensList } from 'marked';
+import { getHeadingList,gfmHeadingId } from 'marked-gfm-heading-id';
 
 export interface Heading {
   text: string;
-  level: 1 | 2 | 3 | 4 | 5 | 6;
+  level: number;
   slug: string;
 }
 
@@ -24,7 +25,7 @@ const footnoteRef = {
   start(src: string): number | undefined {
     return src.match(/\[\^/)?.index;
   },
-  tokenizer(src: string, tokens: marked.Token[]): FootnoteRefToken | undefined {
+  tokenizer(src: string, tokens: Token[]): FootnoteRefToken | undefined {
     const rule = /^\[\^([^\]]+)\](?!\:)/;
     const match = rule.exec(src);
     if (match) {
@@ -44,7 +45,7 @@ interface FootnoteToken {
   type: 'footnote',
   raw: string;
   reference: string;
-  text: marked.TokensList;
+  text: TokensList;
 }
 
 const footnote = {
@@ -53,7 +54,7 @@ const footnote = {
   start(src: string): number | undefined {
     return src.match(/\[\^/)?.index;
   },
-  tokenizer(src: string, tokens: marked.Token[]): FootnoteToken | undefined {
+  tokenizer(src: string, tokens: Token[]): FootnoteToken | undefined {
     const rule = /^\[\^([^\]]+)\]\:(.*)\n/;
     const match = rule.exec(src);
     if (match) {
@@ -75,14 +76,9 @@ const footnote = {
 };
 
 export const parseMarkdown = (input: string): ParsedMarkdown => {
-  const headings: Heading[] = [];
+  let headings: Heading[] = [];
   const defaultRenderer = new marked.Renderer() as any;
-  const detectSlugger = new marked.Slugger();
-  const renderer: marked.RendererObject = {
-    heading: (text: string, level, raw: string, slugger: marked.Slugger): string | false => {
-      headings.push({ text: decode(text), level, slug: detectSlugger.slug(raw) });
-      return defaultRenderer.heading(text, level, raw, slugger);
-    },
+  const renderer: RendererObject = {
     image: (href: string | null, title: string | null, text: string): string => {
       const renderedImage = defaultRenderer.image(href, title, text);
       return `<figure>${renderedImage}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`;
@@ -96,14 +92,24 @@ export const parseMarkdown = (input: string): ParsedMarkdown => {
   };
   // @ts-ignore
   marked.use({ renderer, extensions: [footnote, footnoteRef], mangle: false, headerIds: true });
-  const html = marked.parse(input);
+  marked.use(
+    gfmHeadingId({prefix: 'header-'}),
+    {
+      hooks: {
+        postprocess(html) {
+          headings = getHeadingList().map((heading) => ({ text: decode(heading.text), level: heading.level, slug: heading.id }));
+          return html;
+      },
+    },
+  });
+  const html = marked.parse(input, { async: false }) as string;
 
   return { html, headings };
 };
 
 export const getExcerpt = (input: string): string => {
-  const renderer: marked.RendererObject = {
-    heading: (text: string, level, raw: string, slugger: marked.Slugger): string | false => {
+  const renderer: RendererObject = {
+    heading: (text: string, level: number, raw: string): string | false => {
       return text;
     },
     code: (code: string, language: string | undefined, isEscaped: boolean): string => {
@@ -141,12 +147,13 @@ export const getExcerpt = (input: string): string => {
     },
   };
   marked.use({ renderer });
-  return decode(marked.parse(input.slice(0, 140)));
+  const html = marked.parse(input.slice(0, 140), { async: false }) as string;
+  return decode(html);
 };
 
 export const getImages = (input: string): string[] => {
   let images: string[] = [];
-  const walkTokens = (token: marked.Token) => {
+  const walkTokens = (token: Token) => {
     if (token.type === 'image') {
       images.push(token.href);
     }

@@ -1,7 +1,6 @@
 import { writeFileSync } from 'fs';
-import path from 'path';
-
 import { encode } from 'html-entities';
+import path from 'path';
 
 import { getPosts } from './services/blog';
 import { parseMarkdown } from './services/markdown';
