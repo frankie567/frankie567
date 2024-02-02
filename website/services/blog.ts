@@ -21,7 +21,7 @@ const polarArticleToPost = (article: Article): models.BlogPost => {
     tags: [polarTag],
     canonical: `https://polar.sh/frankie567/posts/${article.slug}`,
     excerpt: excerpt,
-    thumbnail: images[0],
+    thumbnail: images.length > 0 ? images[0] : `https://polar.sh/og?articleId=${article.id}`,
     content: article.body,
   };
 };
