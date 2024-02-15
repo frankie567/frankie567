@@ -19,8 +19,8 @@ Huge fan of Python, my main projects are related to [FastAPI](https://github.com
 <p align="center">
 <a href="https://polar.sh/frankie567">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://polar.sh/embed/support-us.svg?org=frankie567&&text=Support+me&darkmode=1">
-  <img alt="Support me" src="https://polar.sh/embed/support-us.svg?org=frankie567&text=Support+me">
+  <source media="(prefers-color-scheme: dark)" srcset="https://polar.sh/embed/subscribe.svg?org=frankie567&darkmode=1">
+  <img alt="Subscribe" src="https://polar.sh/embed/subscribe.svg?org=frankie567">
 </picture>
 </a>
 </p>
@@ -36,8 +36,7 @@ Huge fan of Python, my main projects are related to [FastAPI](https://github.com
 **Implementing registration, login, social auth is hard and painful. We know it. With our highly secure and open-source users management platform, you can focus on your app while staying in control of your users data.**
 
 * Based on **FastAPI Users**!
-* **Open-source**: self-host it for free or use our hosted version
-* **Bring your own database**: host your database anywhere, we'll take care of the rest
+* **Open-source**: self-host it for free
 * **Pre-built login and registration pages**: clean and fast authentication so you don't have to do it yourself
 * **Official Python client** with built-in **FastAPI integration**
 
