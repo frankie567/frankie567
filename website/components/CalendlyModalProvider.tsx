@@ -1,20 +1,12 @@
 import { createContext, useRef, useState } from 'react';
-import { PopupModal, useCalendlyEventListener } from 'react-calendly';
-import ReactGA from 'react-ga';
+import { PopupModal } from 'react-calendly';
 
-import { AnalyticsEvent } from '../models';
 
 export const CalendlyModalContext = createContext<[boolean, (show: boolean) => void]>([false, () => { }]);
 
 const CalendlyModalProvider: React.FunctionComponent<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [show, setShow] = useState(false);
   const root = useRef<HTMLDivElement>(null);
-
-  useCalendlyEventListener({
-    onEventScheduled: () => {
-      ReactGA.event({ category: 'All', action: AnalyticsEvent.CALENDLY_BOOKED });
-    },
-  });
 
   return (
     <CalendlyModalContext.Provider value={[show, setShow]}>

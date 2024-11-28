@@ -7,7 +7,6 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import ReactGA from 'react-ga';
 
 import CalendlyModalProvider from '../components/CalendlyModalProvider';
 import Footer from '../components/Footer';
@@ -19,8 +18,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID as string);
-    ReactGA.pageview(window.location.pathname + window.location.search);
     AOS.init({
       once: true,
       disable: 'phone',
@@ -28,12 +25,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       easing: 'ease-out-cubic',
     });
   }, []);
-
-  useEffect(() => {
-    const handler = () => ReactGA.pageview(window.location.pathname + window.location.search);
-    router.events.on('routeChangeComplete', handler);
-    return () => router.events.off('routeChangeComplete', handler);
-  }, [router]);
 
   return (
     <>
