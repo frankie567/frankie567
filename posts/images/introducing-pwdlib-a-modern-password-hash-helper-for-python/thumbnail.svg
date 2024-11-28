@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="complexGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a; stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2c2c2c; stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#ef4444; stop-opacity:0.7" />
+    </linearGradient>
+
+    <radialGradient id="overlayGradient" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:rgba(0,0,0,0); stop-opacity:0" />
+      <stop offset="100%" style="stop-color:rgba(0,0,0,0.2); stop-opacity:0.2" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background rectangle with complex gradient -->
+  <rect width="1600" height="900" fill="url(#complexGradient)"/>
+
+  <!-- Overlay with radial gradient for depth -->
+  <rect width="1600" height="900" fill="url(#overlayGradient)"/>
+
+  <!-- Abstract Geometric Shapes -->
+  <path d="M0,0 L400,0 Q200,450 0,900 Z" fill="rgba(239,68,68,0.1)"/>
+  <path d="M1600,0 L1200,0 Q1400,450 1600,900 Z" fill="rgba(239,68,68,0.1)"/>
+
+  <!-- Additional subtle shapes -->
+  <circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.05)"/>
+  <circle cx="1400" cy="700" r="150" fill="rgba(255,255,255,0.05)"/>
+
+  <!-- Title Placeholder with Dynamic Wrapping -->
+  <text
+    x="800"
+    y="450"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="72"
+    font-weight="bold"
+    fill="white"
+    text-shadow="4px 4px 8px rgba(0,0,0,0.3)"
+    text-align="center"
+    style="text-align: center;">
+    <tspan x="800" dy="0">Introducing pwdlib, a modern</tspan>
+    <tspan x="800" dy="1.2em">password hash helper for Python</tspan>
+  </text>
+</svg>

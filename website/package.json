@@ -11,7 +11,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@polar-sh/sdk": "^0.2.0",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "@vercel/ncc": "^0.38.1",
@@ -20,8 +19,8 @@
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.2.0",
     "html-entities": "^2.4.0",
-    "marked": "^11.2.0",
-    "marked-gfm-heading-id": "^3.1.2",
+    "marked": "^15.0.2",
+    "marked-gfm-heading-id": "^4.1.1",
     "next": "^13.4.7",
     "postcss": "^8.3.6",
     "react": "^18.2.0",
@@ -34,7 +33,6 @@
   },
   "devDependencies": {
     "@types/aos": "^3.0.4",
-    "@types/marked": "^6.0.0",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
     "@types/react-transition-group": "^4.4.2",

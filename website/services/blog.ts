@@ -1,69 +1,8 @@
-import { Article, Configuration, PolarAPI } from '@polar-sh/sdk';
 import { promises as fs } from 'fs';
 import matter from 'gray-matter';
 import { dirname, join } from 'path';
 
 import * as models from '../models';
-import { getExcerpt, getImages } from './markdown';
-
-/** Polar source **/
-const polar = new PolarAPI(new Configuration({ accessToken: process.env.POLAR_API_KEY }));
-const polarSlugPrefix = 'polar-';
-const polarTag = 'Polar';
-
-const polarArticleToPost = (article: Article): models.BlogPost => {
-  const images = getImages(article.body);
-  const excerpt = getExcerpt(article.body);
-  return {
-    title: article.title,
-    slug: `${polarSlugPrefix}${article.slug}`,
-    date: article.published_at as string,
-    tags: [polarTag],
-    canonical: `https://polar.sh/frankie567/posts/${article.slug}`,
-    excerpt: excerpt,
-    thumbnail: images.length > 0 ? images[0] : `https://polar.sh/og?articleId=${article.id}`,
-    content: article.body,
-  };
-};
-
-const getPolarPostsSlugs = async (): Promise<string[]> => {
-  const { items: articles } = await polar.articles.search({
-    platform: 'github',
-    organizationName: 'frankie567',
-    showUnpublished: false,
-  });
-
-  if (!articles) {
-    return [];
-  }
-
-  return articles.map(({ slug}) => `${polarSlugPrefix}${slug}`);
-};
-
-const getPolarPosts = async (): Promise<models.BlogPost[]> => {
-  const { items: articles } = await polar.articles.search({
-    platform: 'github',
-    organizationName: 'frankie567',
-    showUnpublished: false,
-  });
-
-  if (!articles) {
-    return [];
-  }
-
-  return articles.map(polarArticleToPost);
-};
-
-const getPolarPostBySlug = async (slug: string): Promise<models.BlogPost> => {
-  const article = await polar.articles.lookup({
-    platform: 'github',
-    organizationName: 'frankie567',
-    slug,
-  });
-  return polarArticleToPost(article);
-};
-
-/** File source **/
 
 const postsDirectory = join(dirname(process.cwd()), 'posts');
 
@@ -97,26 +36,12 @@ const getFilePosts = async (): Promise<models.BlogPost[]> => {
 
 /** Exposed functions **/
 
-export const getPostsSlugs = async (): Promise<string[]> => {
-  return [
-    ...await getFilePostsSlugs(),
-    ...await getPolarPostsSlugs(),
-  ];
-};
+export const getPostsSlugs = getFilePostsSlugs;
 
-export const getPostBySlug = async (slug: string): Promise<models.BlogPost> => {
-  if (slug.startsWith(polarSlugPrefix)) {
-    return await getPolarPostBySlug(slug.split(polarSlugPrefix)[1]);
-  }
-  return await getFilePostBySlug(slug);
-};
+export const getPostBySlug = getFilePostBySlug;
 
 export const getPosts = async (skip?: number, limit?: number): Promise<models.BlogPost[]> => {
-  const posts = [
-    ...await getFilePosts(),
-    ...await getPolarPosts(),
-  ];
-
+  const posts = await getFilePosts();
   return posts
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(skip, skip && limit ? skip + limit : undefined);
@@ -137,7 +62,6 @@ export const getTags = async (): Promise<Record<string, string>> => {
       tags[normalizedTag] = tag;
     }
   }
-  tags[normalizeTag(polarTag)] = polarTag;
   return tags;
 };
 
