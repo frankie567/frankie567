@@ -7,13 +7,13 @@ const Testimonials: React.FunctionComponent<React.PropsWithChildren<unknown>> = 
   const [active, setActive] = useState(0);
   const [items] = useState([
     {
-      img: '/testimonials/jade-juniper.jpg',
-      alt: 'Jade Chan - Juniper',
+      img: '/testimonials/jade-camber.jpg',
+      alt: 'Jade Chan - Camber Health',
       quote: 'François has been tremendously helpful to the development of our platform. Each of his responses has been extremely detailed and thorough, with code snippets, examples, recommendations, and hyperlinks to various resources.\nFrançois is clearly a subject matter expert in FastAPI and Python, and has been an incredible value-add to our team.',
       name: 'Jade Chan',
       role: 'Head of Engineering',
-      team: 'Juniper Behavioral Health',
-      link: 'https://www.juniperplatform.com',
+      team: 'Camber Health',
+      link: 'https://www.camber.health',
     },
     {
       img: '/testimonials/jeremie-datiplus.jpg',

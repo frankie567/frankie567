@@ -1,5 +1,4 @@
 import NextHead from 'next/head';
-import { useRouter } from 'next/router';
 import React from 'react';
 
 interface MetasProps {
@@ -9,9 +8,14 @@ interface MetasProps {
   canonical?: string;
 }
 
-const Metas: React.FunctionComponent<React.PropsWithChildren<MetasProps>> = ({ title, description, image, canonical }) => {
-  const router = useRouter();
+const defaultProps: MetasProps = {
+  title: 'François Voron',
+  description: 'I build high-quality softwares with the best technologies to achieve your business goals in a fast-changing environment. Free 30-minutes call to talk about your project.',
+  image: `${process.env.HOST}/meta-image.jpg`,
+  canonical: undefined,
+};
 
+const Metas: React.FunctionComponent<React.PropsWithChildren<MetasProps>> = ({ title, description, image, canonical } = defaultProps) => {
   return (
     <NextHead>
       <title key="title">{title}</title>
@@ -28,12 +32,6 @@ const Metas: React.FunctionComponent<React.PropsWithChildren<MetasProps>> = ({ t
       {canonical && <link rel="canonical" href={canonical} />}
     </NextHead>
   );
-};
-
-Metas.defaultProps = {
-  title: 'François Voron',
-  description: 'I build high-quality softwares with the best technologies to achieve your business goals in a fast-changing environment. Free 30-minutes call to talk about your project.',
-  image: `${process.env.HOST}/meta-image.jpg`,
 };
 
 export default Metas;
