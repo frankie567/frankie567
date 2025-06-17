@@ -103,7 +103,7 @@ const Footer: React.FunctionComponent<React.PropsWithChildren<FooterProps>> = ({
           </ul>
 
           {/* Copyrights note */}
-          <div className="text-sm text-gray-500 mr-4">Made with ❤️ from 🇫🇷 - François Voron - SIRET 52101474600023</div>
+          <div className="text-sm text-gray-500 mr-4">Made with ❤️ from 🇫🇷 - François Voron</div>
 
         </div>
 
