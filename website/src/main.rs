@@ -16,6 +16,18 @@ use walkdir::WalkDir;
 
 const HOST: &str = "https://www.fvoron.com";
 const CONTACT_EMAIL: &str = "dev@fvoron.com";
+const DEFAULT_TITLE: &str = "François Voron";
+const DEFAULT_DESCRIPTION: &str = "I build high-quality softwares with the best technologies to achieve your business goals in a fast-changing environment. Free 30-minutes call to talk about your project.";
+const DEFAULT_IMAGE_PATH: &str = "/meta-image.jpg";
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct Meta {
+    title: String,
+    description: String,
+    image: Option<String>,
+    url: String,
+    canonical: Option<String>,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct BlogPost {
@@ -290,6 +302,29 @@ fn normalize_tag(tag: &str) -> String {
     tag.to_lowercase().replace(' ', "-")
 }
 
+fn build_meta(
+    title: Option<&str>,
+    description: Option<&str>,
+    image: Option<&str>,
+    url: &str,
+    canonical: Option<&str>,
+) -> Meta {
+    let resolved_title = title.unwrap_or(DEFAULT_TITLE).to_string();
+    let resolved_description = description.unwrap_or(DEFAULT_DESCRIPTION).to_string();
+    let resolved_image = image
+        .map(|img| img.to_string())
+        .or_else(|| Some(format!("{}{}", HOST, DEFAULT_IMAGE_PATH)));
+    let resolved_canonical = canonical.map(|c| c.to_string());
+
+    Meta {
+        title: resolved_title,
+        description: resolved_description,
+        image: resolved_image,
+        url: url.to_string(),
+        canonical: resolved_canonical,
+    }
+}
+
 fn setup_templates() -> Result<Environment<'static>> {
     let mut env = Environment::new();
 
@@ -353,9 +388,21 @@ fn generate_site() -> Result<()> {
 
     // Generate index page
     let template = env.get_template("index")?;
+    let meta = build_meta(
+        Some("François Voron - Software engineer & open-source maintainer"),
+        None,
+        None,
+        "/",
+        None,
+    );
     let rendered = template.render(context! {
         host => HOST,
         current_year => chrono::Utc::now().year(),
+        title => meta.title,
+        description => meta.description,
+        image => meta.image,
+        url => meta.url,
+        canonical => meta.canonical,
     })?;
     fs::write(dist_dir.join("index.html"), rendered)?;
     println!("Generated index.html");
@@ -363,10 +410,16 @@ fn generate_site() -> Result<()> {
     // Generate blog index
     fs::create_dir_all(dist_dir.join("blog"))?;
     let template = env.get_template("blog")?;
+    let meta = build_meta(Some("Blog - François Voron"), None, None, "/blog", None);
     let rendered = template.render(context! {
         host => HOST,
         posts => &posts,
         tags => &tags,
+        title => meta.title,
+        description => meta.description,
+        image => meta.image,
+        url => meta.url,
+        canonical => meta.canonical,
     })?;
     fs::write(dist_dir.join("blog").join("index.html"), rendered)?;
     println!("Generated blog/index.html");
@@ -376,9 +429,26 @@ fn generate_site() -> Result<()> {
     for post in &posts {
         let post_dir = dist_dir.join("blog").join(&post.slug);
         fs::create_dir_all(&post_dir)?;
+        let image = if post.thumbnail.is_empty() {
+            None
+        } else {
+            Some(format!("{}{}", HOST, post.thumbnail))
+        };
+        let meta = build_meta(
+            Some(&format!("{} - François Voron", post.title)),
+            Some(&post.excerpt),
+            image.as_deref(),
+            &format!("/blog/{}", post.slug),
+            post.canonical.as_deref(),
+        );
         let rendered = template.render(context! {
             host => HOST,
             post => post,
+            title => meta.title,
+            description => meta.description,
+            image => meta.image,
+            url => meta.url,
+            canonical => meta.canonical,
         })?;
         fs::write(post_dir.join("index.html"), rendered)?;
         println!("Generated blog/{}/index.html", post.slug);
@@ -395,11 +465,23 @@ fn generate_site() -> Result<()> {
         fs::create_dir_all(&tag_dir)?;
 
         let template = env.get_template("blog")?;
+        let meta = build_meta(
+            Some(&format!("{} - Blog - François Voron", tag)),
+            None,
+            None,
+            &format!("/blog/tag/{}", normalized_tag),
+            None,
+        );
         let rendered = template.render(context! {
             host => HOST,
             posts => tag_posts,
             tags => &tags,
             current_tag => tag,
+            title => meta.title,
+            description => meta.description,
+            image => meta.image,
+            url => meta.url,
+            canonical => meta.canonical,
         })?;
         fs::write(tag_dir.join("index.html"), rendered)?;
         println!("Generated blog/tag/{}/index.html", normalized_tag);
@@ -409,8 +491,20 @@ fn generate_site() -> Result<()> {
     let terms_dir = dist_dir.join("terms");
     fs::create_dir_all(&terms_dir)?;
     let template = env.get_template("terms")?;
+    let meta = build_meta(
+        Some("Legal terms - François Voron"),
+        None,
+        None,
+        "/terms",
+        None,
+    );
     let rendered = template.render(context! {
         host => HOST,
+        title => meta.title,
+        description => meta.description,
+        image => meta.image,
+        url => meta.url,
+        canonical => meta.canonical,
     })?;
     fs::write(terms_dir.join("index.html"), rendered)?;
     println!("Generated terms/index.html");
