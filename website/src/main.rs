@@ -60,6 +60,11 @@ fn apply_syntax_highlighting(html: &str) -> Result<String> {
             .replace("&quot;", "\"")
             .replace("&#39;", "'");
 
+        // Render mermaid diagrams without syntax highlighting for proper initialization
+        if lang.eq_ignore_ascii_case("mermaid") {
+            return format!("<pre class=\"mermaid\">{}</pre>", decoded);
+        }
+
         // Find syntax for the language
         let syntax = ps
             .find_syntax_by_extension(lang)
@@ -482,6 +487,13 @@ fn html_escape(s: &str) -> String {
 
 fn copy_static_files() -> Result<()> {
     let dist_dir = Path::new("dist");
+
+    // Copy public
+    let images_dir = Path::new("public");
+    if images_dir.exists() {
+        copy_dir_recursive(images_dir, &dist_dir)?;
+        println!("Copied images");
+    }
 
     // Copy posts images
     let images_dir = Path::new("../posts/images");
