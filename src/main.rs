@@ -483,6 +483,52 @@ fn copy_static_files() -> Result<()> {
         println!("Copied logos");
     }
     
+    // Generate or copy CSS
+    generate_css()?;
+    
+    Ok(())
+}
+
+fn generate_css() -> Result<()> {
+    use std::process::Command;
+    
+    let tailwind_bin = Path::new("./tailwindcss");
+    
+    // Try to run Tailwind CSS build
+    if tailwind_bin.exists() {
+        println!("Building CSS with Tailwind CLI...");
+        let output = Command::new(tailwind_bin)
+            .args(&[
+                "-i", "styles.css",
+                "-o", "dist/styles.css",
+                "--minify"
+            ])
+            .output();
+        
+        match output {
+            Ok(result) if result.status.success() => {
+                println!("Generated styles.css");
+                return Ok(());
+            }
+            Ok(result) => {
+                eprintln!("Tailwind build failed: {}", String::from_utf8_lossy(&result.stderr));
+            }
+            Err(e) => {
+                eprintln!("Failed to run Tailwind: {}", e);
+            }
+        }
+    }
+    
+    // Fallback: check if pre-built CSS exists and copy it
+    let prebuilt_css = Path::new("dist/styles.css");
+    if !prebuilt_css.exists() {
+        eprintln!("WARNING: No styles.css found in dist/");
+        eprintln!("Please run: ./tailwindcss -i styles.css -o dist/styles.css --minify");
+        eprintln!("Or download Tailwind CLI first if you don't have it.");
+    } else {
+        println!("Using existing styles.css");
+    }
+    
     Ok(())
 }
 
