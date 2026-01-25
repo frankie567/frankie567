@@ -14,6 +14,9 @@ use syntect::html::highlighted_html_for_string;
 use syntect::parsing::SyntaxSet;
 use walkdir::WalkDir;
 
+const HOST: &str = "https://www.fvoron.com";
+const CONTACT_EMAIL: &str = "dev@fvoron.com";
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct BlogPost {
     title: String,
@@ -351,7 +354,7 @@ fn generate_site() -> Result<()> {
     // Generate index page
     let template = env.get_template("index")?;
     let rendered = template.render(context! {
-        host => "https://www.francoisvoron.com",
+        host => HOST,
         current_year => chrono::Utc::now().year(),
     })?;
     fs::write(dist_dir.join("index.html"), rendered)?;
@@ -361,7 +364,7 @@ fn generate_site() -> Result<()> {
     fs::create_dir_all(dist_dir.join("blog"))?;
     let template = env.get_template("blog")?;
     let rendered = template.render(context! {
-        host => "https://www.francoisvoron.com",
+        host => HOST,
         posts => &posts,
         tags => &tags,
     })?;
@@ -374,7 +377,7 @@ fn generate_site() -> Result<()> {
         let post_dir = dist_dir.join("blog").join(&post.slug);
         fs::create_dir_all(&post_dir)?;
         let rendered = template.render(context! {
-            host => "https://www.francoisvoron.com",
+            host => HOST,
             post => post,
         })?;
         fs::write(post_dir.join("index.html"), rendered)?;
@@ -393,7 +396,7 @@ fn generate_site() -> Result<()> {
 
         let template = env.get_template("blog")?;
         let rendered = template.render(context! {
-            host => "https://www.francoisvoron.com",
+            host => HOST,
             posts => tag_posts,
             tags => &tags,
             current_tag => tag,
@@ -407,7 +410,7 @@ fn generate_site() -> Result<()> {
     fs::create_dir_all(&terms_dir)?;
     let template = env.get_template("terms")?;
     let rendered = template.render(context! {
-        host => "https://www.francoisvoron.com",
+        host => HOST,
     })?;
     fs::write(terms_dir.join("index.html"), rendered)?;
     println!("Generated terms/index.html");
@@ -431,7 +434,10 @@ fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
 
     feed.push_str("\n  <title>François Voron</title>");
     feed.push_str("\n  <subtitle>Experiments, thoughts and stories about my work</subtitle>");
-    feed.push_str("\n  <link rel=\"self\" href=\"https://www.francoisvoron.com/feed.xml\" />");
+    feed.push_str(&format!(
+        "\n  <link rel=\"self\" href=\"{}/feed.xml\" />",
+        HOST
+    ));
 
     if let Some(first_post) = posts.first() {
         feed.push_str(&format!("\n  <updated>{}</updated>", first_post.date));
@@ -439,9 +445,9 @@ fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
 
     feed.push_str("\n  <author>");
     feed.push_str("\n    <name>François Voron</name>");
-    feed.push_str("\n    <email>contact@francoisvoron.com</email>");
+    feed.push_str(&format!("\n    <email>{}</email>", CONTACT_EMAIL));
     feed.push_str("\n  </author>");
-    feed.push_str("\n  <id>https://www.francoisvoron.com/blog</id>");
+    feed.push_str(&format!("\n  <id>{}/blog</id>", HOST));
 
     for post in posts {
         feed.push_str("\n  <entry>");
@@ -450,13 +456,10 @@ fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
             html_escape(&post.title)
         ));
         feed.push_str(&format!(
-            "\n    <link href=\"https://www.francoisvoron.com/blog/{}\" />",
-            post.slug
+            "\n    <link href=\"{}/blog/{}\" />",
+            HOST, post.slug
         ));
-        feed.push_str(&format!(
-            "\n    <id>https://www.francoisvoron.com/blog/{}</id>",
-            post.slug
-        ));
+        feed.push_str(&format!("\n    <id>{}/blog/{}</id>", HOST, post.slug));
         feed.push_str(&format!("\n    <updated>{}</updated>", post.date));
         feed.push_str(&format!(
             "\n    <summary>{}</summary>",
