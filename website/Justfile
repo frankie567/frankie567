@@ -57,24 +57,7 @@ dev:
         exit 1
     fi
 
-    echo "Starting development server..."
-    echo "Building site initially..."
-    cargo run --release
-    
-    echo "Starting file watcher and server..."
-    echo "- Server: http://localhost:8000"
-    echo "- Watching: src/, templates/, ../posts/"
-    echo ""
-    
-    # Start the web server in the background
-    simple-http-server -i -p 8000 dist &
-    SERVER_PID=$!
-    
-    # Trap to kill the server on exit
-    trap "kill $SERVER_PID 2>/dev/null" EXIT
-    
-    # Watch for changes and rebuild (without restarting server)
-    cargo-watch -w src -w templates -w ../posts -s 'cargo run --release'
+    cargo-watch -w src -w templates -s 'cargo run --release && simple-http-server -i -p 8000 dist'
 
 # Clean build artifacts
 clean:
