@@ -18,19 +18,24 @@ The website is now built using:
 
 ### Initial Setup
 
-1. **Download Tailwind CSS CLI:**
+1. **Download Tailwind CSS CLI (v3):**
    ```bash
    # For Linux x64
-   curl -sL https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 -o tailwindcss
+   curl -sL https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.1/tailwindcss-linux-x64 -o tailwindcss
    chmod +x tailwindcss
    
    # For macOS ARM
-   # curl -sL https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64 -o tailwindcss
+   # curl -sL https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.1/tailwindcss-macos-arm64 -o tailwindcss
    # chmod +x tailwindcss
    
    # For macOS x64
-   # curl -sL https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-x64 -o tailwindcss
+   # curl -sL https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.1/tailwindcss-macos-x64 -o tailwindcss
    # chmod +x tailwindcss
+   ```
+
+2. **Install Tailwind CSS Typography plugin:**
+   ```bash
+   npm install -D @tailwindcss/typography
    ```
 
 ### Build Steps
@@ -49,6 +54,13 @@ The website is now built using:
    ```bash
    cargo run --release
    ```
+
+   This will:
+   - Parse all blog posts from `/posts`
+   - Parse all references from `/references`
+   - Generate HTML files in `/dist`
+   - Copy static assets (images, logos, etc.)
+   - Generate an Atom feed
 
 ## Project Structure
 

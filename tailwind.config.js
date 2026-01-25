@@ -122,7 +122,94 @@ module.exports = {
       zIndex: {
         '-1': '-1',
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: theme('colors.gray.200'),
+            a: {
+              color: '#EF4444',
+              textDecoration: 'none',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            },
+            'h1, h2, h3, h4, h5, h6': {
+              color: 'white',
+              fontWeight: '700',
+              marginTop: '2em',
+              marginBottom: '1em',
+            },
+            h1: {
+              fontSize: '2.25rem',
+            },
+            h2: {
+              fontSize: '1.875rem',
+            },
+            h3: {
+              fontSize: '1.5rem',
+            },
+            h4: {
+              fontSize: '1.25rem',
+            },
+            p: {
+              marginTop: '1.25em',
+              marginBottom: '1.25em',
+            },
+            pre: {
+              backgroundColor: theme('colors.gray.800'),
+              overflowX: 'auto',
+              padding: '1rem',
+              borderRadius: '0.5rem',
+              margin: '1.5rem 0',
+            },
+            code: {
+              backgroundColor: theme('colors.gray.800'),
+              padding: '0.125rem 0.25rem',
+              borderRadius: '0.25rem',
+              fontSize: '0.875em',
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              padding: '0',
+            },
+            'ul, ol': {
+              paddingLeft: '1.5rem',
+              marginTop: '1.25em',
+              marginBottom: '1.25em',
+            },
+            li: {
+              marginTop: '0.5em',
+              marginBottom: '0.5em',
+            },
+            blockquote: {
+              borderLeftWidth: '4px',
+              borderLeftColor: theme('colors.gray.700'),
+              paddingLeft: '1rem',
+              fontStyle: 'italic',
+              margin: '1.5rem 0',
+              color: theme('colors.gray.400'),
+            },
+            img: {
+              marginTop: '2rem',
+              marginBottom: '2rem',
+              borderRadius: '0.5rem',
+            },
+            figure: {
+              margin: '2rem 0',
+            },
+            figcaption: {
+              textAlign: 'center',
+              color: theme('colors.gray.400'),
+              fontSize: '0.875rem',
+              marginTop: '0.5rem',
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };

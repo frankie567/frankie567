@@ -44,3 +44,7 @@ Cargo.lock
 
 # Tailwind CSS CLI binary
 /tailwindcss
+
+# NPM for Tailwind plugins
+/node_modules
+/package-lock.json
