@@ -1,0 +1,512 @@
+use anyhow::{Context, Result};
+use chrono::Datelike;
+use gray_matter::engine::YAML;
+use gray_matter::Matter;
+use markdown::{to_html_with_options, CompileOptions, Options, ParseOptions};
+use minijinja::{context, Environment};
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
+use std::fs;
+use std::path::Path;
+use walkdir::WalkDir;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct BlogPost {
+    title: String,
+    slug: String,
+    date: String,
+    tags: Vec<String>,
+    excerpt: String,
+    thumbnail: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    canonical: Option<String>,
+    content: String,
+    html: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct Reference {
+    title: String,
+    slug: String,
+    client: String,
+    year: i32,
+    technologies: Vec<String>,
+    excerpt: String,
+    thumbnail: String,
+    content: String,
+    html: String,
+}
+
+fn parse_blog_post(path: &Path) -> Result<BlogPost> {
+    let content = fs::read_to_string(path)?;
+    let matter = Matter::<YAML>::new();
+    let result = matter.parse(&content);
+    
+    let data: Value = result.data
+        .ok_or_else(|| anyhow::anyhow!("Missing frontmatter"))?
+        .deserialize()?;
+    
+    let title = data["title"]
+        .as_str()
+        .ok_or_else(|| anyhow::anyhow!("Missing title"))?
+        .to_string();
+    
+    let date = data["date"]
+        .as_str()
+        .ok_or_else(|| anyhow::anyhow!("Missing date"))?
+        .to_string();
+    
+    let tags: Vec<String> = data["tags"]
+        .as_array()
+        .map(|arr| {
+            arr.iter()
+                .filter_map(|v| v.as_str().map(String::from))
+                .collect()
+        })
+        .unwrap_or_default();
+    
+    let excerpt = data["excerpt"]
+        .as_str()
+        .unwrap_or("")
+        .to_string();
+    
+    let thumbnail = data["thumbnail"]
+        .as_str()
+        .unwrap_or("")
+        .to_string();
+    
+    let canonical = data["canonical"]
+        .as_str()
+        .map(String::from);
+    
+    let slug = path
+        .file_stem()
+        .and_then(|s| s.to_str())
+        .context("Invalid filename")?
+        .to_string();
+    
+    let markdown_content = result.content;
+    
+    // Parse markdown to HTML
+    let options = Options {
+        parse: ParseOptions::gfm(),
+        compile: CompileOptions {
+            allow_dangerous_html: true,
+            allow_dangerous_protocol: true,
+            ..CompileOptions::default()
+        },
+    };
+    
+    let html = to_html_with_options(&markdown_content, &options)
+        .map_err(|e| anyhow::anyhow!("Failed to parse markdown: {:?}", e))?;
+    
+    Ok(BlogPost {
+        title,
+        slug,
+        date,
+        tags,
+        excerpt,
+        thumbnail,
+        canonical,
+        content: markdown_content,
+        html,
+    })
+}
+
+fn get_all_posts() -> Result<Vec<BlogPost>> {
+    let posts_dir = Path::new("posts");
+    let mut posts = Vec::new();
+    
+    for entry in WalkDir::new(posts_dir)
+        .max_depth(1)
+        .into_iter()
+        .filter_map(|e| e.ok())
+    {
+        let path = entry.path();
+        if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("md") {
+            if let Ok(post) = parse_blog_post(path) {
+                posts.push(post);
+            }
+        }
+    }
+    
+    // Sort by date, newest first
+    posts.sort_by(|a, b| b.date.cmp(&a.date));
+    
+    Ok(posts)
+}
+
+fn parse_reference(path: &Path) -> Result<Reference> {
+    let content = fs::read_to_string(path)?;
+    let matter = Matter::<YAML>::new();
+    let result = matter.parse(&content);
+    
+    let data: Value = result.data
+        .ok_or_else(|| anyhow::anyhow!("Missing frontmatter"))?
+        .deserialize()?;
+    
+    let title = data["title"]
+        .as_str()
+        .ok_or_else(|| anyhow::anyhow!("Missing title"))?
+        .to_string();
+    
+    let client = data["client"]
+        .as_str()
+        .ok_or_else(|| anyhow::anyhow!("Missing client"))?
+        .to_string();
+    
+    let year = data["year"]
+        .as_i64()
+        .ok_or_else(|| anyhow::anyhow!("Missing year"))? as i32;
+    
+    let technologies: Vec<String> = data["technologies"]
+        .as_array()
+        .map(|arr| {
+            arr.iter()
+                .filter_map(|v| v.as_str().map(String::from))
+                .collect()
+        })
+        .unwrap_or_default();
+    
+    let excerpt = data["excerpt"]
+        .as_str()
+        .unwrap_or("")
+        .to_string();
+    
+    let thumbnail = data["thumbnail"]
+        .as_str()
+        .unwrap_or("")
+        .to_string();
+    
+    let slug = path
+        .file_stem()
+        .and_then(|s| s.to_str())
+        .context("Invalid filename")?
+        .to_string();
+    
+    let markdown_content = result.content;
+    
+    // Parse markdown to HTML
+    let options = Options {
+        parse: ParseOptions::gfm(),
+        compile: CompileOptions {
+            allow_dangerous_html: true,
+            allow_dangerous_protocol: true,
+            ..CompileOptions::default()
+        },
+    };
+    
+    let html = to_html_with_options(&markdown_content, &options)
+        .map_err(|e| anyhow::anyhow!("Failed to parse markdown: {:?}", e))?;
+    
+    Ok(Reference {
+        title,
+        slug,
+        client,
+        year,
+        technologies,
+        excerpt,
+        thumbnail,
+        content: markdown_content,
+        html,
+    })
+}
+
+fn get_all_references() -> Result<Vec<Reference>> {
+    let references_dir = Path::new("references");
+    let mut references = Vec::new();
+    
+    for entry in WalkDir::new(references_dir)
+        .max_depth(1)
+        .into_iter()
+        .filter_map(|e| e.ok())
+    {
+        let path = entry.path();
+        if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("md") {
+            if let Ok(reference) = parse_reference(path) {
+                references.push(reference);
+            }
+        }
+    }
+    
+    // Sort by year, newest first
+    references.sort_by(|a, b| b.year.cmp(&a.year));
+    
+    Ok(references)
+}
+
+fn get_all_tags(posts: &[BlogPost]) -> HashMap<String, String> {
+    let mut tags = HashMap::new();
+    for post in posts {
+        for tag in &post.tags {
+            let normalized = normalize_tag(tag);
+            tags.insert(normalized, tag.clone());
+        }
+    }
+    tags
+}
+
+fn normalize_tag(tag: &str) -> String {
+    tag.to_lowercase().replace(' ', "-")
+}
+
+fn setup_templates() -> Result<Environment<'static>> {
+    let mut env = Environment::new();
+    
+    // Load base template first
+    let base_content = fs::read_to_string("templates/base.html")?;
+    env.add_template_owned("base".to_string(), base_content)?;
+    
+    // Load other templates
+    let template_dir = Path::new("templates");
+    for entry in fs::read_dir(template_dir)? {
+        let entry = entry?;
+        let path = entry.path();
+        let name = path.file_stem()
+            .and_then(|s| s.to_str())
+            .map(String::from);
+        
+        if let Some(name) = name {
+            if name == "base" {
+                continue; // Skip base, already loaded
+            }
+            if path.extension().and_then(|s| s.to_str()) == Some("html") {
+                let content = fs::read_to_string(&path)?;
+                env.add_template_owned(name, content)?;
+            }
+        }
+    }
+    
+    Ok(env)
+}
+
+// Helper trait to add templates with owned strings
+trait AddTemplateOwned {
+    fn add_template_owned(&mut self, name: String, source: String) -> Result<(), minijinja::Error>;
+}
+
+impl AddTemplateOwned for Environment<'static> {
+    fn add_template_owned(&mut self, name: String, source: String) -> Result<(), minijinja::Error> {
+        let name_leaked: &'static str = Box::leak(name.into_boxed_str());
+        let source_leaked: &'static str = Box::leak(source.into_boxed_str());
+        self.add_template(name_leaked, source_leaked)
+    }
+}
+
+fn generate_site() -> Result<()> {
+    println!("Generating static site...");
+    
+    // Create output directory
+    let dist_dir = Path::new("dist");
+    if dist_dir.exists() {
+        fs::remove_dir_all(dist_dir)?;
+    }
+    fs::create_dir_all(dist_dir)?;
+    
+    // Get all posts
+    let posts = get_all_posts()?;
+    println!("Found {} blog posts", posts.len());
+    
+    // Get all tags
+    let tags = get_all_tags(&posts);
+    
+    // Setup templates
+    let env = setup_templates()?;
+    
+    // Generate index page
+    let template = env.get_template("index")?;
+    let rendered = template.render(context! {
+        host => "https://www.francoisvoron.com",
+        current_year => chrono::Utc::now().year(),
+    })?;
+    fs::write(dist_dir.join("index.html"), rendered)?;
+    println!("Generated index.html");
+    
+    // Generate blog index
+    fs::create_dir_all(dist_dir.join("blog"))?;
+    let template = env.get_template("blog")?;
+    let rendered = template.render(context! {
+        host => "https://www.francoisvoron.com",
+        posts => &posts,
+        tags => &tags,
+    })?;
+    fs::write(dist_dir.join("blog").join("index.html"), rendered)?;
+    println!("Generated blog/index.html");
+    
+    // Generate individual blog posts
+    let template = env.get_template("post")?;
+    for post in &posts {
+        let post_dir = dist_dir.join("blog").join(&post.slug);
+        fs::create_dir_all(&post_dir)?;
+        let rendered = template.render(context! {
+            host => "https://www.francoisvoron.com",
+            post => post,
+        })?;
+        fs::write(post_dir.join("index.html"), rendered)?;
+        println!("Generated blog/{}/index.html", post.slug);
+    }
+    
+    // Generate tag pages
+    for (normalized_tag, tag) in &tags {
+        let tag_posts: Vec<&BlogPost> = posts.iter()
+            .filter(|p| p.tags.iter().any(|t| normalize_tag(t) == *normalized_tag))
+            .collect();
+        
+        let tag_dir = dist_dir.join("blog").join("tag").join(normalized_tag);
+        fs::create_dir_all(&tag_dir)?;
+        
+        let template = env.get_template("blog")?;
+        let rendered = template.render(context! {
+            host => "https://www.francoisvoron.com",
+            posts => tag_posts,
+            tags => &tags,
+            current_tag => tag,
+        })?;
+        fs::write(tag_dir.join("index.html"), rendered)?;
+        println!("Generated blog/tag/{}/index.html", normalized_tag);
+    }
+    
+    // Generate terms page
+    let template = env.get_template("terms")?;
+    let rendered = template.render(context! {
+        host => "https://www.francoisvoron.com",
+    })?;
+    fs::write(dist_dir.join("terms.html"), rendered)?;
+    println!("Generated terms.html");
+    
+    // Generate references page
+    let references = get_all_references()?;
+    println!("Found {} references", references.len());
+    
+    fs::create_dir_all(dist_dir.join("references"))?;
+    let template = env.get_template("references")?;
+    let rendered = template.render(context! {
+        host => "https://www.francoisvoron.com",
+        references => &references,
+    })?;
+    fs::write(dist_dir.join("references").join("index.html"), rendered)?;
+    println!("Generated references/index.html");
+    
+    // Generate individual reference pages  
+    let template = env.get_template("reference_detail")?;
+    for reference in &references {
+        let ref_dir = dist_dir.join("references").join(&reference.slug);
+        fs::create_dir_all(&ref_dir)?;
+        let rendered = template.render(context! {
+            host => "https://www.francoisvoron.com",
+            reference => reference,
+        })?;
+        fs::write(ref_dir.join("index.html"), rendered)?;
+        println!("Generated references/{}/index.html", reference.slug);
+    }
+    
+    // Generate Atom feed
+    generate_atom_feed(&posts, dist_dir)?;
+    
+    // Copy static files
+    copy_static_files()?;
+    
+    println!("Site generation complete!");
+    
+    Ok(())
+}
+
+fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
+    let mut feed = String::from(r#"<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">"#);
+    
+    feed.push_str("\n  <title>François Voron</title>");
+    feed.push_str("\n  <subtitle>Experiments, thoughts and stories about my work</subtitle>");
+    feed.push_str("\n  <link rel=\"self\" href=\"https://www.francoisvoron.com/feed.xml\" />");
+    
+    if let Some(first_post) = posts.first() {
+        feed.push_str(&format!("\n  <updated>{}</updated>", first_post.date));
+    }
+    
+    feed.push_str("\n  <author>");
+    feed.push_str("\n    <name>François Voron</name>");
+    feed.push_str("\n    <email>contact@francoisvoron.com</email>");
+    feed.push_str("\n  </author>");
+    feed.push_str("\n  <id>https://www.francoisvoron.com/blog</id>");
+    
+    for post in posts {
+        feed.push_str("\n  <entry>");
+        feed.push_str(&format!("\n    <title>{}</title>", html_escape(&post.title)));
+        feed.push_str(&format!("\n    <link href=\"https://www.francoisvoron.com/blog/{}\" />", post.slug));
+        feed.push_str(&format!("\n    <id>https://www.francoisvoron.com/blog/{}</id>", post.slug));
+        feed.push_str(&format!("\n    <updated>{}</updated>", post.date));
+        feed.push_str(&format!("\n    <summary>{}</summary>", html_escape(&post.excerpt)));
+        feed.push_str(&format!("\n    <content type=\"html\">{}</content>", html_escape(&post.html)));
+        feed.push_str("\n  </entry>");
+    }
+    
+    feed.push_str("\n</feed>");
+    
+    fs::write(dist_dir.join("feed.xml"), feed)?;
+    println!("Generated feed.xml");
+    
+    Ok(())
+}
+
+fn html_escape(s: &str) -> String {
+    s.replace('&', "&amp;")
+        .replace('<', "&lt;")
+        .replace('>', "&gt;")
+        .replace('"', "&quot;")
+        .replace('\'', "&#39;")
+}
+
+fn copy_static_files() -> Result<()> {
+    let dist_dir = Path::new("dist");
+    
+    // Copy files from website/public
+    let public_dir = Path::new("website/public");
+    if public_dir.exists() {
+        copy_dir_recursive(public_dir, dist_dir)?;
+        println!("Copied public files");
+    }
+    
+    // Copy images directory
+    let images_dir = Path::new("images");
+    if images_dir.exists() {
+        let target = dist_dir.join("images");
+        copy_dir_recursive(images_dir, &target)?;
+        println!("Copied images");
+    }
+    
+    // Copy logo directory
+    let logo_dir = Path::new("logo");
+    if logo_dir.exists() {
+        let target = dist_dir.join("logo");
+        copy_dir_recursive(logo_dir, &target)?;
+        println!("Copied logos");
+    }
+    
+    Ok(())
+}
+
+fn copy_dir_recursive(src: &Path, dst: &Path) -> Result<()> {
+    if !dst.exists() {
+        fs::create_dir_all(dst)?;
+    }
+    
+    for entry in fs::read_dir(src)? {
+        let entry = entry?;
+        let path = entry.path();
+        let file_name = path.file_name().context("Invalid filename")?;
+        let target = dst.join(file_name);
+        
+        if path.is_dir() {
+            copy_dir_recursive(&path, &target)?;
+        } else if !path.is_symlink() {
+            fs::copy(&path, &target)?;
+        }
+    }
+    
+    Ok(())
+}
+
+fn main() -> Result<()> {
+    generate_site()
+}
