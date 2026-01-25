@@ -44,6 +44,9 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/styles.css">
   
+  <!-- AOS (Animate On Scroll) for animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  
   <!-- Feed -->
   <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="François Voron">
   
@@ -205,5 +208,15 @@
 
     </div>
   </footer>
+  
+  <!-- AOS (Animate On Scroll) JavaScript -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 700,
+      easing: 'ease-out-cubic',
+    });
+  </script>
 </body>
 </html>

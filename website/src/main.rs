@@ -91,33 +91,66 @@ fn slugify(text: &str) -> String {
         .join("-")
 }
 
-/// Extract headings from HTML and add IDs
+/// Extract headings from HTML and add IDs (preserving document order)
 fn process_headings(html: &str) -> Result<(String, Vec<Heading>)> {
     let mut headings = Vec::new();
     let mut result = html.to_string();
 
-    // Process each heading level separately
+    // We need to collect all heading positions first, then process them in order
+    #[derive(Debug)]
+    struct HeadingMatch {
+        start: usize,
+        end: usize,
+        level: usize,
+        text: String,
+    }
+    
+    let mut matches = Vec::new();
+    
+    // Find all headings
     for level in 1..=6 {
         let pattern_str = format!(r"<h{}>(.*?)</h{}>", level, level);
         let heading_pattern = regex::Regex::new(&pattern_str).unwrap();
-
-        result = heading_pattern.replace_all(&result, |caps: &regex::Captures| {
-            let text = caps.get(1).unwrap().as_str();
-
-            // Strip HTML tags from text for slug generation
-            let text_pattern = regex::Regex::new(r"<[^>]+>").unwrap();
-            let plain_text = text_pattern.replace_all(text, "");
-
-            let slug = format!("header-{}", slugify(&plain_text));
-
-            headings.push(Heading {
-                text: plain_text.to_string(),
+        
+        for cap in heading_pattern.captures_iter(&result) {
+            let m = cap.get(0).unwrap();
+            let text = cap.get(1).unwrap().as_str();
+            matches.push(HeadingMatch {
+                start: m.start(),
+                end: m.end(),
                 level,
-                slug: slug.clone(),
+                text: text.to_string(),
             });
-
-            format!("<h{} id=\"{}\">{}</h{}>", level, slug, text, level)
-        }).to_string();
+        }
+    }
+    
+    // Sort by position to preserve document order
+    matches.sort_by_key(|m| m.start);
+    
+    // Process headings from end to start (to preserve indices)
+    for heading_match in matches.iter().rev() {
+        // Strip HTML tags from text for slug generation
+        let text_pattern = regex::Regex::new(r"<[^>]+>").unwrap();
+        let plain_text = text_pattern.replace_all(&heading_match.text, "");
+        
+        let slug = format!("header-{}", slugify(&plain_text));
+        
+        // Insert heading at the beginning (since we're processing in reverse)
+        headings.insert(0, Heading {
+            text: plain_text.to_string(),
+            level: heading_match.level,
+            slug: slug.clone(),
+        });
+        
+        let replacement = format!(
+            "<h{} id=\"{}\">{}</h{}>", 
+            heading_match.level, 
+            slug, 
+            heading_match.text, 
+            heading_match.level
+        );
+        
+        result.replace_range(heading_match.start..heading_match.end, &replacement);
     }
 
     Ok((result, headings))
@@ -363,12 +396,14 @@ fn generate_site() -> Result<()> {
     }
 
     // Generate terms page
+    let terms_dir = dist_dir.join("terms");
+    fs::create_dir_all(&terms_dir)?;
     let template = env.get_template("terms")?;
     let rendered = template.render(context! {
         host => "https://www.francoisvoron.com",
     })?;
-    fs::write(dist_dir.join("terms.html"), rendered)?;
-    println!("Generated terms.html");
+    fs::write(terms_dir.join("index.html"), rendered)?;
+    println!("Generated terms/index.html");
 
     // Generate Atom feed
     generate_atom_feed(&posts, dist_dir)?;
