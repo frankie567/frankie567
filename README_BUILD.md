@@ -13,8 +13,11 @@ The website is now built using:
 
 ### Prerequisites
 
-- Rust (1.70+)
-- curl (for downloading Tailwind CSS CLI)
+- **Rust 1.85.0 or later** (required for Rust edition 2024)
+  - Install or update: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+  - Update existing: `rustup update`
+- **Just** (command runner, optional but recommended): `cargo install just`
+- **curl** (for downloading Tailwind CSS CLI)
 
 ### Initial Setup
 
@@ -34,6 +37,23 @@ The website is now built using:
    ```
 
 ### Build Steps
+
+#### Option 1: Using Justfile (Recommended)
+
+If you have `just` installed:
+
+```bash
+# Install all dependencies (Rust tools + Tailwind CSS CLI)
+just install
+
+# Build the site
+just build
+
+# Development mode with auto-reload
+just dev
+```
+
+#### Option 2: Manual Steps
 
 2. **Generate CSS:**
    ```bash

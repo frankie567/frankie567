@@ -10,6 +10,10 @@ install:
     @echo "Checking Rust installation..."
     @rustc --version || (echo "Rust not found. Install from https://rustup.rs/" && exit 1)
     @cargo --version
+    @echo "Verifying Rust version (requires 1.85.0 or later for edition 2024)..."
+    @rustc --version | grep -qE "1\.(8[5-9]|9[0-9]|[0-9]{3,})\." || \
+        (echo "Error: Rust 1.85.0 or later required. Current version:" && rustc --version && \
+         echo "Update with: rustup update" && exit 1)
     @echo "Installing Rust dev tools..."
     @cargo install cargo-watch simple-http-server
     @echo "Downloading Tailwind CSS v4 CLI..."
