@@ -43,50 +43,21 @@ build:
 
 # Development mode with file watching and local server
 dev:
-    @echo "Starting development server..."
-    @echo "This will watch for changes and rebuild automatically"
-    @just _dev-parallel
-
-# Internal: Run dev server and watcher in parallel
-_dev-parallel:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     # Check that required tools are installed
     if ! command -v cargo-watch &> /dev/null; then
         echo "Error: cargo-watch not found. Run 'just install' first."
         exit 1
     fi
-    
+
     if ! command -v simple-http-server &> /dev/null; then
         echo "Error: simple-http-server not found. Run 'just install' first."
         exit 1
     fi
-    
-    # Build initially
-    echo "Initial build..."
-    cargo run --release
-    
-    # Start Rust HTTP server in background
-    echo "Starting HTTP server on http://localhost:8000"
-    (cd dist && simple-http-server -p 8000 -i > /dev/null 2>&1) &
-    SERVER_PID=$!
-    
-    # Cleanup function
-    cleanup() {
-        echo ""
-        echo "Shutting down..."
-        kill $SERVER_PID 2>/dev/null || true
-        exit 0
-    }
-    trap cleanup INT TERM
-    
-    echo "Watching for changes (press Ctrl+C to stop)..."
-    echo "Open http://localhost:8000 in your browser"
-    echo ""
-    
-    # Use cargo-watch to watch for file changes
-    cargo-watch -x 'run --release' -w src -w templates -w styles.css -w ../posts
+
+    cargo-watch -w src -w templates -s 'cargo run --release && simple-http-server -p 8000 dist'
 
 # Clean build artifacts
 clean:

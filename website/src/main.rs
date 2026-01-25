@@ -43,14 +43,14 @@ fn apply_syntax_highlighting(html: &str) -> Result<String> {
     let ps = SyntaxSet::load_defaults_newlines();
     let ts = ThemeSet::load_defaults();
     let theme = &ts.themes["base16-ocean.dark"];
-    
+
     // Match <pre><code> blocks with or without language class
     let code_pattern = regex::Regex::new(r#"<pre><code(?:\s+class="language-([^"]+)")?>([\s\S]*?)</code></pre>"#).unwrap();
-    
+
     let result = code_pattern.replace_all(html, |caps: &regex::Captures| {
         let lang = caps.get(1).map(|m| m.as_str()).unwrap_or("txt");
         let code = caps.get(2).unwrap().as_str();
-        
+
         // Decode HTML entities
         let decoded = code
             .replace("&lt;", "<")
@@ -58,17 +58,17 @@ fn apply_syntax_highlighting(html: &str) -> Result<String> {
             .replace("&amp;", "&")
             .replace("&quot;", "\"")
             .replace("&#39;", "'");
-        
+
         // Find syntax for the language
         let syntax = ps.find_syntax_by_extension(lang)
             .or_else(|| ps.find_syntax_by_token(lang))
             .unwrap_or_else(|| ps.find_syntax_plain_text());
-        
+
         // Generate highlighted HTML
         highlighted_html_for_string(&decoded, &ps, syntax, theme)
             .unwrap_or_else(|_| format!("<pre><code>{}</code></pre>", code))
     });
-    
+
     Ok(result.to_string())
 }
 
@@ -95,31 +95,31 @@ fn slugify(text: &str) -> String {
 fn process_headings(html: &str) -> Result<(String, Vec<Heading>)> {
     let mut headings = Vec::new();
     let mut result = html.to_string();
-    
+
     // Process each heading level separately
     for level in 1..=6 {
         let pattern_str = format!(r"<h{}>(.*?)</h{}>", level, level);
         let heading_pattern = regex::Regex::new(&pattern_str).unwrap();
-        
+
         result = heading_pattern.replace_all(&result, |caps: &regex::Captures| {
             let text = caps.get(1).unwrap().as_str();
-            
+
             // Strip HTML tags from text for slug generation
             let text_pattern = regex::Regex::new(r"<[^>]+>").unwrap();
             let plain_text = text_pattern.replace_all(text, "");
-            
+
             let slug = format!("header-{}", slugify(&plain_text));
-            
+
             headings.push(Heading {
                 text: plain_text.to_string(),
                 level,
                 slug: slug.clone(),
             });
-            
+
             format!("<h{} id=\"{}\">{}</h{}>", level, slug, text, level)
         }).to_string();
     }
-    
+
     Ok((result, headings))
 }
 
@@ -127,21 +127,21 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
     let content = fs::read_to_string(path)?;
     let matter = Matter::<YAML>::new();
     let result = matter.parse(&content);
-    
+
     let data: Value = result.data
         .ok_or_else(|| anyhow::anyhow!("Missing frontmatter"))?
         .deserialize()?;
-    
+
     let title = data["title"]
         .as_str()
         .ok_or_else(|| anyhow::anyhow!("Missing title"))?
         .to_string();
-    
+
     let date = data["date"]
         .as_str()
         .ok_or_else(|| anyhow::anyhow!("Missing date"))?
         .to_string();
-    
+
     let tags: Vec<String> = data["tags"]
         .as_array()
         .map(|arr| {
@@ -150,29 +150,29 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
                 .collect()
         })
         .unwrap_or_default();
-    
+
     let excerpt = data["excerpt"]
         .as_str()
         .unwrap_or("")
         .to_string();
-    
+
     let thumbnail = data["thumbnail"]
         .as_str()
         .unwrap_or("")
         .to_string();
-    
+
     let canonical = data["canonical"]
         .as_str()
         .map(String::from);
-    
+
     let slug = path
         .file_stem()
         .and_then(|s| s.to_str())
         .context("Invalid filename")?
         .to_string();
-    
+
     let markdown_content = result.content;
-    
+
     // Parse markdown to HTML
     let options = Options {
         parse: ParseOptions::gfm(),
@@ -182,16 +182,16 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
             ..CompileOptions::default()
         },
     };
-    
+
     let mut html = to_html_with_options(&markdown_content, &options)
         .map_err(|e| anyhow::anyhow!("Failed to parse markdown: {:?}", e))?;
-    
+
     // Apply syntax highlighting to code blocks
     html = apply_syntax_highlighting(&html)?;
-    
+
     // Extract headings and add IDs
     let (html, headings) = process_headings(&html)?;
-    
+
     Ok(BlogPost {
         title,
         slug,
@@ -209,7 +209,7 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
 fn get_all_posts() -> Result<Vec<BlogPost>> {
     let posts_dir = Path::new("../posts");
     let mut posts = Vec::new();
-    
+
     for entry in WalkDir::new(posts_dir)
         .max_depth(1)
         .into_iter()
@@ -222,10 +222,10 @@ fn get_all_posts() -> Result<Vec<BlogPost>> {
             }
         }
     }
-    
+
     // Sort by date, newest first
     posts.sort_by(|a, b| b.date.cmp(&a.date));
-    
+
     Ok(posts)
 }
 
@@ -248,11 +248,11 @@ fn normalize_tag(tag: &str) -> String {
 
 fn setup_templates() -> Result<Environment<'static>> {
     let mut env = Environment::new();
-    
+
     // Load base template first
     let base_content = fs::read_to_string("templates/base.html")?;
     env.add_template_owned("base".to_string(), base_content)?;
-    
+
     // Load other templates
     let template_dir = Path::new("templates");
     for entry in fs::read_dir(template_dir)? {
@@ -261,7 +261,7 @@ fn setup_templates() -> Result<Environment<'static>> {
         let name = path.file_stem()
             .and_then(|s| s.to_str())
             .map(String::from);
-        
+
         if let Some(name) = name {
             if name == "base" {
                 continue; // Skip base, already loaded
@@ -272,7 +272,7 @@ fn setup_templates() -> Result<Environment<'static>> {
             }
         }
     }
-    
+
     Ok(env)
 }
 
@@ -291,24 +291,24 @@ impl AddTemplateOwned for Environment<'static> {
 
 fn generate_site() -> Result<()> {
     println!("Generating static site...");
-    
+
     // Create output directory
     let dist_dir = Path::new("dist");
     if dist_dir.exists() {
         fs::remove_dir_all(dist_dir)?;
     }
     fs::create_dir_all(dist_dir)?;
-    
+
     // Get all posts
     let posts = get_all_posts()?;
     println!("Found {} blog posts", posts.len());
-    
+
     // Get all tags
     let tags = get_all_tags(&posts);
-    
+
     // Setup templates
     let env = setup_templates()?;
-    
+
     // Generate index page
     let template = env.get_template("index")?;
     let rendered = template.render(context! {
@@ -317,7 +317,7 @@ fn generate_site() -> Result<()> {
     })?;
     fs::write(dist_dir.join("index.html"), rendered)?;
     println!("Generated index.html");
-    
+
     // Generate blog index
     fs::create_dir_all(dist_dir.join("blog"))?;
     let template = env.get_template("blog")?;
@@ -328,7 +328,7 @@ fn generate_site() -> Result<()> {
     })?;
     fs::write(dist_dir.join("blog").join("index.html"), rendered)?;
     println!("Generated blog/index.html");
-    
+
     // Generate individual blog posts
     let template = env.get_template("post")?;
     for post in &posts {
@@ -341,16 +341,16 @@ fn generate_site() -> Result<()> {
         fs::write(post_dir.join("index.html"), rendered)?;
         println!("Generated blog/{}/index.html", post.slug);
     }
-    
+
     // Generate tag pages
     for (normalized_tag, tag) in &tags {
         let tag_posts: Vec<&BlogPost> = posts.iter()
             .filter(|p| p.tags.iter().any(|t| normalize_tag(t) == *normalized_tag))
             .collect();
-        
+
         let tag_dir = dist_dir.join("blog").join("tag").join(normalized_tag);
         fs::create_dir_all(&tag_dir)?;
-        
+
         let template = env.get_template("blog")?;
         let rendered = template.render(context! {
             host => "https://www.francoisvoron.com",
@@ -361,7 +361,7 @@ fn generate_site() -> Result<()> {
         fs::write(tag_dir.join("index.html"), rendered)?;
         println!("Generated blog/tag/{}/index.html", normalized_tag);
     }
-    
+
     // Generate terms page
     let template = env.get_template("terms")?;
     let rendered = template.render(context! {
@@ -369,36 +369,36 @@ fn generate_site() -> Result<()> {
     })?;
     fs::write(dist_dir.join("terms.html"), rendered)?;
     println!("Generated terms.html");
-    
+
     // Generate Atom feed
     generate_atom_feed(&posts, dist_dir)?;
-    
+
     // Copy static files
     copy_static_files()?;
-    
+
     println!("Site generation complete!");
-    
+
     Ok(())
 }
 
 fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
     let mut feed = String::from(r#"<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">"#);
-    
+
     feed.push_str("\n  <title>François Voron</title>");
     feed.push_str("\n  <subtitle>Experiments, thoughts and stories about my work</subtitle>");
     feed.push_str("\n  <link rel=\"self\" href=\"https://www.francoisvoron.com/feed.xml\" />");
-    
+
     if let Some(first_post) = posts.first() {
         feed.push_str(&format!("\n  <updated>{}</updated>", first_post.date));
     }
-    
+
     feed.push_str("\n  <author>");
     feed.push_str("\n    <name>François Voron</name>");
     feed.push_str("\n    <email>contact@francoisvoron.com</email>");
     feed.push_str("\n  </author>");
     feed.push_str("\n  <id>https://www.francoisvoron.com/blog</id>");
-    
+
     for post in posts {
         feed.push_str("\n  <entry>");
         feed.push_str(&format!("\n    <title>{}</title>", html_escape(&post.title)));
@@ -409,12 +409,12 @@ fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
         feed.push_str(&format!("\n    <content type=\"html\">{}</content>", html_escape(&post.html)));
         feed.push_str("\n  </entry>");
     }
-    
+
     feed.push_str("\n</feed>");
-    
+
     fs::write(dist_dir.join("feed.xml"), feed)?;
     println!("Generated feed.xml");
-    
+
     Ok(())
 }
 
@@ -428,14 +428,14 @@ fn html_escape(s: &str) -> String {
 
 fn copy_static_files() -> Result<()> {
     let dist_dir = Path::new("dist");
-    
+
     // Copy files from website.old/public if they exist
     let public_dir = Path::new("../website.old/public");
     if public_dir.exists() {
         copy_dir_recursive(public_dir, dist_dir)?;
         println!("Copied public files");
     }
-    
+
     // Copy images directory
     let images_dir = Path::new("../images");
     if images_dir.exists() {
@@ -443,7 +443,7 @@ fn copy_static_files() -> Result<()> {
         copy_dir_recursive(images_dir, &target)?;
         println!("Copied images");
     }
-    
+
     // Copy logo directory
     let logo_dir = Path::new("../logo");
     if logo_dir.exists() {
@@ -451,18 +451,18 @@ fn copy_static_files() -> Result<()> {
         copy_dir_recursive(logo_dir, &target)?;
         println!("Copied logos");
     }
-    
+
     // Generate or copy CSS
     generate_css()?;
-    
+
     Ok(())
 }
 
 fn generate_css() -> Result<()> {
     use std::process::Command;
-    
+
     let tailwind_bin = Path::new("./tailwindcss");
-    
+
     // Try to run Tailwind CSS build
     if tailwind_bin.exists() {
         println!("Building CSS with Tailwind CLI...");
@@ -473,7 +473,7 @@ fn generate_css() -> Result<()> {
                 "--minify"
             ])
             .output();
-        
+
         match output {
             Ok(result) if result.status.success() => {
                 println!("Generated styles.css");
@@ -487,7 +487,7 @@ fn generate_css() -> Result<()> {
             }
         }
     }
-    
+
     // Fallback: check if pre-built CSS exists and copy it
     let prebuilt_css = Path::new("dist/styles.css");
     if !prebuilt_css.exists() {
@@ -497,7 +497,7 @@ fn generate_css() -> Result<()> {
     } else {
         println!("Using existing styles.css");
     }
-    
+
     Ok(())
 }
 
@@ -505,20 +505,20 @@ fn copy_dir_recursive(src: &Path, dst: &Path) -> Result<()> {
     if !dst.exists() {
         fs::create_dir_all(dst)?;
     }
-    
+
     for entry in fs::read_dir(src)? {
         let entry = entry?;
         let path = entry.path();
         let file_name = path.file_name().context("Invalid filename")?;
         let target = dst.join(file_name);
-        
+
         if path.is_dir() {
             copy_dir_recursive(&path, &target)?;
         } else if !path.is_symlink() {
             fs::copy(&path, &target)?;
         }
     }
-    
+
     Ok(())
 }
 

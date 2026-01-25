@@ -42,8 +42,6 @@ generate-atom-feed/
 
 /target
 /website/target
-Cargo.lock
-/website/Cargo.lock
 
 # Tailwind CSS CLI binary
 /tailwindcss
