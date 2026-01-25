@@ -19,6 +19,7 @@ struct BlogPost {
     title: String,
     slug: String,
     date: String,
+    formatted_date: String,
     tags: Vec<String>,
     excerpt: String,
     thumbnail: String,
@@ -177,6 +178,15 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         .ok_or_else(|| anyhow::anyhow!("Missing date"))?
         .to_string();
 
+    // Format the date for display
+    let formatted_date = if let Ok(parsed_datetime) = chrono::DateTime::parse_from_rfc3339(&date) {
+        parsed_datetime.format("%B %d, %Y").to_string()
+    } else if let Ok(parsed_date) = chrono::NaiveDate::parse_from_str(&date, "%Y-%m-%d") {
+        parsed_date.format("%B %d, %Y").to_string()
+    } else {
+        date.clone()
+    };
+
     let tags: Vec<String> = data["tags"]
         .as_array()
         .map(|arr| {
@@ -223,6 +233,7 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         title,
         slug,
         date,
+        formatted_date,
         tags,
         excerpt,
         thumbnail,

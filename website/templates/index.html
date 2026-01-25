@@ -128,7 +128,7 @@ François knows how to step back and have a clear vision of our challenges to he
 </section>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   let currentTestimonial = 0;
   const testimonials = document.querySelectorAll('.testimonial');
   const totalTestimonials = testimonials.length;
@@ -143,16 +143,21 @@ François knows how to step back and have a clear vision of our challenges to he
     });
   }
   
-  document.getElementById('testimonial-prev').addEventListener('click', function() {
-    currentTestimonial = (currentTestimonial === 0) ? totalTestimonials - 1 : currentTestimonial - 1;
-    showTestimonial(currentTestimonial);
-  });
+  const prevButton = document.getElementById('testimonial-prev');
+  const nextButton = document.getElementById('testimonial-next');
   
-  document.getElementById('testimonial-next').addEventListener('click', function() {
-    currentTestimonial = (currentTestimonial === totalTestimonials - 1) ? 0 : currentTestimonial + 1;
-    showTestimonial(currentTestimonial);
-  });
-})();
+  if (prevButton && nextButton) {
+    prevButton.addEventListener('click', function() {
+      currentTestimonial = (currentTestimonial === 0) ? totalTestimonials - 1 : currentTestimonial - 1;
+      showTestimonial(currentTestimonial);
+    });
+    
+    nextButton.addEventListener('click', function() {
+      currentTestimonial = (currentTestimonial === totalTestimonials - 1) ? 0 : currentTestimonial + 1;
+      showTestimonial(currentTestimonial);
+    });
+  }
+});
 </script>
 
 <!-- Expertises Section -->
