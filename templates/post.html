@@ -36,12 +36,12 @@
           <div class="relative lg:flex lg:justify-between">
 
             <!-- Sidebar -->
-            {% if headings %}
+            {% if post.headings|length > 0 %}
             <aside class="relative hidden lg:block w-64 mr-20 flex-shrink-0 ">
               <div class="sticky top-1/4">
                 <div class="text-lg font-bold leading-snug tracking-tight mb-4">Table of contents</div>
                 <ul class="font-medium -my-1">
-                  {% for heading in headings %}
+                  {% for heading in post.headings %}
                   <li class="py-1 pl-{{ (heading.level * 2) - 2 }}">
                     <a class="flex items-center hover:underline" href="#{{ heading.slug }}">
                       <svg class="w-4 h-4 fill-current text-gray-400 mr-3 flex-shrink-0" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">

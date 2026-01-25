@@ -26,6 +26,14 @@ struct BlogPost {
     canonical: Option<String>,
     content: String,
     html: String,
+    headings: Vec<Heading>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct Heading {
+    text: String,
+    level: usize,
+    slug: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -73,6 +81,57 @@ fn apply_syntax_highlighting(html: &str) -> Result<String> {
     });
     
     Ok(result.to_string())
+}
+
+/// Slugify a string to make it URL-safe
+fn slugify(text: &str) -> String {
+    text.to_lowercase()
+        .chars()
+        .map(|c| {
+            if c.is_alphanumeric() {
+                c
+            } else if c.is_whitespace() || c == '-' {
+                '-'
+            } else {
+                ' '
+            }
+        })
+        .collect::<String>()
+        .split_whitespace()
+        .collect::<Vec<&str>>()
+        .join("-")
+}
+
+/// Extract headings from HTML and add IDs
+fn process_headings(html: &str) -> Result<(String, Vec<Heading>)> {
+    let mut headings = Vec::new();
+    let mut result = html.to_string();
+    
+    // Process each heading level separately
+    for level in 1..=6 {
+        let pattern_str = format!(r"<h{}>(.*?)</h{}>", level, level);
+        let heading_pattern = regex::Regex::new(&pattern_str).unwrap();
+        
+        result = heading_pattern.replace_all(&result, |caps: &regex::Captures| {
+            let text = caps.get(1).unwrap().as_str();
+            
+            // Strip HTML tags from text for slug generation
+            let text_pattern = regex::Regex::new(r"<[^>]+>").unwrap();
+            let plain_text = text_pattern.replace_all(text, "");
+            
+            let slug = format!("header-{}", slugify(&plain_text));
+            
+            headings.push(Heading {
+                text: plain_text.to_string(),
+                level,
+                slug: slug.clone(),
+            });
+            
+            format!("<h{} id=\"{}\">{}</h{}>", level, slug, text, level)
+        }).to_string();
+    }
+    
+    Ok((result, headings))
 }
 
 fn parse_blog_post(path: &Path) -> Result<BlogPost> {
@@ -141,6 +200,9 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
     // Apply syntax highlighting to code blocks
     html = apply_syntax_highlighting(&html)?;
     
+    // Extract headings and add IDs
+    let (html, headings) = process_headings(&html)?;
+    
     Ok(BlogPost {
         title,
         slug,
@@ -151,6 +213,7 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         canonical,
         content: markdown_content,
         html,
+        headings,
     })
 }
 
