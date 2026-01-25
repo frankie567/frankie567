@@ -1,9 +1,9 @@
 use anyhow::{Context, Result};
 use chrono::Datelike;
-use gray_matter::engine::YAML;
 use gray_matter::Matter;
-use markdown::{to_html_with_options, CompileOptions, Options, ParseOptions};
-use minijinja::{context, Environment};
+use gray_matter::engine::YAML;
+use markdown::{CompileOptions, Options, ParseOptions, to_html_with_options};
+use minijinja::{Environment, context};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -19,7 +19,6 @@ struct BlogPost {
     title: String,
     slug: String,
     date: String,
-    formatted_date: String,
     tags: Vec<String>,
     excerpt: String,
     thumbnail: String,
@@ -37,8 +36,6 @@ struct Heading {
     slug: String,
 }
 
-
-
 /// Apply syntax highlighting to code blocks in HTML
 fn apply_syntax_highlighting(html: &str) -> Result<String> {
     let ps = SyntaxSet::load_defaults_newlines();
@@ -46,7 +43,9 @@ fn apply_syntax_highlighting(html: &str) -> Result<String> {
     let theme = &ts.themes["base16-ocean.dark"];
 
     // Match <pre><code> blocks with or without language class
-    let code_pattern = regex::Regex::new(r#"<pre><code(?:\s+class="language-([^"]+)")?>([\s\S]*?)</code></pre>"#).unwrap();
+    let code_pattern =
+        regex::Regex::new(r#"<pre><code(?:\s+class="language-([^"]+)")?>([\s\S]*?)</code></pre>"#)
+            .unwrap();
 
     let result = code_pattern.replace_all(html, |caps: &regex::Captures| {
         let lang = caps.get(1).map(|m| m.as_str()).unwrap_or("txt");
@@ -61,7 +60,8 @@ fn apply_syntax_highlighting(html: &str) -> Result<String> {
             .replace("&#39;", "'");
 
         // Find syntax for the language
-        let syntax = ps.find_syntax_by_extension(lang)
+        let syntax = ps
+            .find_syntax_by_extension(lang)
             .or_else(|| ps.find_syntax_by_token(lang))
             .unwrap_or_else(|| ps.find_syntax_plain_text());
 
@@ -105,14 +105,14 @@ fn process_headings(html: &str) -> Result<(String, Vec<Heading>)> {
         level: usize,
         text: String,
     }
-    
+
     let mut matches = Vec::new();
-    
+
     // Find all headings
     for level in 1..=6 {
         let pattern_str = format!(r"<h{}>(.*?)</h{}>", level, level);
         let heading_pattern = regex::Regex::new(&pattern_str).unwrap();
-        
+
         for cap in heading_pattern.captures_iter(&result) {
             let m = cap.get(0).unwrap();
             let text = cap.get(1).unwrap().as_str();
@@ -124,33 +124,33 @@ fn process_headings(html: &str) -> Result<(String, Vec<Heading>)> {
             });
         }
     }
-    
+
     // Sort by position to preserve document order
     matches.sort_by_key(|m| m.start);
-    
+
     // Process headings from end to start (to preserve indices)
     for heading_match in matches.iter().rev() {
         // Strip HTML tags from text for slug generation
         let text_pattern = regex::Regex::new(r"<[^>]+>").unwrap();
         let plain_text = text_pattern.replace_all(&heading_match.text, "");
-        
+
         let slug = format!("header-{}", slugify(&plain_text));
-        
+
         // Insert heading at the beginning (since we're processing in reverse)
-        headings.insert(0, Heading {
-            text: plain_text.to_string(),
-            level: heading_match.level,
-            slug: slug.clone(),
-        });
-        
-        let replacement = format!(
-            "<h{} id=\"{}\">{}</h{}>", 
-            heading_match.level, 
-            slug, 
-            heading_match.text, 
-            heading_match.level
+        headings.insert(
+            0,
+            Heading {
+                text: plain_text.to_string(),
+                level: heading_match.level,
+                slug: slug.clone(),
+            },
         );
-        
+
+        let replacement = format!(
+            "<h{} id=\"{}\">{}</h{}>",
+            heading_match.level, slug, heading_match.text, heading_match.level
+        );
+
         result.replace_range(heading_match.start..heading_match.end, &replacement);
     }
 
@@ -162,7 +162,8 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
     let matter = Matter::<YAML>::new();
     let result = matter.parse(&content);
 
-    let data: Value = result.data
+    let data: Value = result
+        .data
         .ok_or_else(|| anyhow::anyhow!("Missing frontmatter"))?
         .deserialize()?;
 
@@ -175,15 +176,6 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         .as_str()
         .ok_or_else(|| anyhow::anyhow!("Missing date"))?
         .to_string();
-    
-    // Format date for display
-    let formatted_date = if let Ok(parsed_datetime) = chrono::DateTime::parse_from_rfc3339(&date) {
-        parsed_datetime.format("%B %d, %Y").to_string()
-    } else if let Ok(parsed_date) = chrono::NaiveDate::parse_from_str(&date, "%Y-%m-%d") {
-        parsed_date.format("%B %d, %Y").to_string()
-    } else {
-        date.clone()
-    };
 
     let tags: Vec<String> = data["tags"]
         .as_array()
@@ -194,19 +186,11 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         })
         .unwrap_or_default();
 
-    let excerpt = data["excerpt"]
-        .as_str()
-        .unwrap_or("")
-        .to_string();
+    let excerpt = data["excerpt"].as_str().unwrap_or("").to_string();
 
-    let thumbnail = data["thumbnail"]
-        .as_str()
-        .unwrap_or("")
-        .to_string();
+    let thumbnail = data["thumbnail"].as_str().unwrap_or("").to_string();
 
-    let canonical = data["canonical"]
-        .as_str()
-        .map(String::from);
+    let canonical = data["canonical"].as_str().map(String::from);
 
     let slug = path
         .file_stem()
@@ -239,7 +223,6 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         title,
         slug,
         date,
-        formatted_date,
         tags,
         excerpt,
         thumbnail,
@@ -273,8 +256,6 @@ fn get_all_posts() -> Result<Vec<BlogPost>> {
     Ok(posts)
 }
 
-
-
 fn get_all_tags(posts: &[BlogPost]) -> HashMap<String, String> {
     let mut tags = HashMap::new();
     for post in posts {
@@ -302,9 +283,7 @@ fn setup_templates() -> Result<Environment<'static>> {
     for entry in fs::read_dir(template_dir)? {
         let entry = entry?;
         let path = entry.path();
-        let name = path.file_stem()
-            .and_then(|s| s.to_str())
-            .map(String::from);
+        let name = path.file_stem().and_then(|s| s.to_str()).map(String::from);
 
         if let Some(name) = name {
             if name == "base" {
@@ -388,7 +367,8 @@ fn generate_site() -> Result<()> {
 
     // Generate tag pages
     for (normalized_tag, tag) in &tags {
-        let tag_posts: Vec<&BlogPost> = posts.iter()
+        let tag_posts: Vec<&BlogPost> = posts
+            .iter()
             .filter(|p| p.tags.iter().any(|t| normalize_tag(t) == *normalized_tag))
             .collect();
 
@@ -428,8 +408,10 @@ fn generate_site() -> Result<()> {
 }
 
 fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
-    let mut feed = String::from(r#"<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">"#);
+    let mut feed = String::from(
+        r#"<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">"#,
+    );
 
     feed.push_str("\n  <title>François Voron</title>");
     feed.push_str("\n  <subtitle>Experiments, thoughts and stories about my work</subtitle>");
@@ -447,12 +429,27 @@ fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
 
     for post in posts {
         feed.push_str("\n  <entry>");
-        feed.push_str(&format!("\n    <title>{}</title>", html_escape(&post.title)));
-        feed.push_str(&format!("\n    <link href=\"https://www.francoisvoron.com/blog/{}\" />", post.slug));
-        feed.push_str(&format!("\n    <id>https://www.francoisvoron.com/blog/{}</id>", post.slug));
+        feed.push_str(&format!(
+            "\n    <title>{}</title>",
+            html_escape(&post.title)
+        ));
+        feed.push_str(&format!(
+            "\n    <link href=\"https://www.francoisvoron.com/blog/{}\" />",
+            post.slug
+        ));
+        feed.push_str(&format!(
+            "\n    <id>https://www.francoisvoron.com/blog/{}</id>",
+            post.slug
+        ));
         feed.push_str(&format!("\n    <updated>{}</updated>", post.date));
-        feed.push_str(&format!("\n    <summary>{}</summary>", html_escape(&post.excerpt)));
-        feed.push_str(&format!("\n    <content type=\"html\">{}</content>", html_escape(&post.html)));
+        feed.push_str(&format!(
+            "\n    <summary>{}</summary>",
+            html_escape(&post.excerpt)
+        ));
+        feed.push_str(&format!(
+            "\n    <content type=\"html\">{}</content>",
+            html_escape(&post.html)
+        ));
         feed.push_str("\n  </entry>");
     }
 
@@ -475,27 +472,12 @@ fn html_escape(s: &str) -> String {
 fn copy_static_files() -> Result<()> {
     let dist_dir = Path::new("dist");
 
-    // Copy files from website.old/public if they exist
-    let public_dir = Path::new("../website.old/public");
-    if public_dir.exists() {
-        copy_dir_recursive(public_dir, dist_dir)?;
-        println!("Copied public files");
-    }
-
-    // Copy images directory
-    let images_dir = Path::new("../images");
+    // Copy posts images
+    let images_dir = Path::new("../posts/images");
     if images_dir.exists() {
-        let target = dist_dir.join("images");
+        let target = dist_dir.join("posts/images");
         copy_dir_recursive(images_dir, &target)?;
         println!("Copied images");
-    }
-
-    // Copy logo directory
-    let logo_dir = Path::new("../logo");
-    if logo_dir.exists() {
-        let target = dist_dir.join("logo");
-        copy_dir_recursive(logo_dir, &target)?;
-        println!("Copied logos");
     }
 
     // Generate or copy CSS
@@ -513,11 +495,7 @@ fn generate_css() -> Result<()> {
     if tailwind_bin.exists() {
         println!("Building CSS with Tailwind CLI...");
         let output = Command::new(tailwind_bin)
-            .args(&[
-                "-i", "styles.css",
-                "-o", "dist/styles.css",
-                "--minify"
-            ])
+            .args(&["-i", "styles.css", "-o", "dist/styles.css", "--minify"])
             .output();
 
         match output {
@@ -526,7 +504,10 @@ fn generate_css() -> Result<()> {
                 return Ok(());
             }
             Ok(result) => {
-                eprintln!("Tailwind build failed: {}", String::from_utf8_lossy(&result.stderr));
+                eprintln!(
+                    "Tailwind build failed: {}",
+                    String::from_utf8_lossy(&result.stderr)
+                );
             }
             Err(e) => {
                 eprintln!("Failed to run Tailwind: {}", e);
