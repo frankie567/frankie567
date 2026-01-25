@@ -4,12 +4,14 @@
 default:
     @just --list
 
-# Install all dependencies (Rust and Tailwind CSS CLI)
+# Install all dependencies (Rust tools and Tailwind CSS CLI)
 install:
     @echo "Installing dependencies..."
     @echo "Checking Rust installation..."
     @rustc --version || (echo "Rust not found. Install from https://rustup.rs/" && exit 1)
     @cargo --version
+    @echo "Installing Rust dev tools..."
+    @cargo install cargo-watch simple-http-server
     @echo "Downloading Tailwind CSS v4 CLI..."
     @if [ ! -f tailwindcss ]; then \
         if [ "$(uname -s)" = "Darwin" ]; then \
@@ -46,13 +48,24 @@ _dev-parallel:
     #!/usr/bin/env bash
     set -euo pipefail
     
+    # Check that required tools are installed
+    if ! command -v cargo-watch &> /dev/null; then
+        echo "Error: cargo-watch not found. Run 'just install' first."
+        exit 1
+    fi
+    
+    if ! command -v simple-http-server &> /dev/null; then
+        echo "Error: simple-http-server not found. Run 'just install' first."
+        exit 1
+    fi
+    
     # Build initially
     echo "Initial build..."
     cargo run --release
     
-    # Start simple HTTP server in background
+    # Start Rust HTTP server in background
     echo "Starting HTTP server on http://localhost:8000"
-    (cd dist && python3 -m http.server 8000 > /dev/null 2>&1) &
+    (cd dist && simple-http-server -p 8000 -i > /dev/null 2>&1) &
     SERVER_PID=$!
     
     # Cleanup function
@@ -68,25 +81,8 @@ _dev-parallel:
     echo "Open http://localhost:8000 in your browser"
     echo ""
     
-    # Use cargo-watch if available, otherwise use a simple loop
-    if command -v cargo-watch &> /dev/null; then
-        cargo-watch -x 'run --release' -w src -w templates -w styles.css -w posts -w references -w public
-    else
-        echo "Note: Install cargo-watch for better file watching: cargo install cargo-watch"
-        echo "Using basic file watching..."
-        
-        LAST_MODIFIED=0
-        while true; do
-            # Check if any relevant files have changed
-            CURRENT=$(find src templates styles.css posts references public -type f -newer dist 2>/dev/null | wc -l)
-            if [ "$CURRENT" -gt 0 ]; then
-                echo "Changes detected, rebuilding..."
-                cargo run --release
-                echo "✓ Rebuild complete"
-            fi
-            sleep 2
-        done
-    fi
+    # Use cargo-watch to watch for file changes
+    cargo-watch -x 'run --release' -w src -w templates -w styles.css -w posts -w references -w public
 
 # Clean build artifacts
 clean:
