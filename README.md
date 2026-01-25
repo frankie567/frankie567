@@ -1,23 +1,4 @@
-# François Voron - Personal Website
-
-This repository contains my personal website and blog, built with a Rust-based static site generator.
-
-## 🚀 Quick Start
-
-```bash
-cd website
-just install  # Install dependencies
-just build    # Build the site
-just dev      # Development mode with live reload
-```
-
-See [`website/README.md`](website/README.md) for detailed documentation.
-
----
-
-## About Me
-
-### Software engineer & open-source maintainer
+# Software engineer & open-source maintainer
 
 Hello, I'm **François Voron** 👋
 
@@ -25,7 +6,7 @@ I've 10 years of experience working as CTO and lead developer in top-level start
 
 I'm currently working at [Polar](http://polar.sh), a modern billing platform for developers.
 
-### Open-source projects
+# Open-source projects
 
 Huge fan of Python, my main projects are related to web development, ASGI and users authentication.
 
@@ -34,7 +15,7 @@ Huge fan of Python, my main projects are related to web development, ASGI and us
 - [pwdlib](https://frankie567.github.io/pwdlib/), a modern password hashing library.
 - [FastAPI Users](https://github.com/frankie567/fastapi-users), the #1 authentication library for FastAPI
 
-### Author of the best-seller book about FastAPI
+# Author of the best-seller book about FastAPI
 
 <img src="https://www.francoisvoron.com/fastapi-book-v2.png?auto=format&fit=max&w=3840" alt="Building Data Science Applications with FastAPI Second Edition" height="400" align="right">
 
