@@ -36,18 +36,7 @@ struct Heading {
     slug: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct Reference {
-    title: String,
-    slug: String,
-    client: String,
-    year: i32,
-    technologies: Vec<String>,
-    excerpt: String,
-    thumbnail: String,
-    content: String,
-    html: String,
-}
+
 
 /// Apply syntax highlighting to code blocks in HTML
 fn apply_syntax_highlighting(html: &str) -> Result<String> {
@@ -218,7 +207,7 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
 }
 
 fn get_all_posts() -> Result<Vec<BlogPost>> {
-    let posts_dir = Path::new("posts");
+    let posts_dir = Path::new("../posts");
     let mut posts = Vec::new();
     
     for entry in WalkDir::new(posts_dir)
@@ -240,107 +229,7 @@ fn get_all_posts() -> Result<Vec<BlogPost>> {
     Ok(posts)
 }
 
-fn parse_reference(path: &Path) -> Result<Reference> {
-    let content = fs::read_to_string(path)?;
-    let matter = Matter::<YAML>::new();
-    let result = matter.parse(&content);
-    
-    let data: Value = result.data
-        .ok_or_else(|| anyhow::anyhow!("Missing frontmatter"))?
-        .deserialize()?;
-    
-    let title = data["title"]
-        .as_str()
-        .ok_or_else(|| anyhow::anyhow!("Missing title"))?
-        .to_string();
-    
-    let client = data["client"]
-        .as_str()
-        .ok_or_else(|| anyhow::anyhow!("Missing client"))?
-        .to_string();
-    
-    let year = data["year"]
-        .as_i64()
-        .ok_or_else(|| anyhow::anyhow!("Missing year"))? as i32;
-    
-    let technologies: Vec<String> = data["technologies"]
-        .as_array()
-        .map(|arr| {
-            arr.iter()
-                .filter_map(|v| v.as_str().map(String::from))
-                .collect()
-        })
-        .unwrap_or_default();
-    
-    let excerpt = data["excerpt"]
-        .as_str()
-        .unwrap_or("")
-        .to_string();
-    
-    let thumbnail = data["thumbnail"]
-        .as_str()
-        .unwrap_or("")
-        .to_string();
-    
-    let slug = path
-        .file_stem()
-        .and_then(|s| s.to_str())
-        .context("Invalid filename")?
-        .to_string();
-    
-    let markdown_content = result.content;
-    
-    // Parse markdown to HTML
-    let options = Options {
-        parse: ParseOptions::gfm(),
-        compile: CompileOptions {
-            allow_dangerous_html: true,
-            allow_dangerous_protocol: true,
-            ..CompileOptions::default()
-        },
-    };
-    
-    let mut html = to_html_with_options(&markdown_content, &options)
-        .map_err(|e| anyhow::anyhow!("Failed to parse markdown: {:?}", e))?;
-    
-    // Apply syntax highlighting to code blocks
-    html = apply_syntax_highlighting(&html)?;
-    
-    Ok(Reference {
-        title,
-        slug,
-        client,
-        year,
-        technologies,
-        excerpt,
-        thumbnail,
-        content: markdown_content,
-        html,
-    })
-}
 
-fn get_all_references() -> Result<Vec<Reference>> {
-    let references_dir = Path::new("references");
-    let mut references = Vec::new();
-    
-    for entry in WalkDir::new(references_dir)
-        .max_depth(1)
-        .into_iter()
-        .filter_map(|e| e.ok())
-    {
-        let path = entry.path();
-        if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("md") {
-            if let Ok(reference) = parse_reference(path) {
-                references.push(reference);
-            }
-        }
-    }
-    
-    // Sort by year, newest first
-    references.sort_by(|a, b| b.year.cmp(&a.year));
-    
-    Ok(references)
-}
 
 fn get_all_tags(posts: &[BlogPost]) -> HashMap<String, String> {
     let mut tags = HashMap::new();
@@ -481,32 +370,6 @@ fn generate_site() -> Result<()> {
     fs::write(dist_dir.join("terms.html"), rendered)?;
     println!("Generated terms.html");
     
-    // Generate references page
-    let references = get_all_references()?;
-    println!("Found {} references", references.len());
-    
-    fs::create_dir_all(dist_dir.join("references"))?;
-    let template = env.get_template("references")?;
-    let rendered = template.render(context! {
-        host => "https://www.francoisvoron.com",
-        references => &references,
-    })?;
-    fs::write(dist_dir.join("references").join("index.html"), rendered)?;
-    println!("Generated references/index.html");
-    
-    // Generate individual reference pages  
-    let template = env.get_template("reference_detail")?;
-    for reference in &references {
-        let ref_dir = dist_dir.join("references").join(&reference.slug);
-        fs::create_dir_all(&ref_dir)?;
-        let rendered = template.render(context! {
-            host => "https://www.francoisvoron.com",
-            reference => reference,
-        })?;
-        fs::write(ref_dir.join("index.html"), rendered)?;
-        println!("Generated references/{}/index.html", reference.slug);
-    }
-    
     // Generate Atom feed
     generate_atom_feed(&posts, dist_dir)?;
     
@@ -566,15 +429,15 @@ fn html_escape(s: &str) -> String {
 fn copy_static_files() -> Result<()> {
     let dist_dir = Path::new("dist");
     
-    // Copy files from website/public
-    let public_dir = Path::new("website/public");
+    // Copy files from website.old/public if they exist
+    let public_dir = Path::new("../website.old/public");
     if public_dir.exists() {
         copy_dir_recursive(public_dir, dist_dir)?;
         println!("Copied public files");
     }
     
     // Copy images directory
-    let images_dir = Path::new("images");
+    let images_dir = Path::new("../images");
     if images_dir.exists() {
         let target = dist_dir.join("images");
         copy_dir_recursive(images_dir, &target)?;
@@ -582,7 +445,7 @@ fn copy_static_files() -> Result<()> {
     }
     
     // Copy logo directory
-    let logo_dir = Path::new("logo");
+    let logo_dir = Path::new("../logo");
     if logo_dir.exists() {
         let target = dist_dir.join("logo");
         copy_dir_recursive(logo_dir, &target)?;

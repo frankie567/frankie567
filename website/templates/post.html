@@ -42,7 +42,7 @@
                 <div class="text-lg font-bold leading-snug tracking-tight mb-4">Table of contents</div>
                 <ul class="font-medium -my-1">
                   {% for heading in post.headings %}
-                  <li class="py-1 pl-{{ (heading.level * 2) - 2 }}">
+                  <li class="py-1 {% if heading.level <= 2 %}pl-0{% elif heading.level == 3 %}pl-4{% elif heading.level == 4 %}pl-8{% elif heading.level == 5 %}pl-12{% else %}pl-16{% endif %}">
                     <a class="flex items-center hover:underline" href="#{{ heading.slug }}">
                       <svg class="w-4 h-4 fill-current text-gray-400 mr-3 flex-shrink-0" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.3 8.7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-7 7c-.4.4-1 .4-1.4 0zM7.3 14.7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-7 7c-.4.4-1 .4-1.4 0zM.3 9.7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-7 7c-.4.4-1 .4-1.4 0z" />

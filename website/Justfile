@@ -86,7 +86,7 @@ _dev-parallel:
     echo ""
     
     # Use cargo-watch to watch for file changes
-    cargo-watch -x 'run --release' -w src -w templates -w styles.css -w posts -w references -w public
+    cargo-watch -x 'run --release' -w src -w templates -w styles.css -w ../posts
 
 # Clean build artifacts
 clean:

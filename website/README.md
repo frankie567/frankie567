@@ -1,13 +1,13 @@
 # Personal Website - Static Site Generator
 
-This repository contains my personal website generated using a Rust-based static site generator.
+This directory contains the Rust-based static site generator for my personal website.
 
 ## Overview
 
-The website is now built using:
+The website is built using:
 - **Rust** for static site generation (using minijinja templates and markdown-rs for parsing)
 - **Tailwind CSS v4** standalone CLI for styling (no Node.js runtime needed)
-- **Markdown** for blog posts and references content
+- **Markdown** for blog posts content
 
 ## Building the Site
 
@@ -71,8 +71,7 @@ just dev
    ```
 
    This will:
-   - Parse all blog posts from `/posts`
-   - Parse all references from `/references`
+   - Parse all blog posts from `../posts`
    - Generate HTML files in `/dist`
    - Copy static assets (images, logos, etc.)
    - Generate an Atom feed
@@ -81,7 +80,7 @@ just dev
 ## Project Structure
 
 ```
-.
+website/
 ├── Cargo.toml              # Rust dependencies
 ├── src/
 │   └── main.rs             # Static site generator code
@@ -90,22 +89,21 @@ just dev
 │   ├── index.html         # Home page
 │   ├── blog.html          # Blog listing
 │   ├── post.html          # Individual blog post
-│   ├── references.html    # References listing
-│   ├── reference_detail.html # Individual reference
 │   └── terms.html         # Terms page
-├── posts/                  # Blog posts (Markdown)
-├── references/             # References (Markdown)
 ├── styles.css              # Tailwind CSS source
-├── tailwind.config.js      # Tailwind configuration
 ├── dist/                   # Generated site (git-ignored)
-└── website/                # Old Next.js site (can be removed)
+└── README.md              # This file
+
+../posts/                   # Blog posts (Markdown)
+../images/                  # Images and assets
+../logo/                    # Logo files
 ```
 
 ## Content Management
 
 ### Blog Posts
 
-Blog posts are Markdown files in the `/posts` directory with frontmatter:
+Blog posts are Markdown files in the `../posts` directory with frontmatter:
 
 ```markdown
 ---
@@ -119,25 +117,6 @@ thumbnail: /posts/images/post-slug/thumbnail.svg
 ---
 
 Post content here...
-```
-
-### References
-
-References are Markdown files in the `/references` directory with frontmatter:
-
-```markdown
----
-title: 'Project Title'
-client: 'Client Name'
-year: 2024
-technologies:
-  - Python
-  - FastAPI
-excerpt: Short description
-thumbnail: /references/images/project-slug/thumbnail.jpg
----
-
-Project details here...
 ```
 
 ## Deployment
@@ -164,7 +143,8 @@ To make changes:
 This new system replaces the previous Next.js-based setup with a simpler, faster Rust-based generator that:
 - ✅ Requires no Node.js runtime
 - ✅ Generates identical HTML output
-- ✅ Uses the same styling (Tailwind CSS)
-- ✅ Keeps all blog posts and references in Markdown
-- ✅ Builds significantly faster
+- ✅ Uses the same styling (Tailwind CSS v4)
+- ✅ Keeps all blog posts in Markdown
+- ✅ Builds significantly faster (<1 second)
 - ✅ Produces pure static HTML with no JavaScript framework overhead
+- ✅ Uses native Rust syntax highlighting (syntect)
