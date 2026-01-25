@@ -1,0 +1,12 @@
+# Docker image for build (linux/amd64)
+image: rust:1.85-slim
+
+# Build command: fetch Tailwind CLI, then run the Rust generator from the website directory
+command: >
+  cd website &&
+  curl -sL https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 -o tailwindcss &&
+  chmod +x tailwindcss &&
+  cargo run --release
+
+# Publish the generated static site
+public: website/dist

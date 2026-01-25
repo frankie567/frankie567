@@ -14,6 +14,8 @@
 
 # production
 /build
+/dist
+/website/dist
 
 # misc
 .DS_Store
@@ -34,3 +36,19 @@ yarn-error.log*
 .vercel
 
 generate-atom-feed/
+
+
+# Added by cargo
+
+/target
+/website/target
+
+# Tailwind CSS CLI binary
+/tailwindcss
+/website/tailwindcss
+
+# NPM for Tailwind plugins
+/node_modules
+/website/node_modules
+/package-lock.json
+/website/package-lock.json
