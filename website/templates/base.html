@@ -107,13 +107,14 @@
           <div class="flex md:hidden">
             <!-- Hamburger button -->
             <button
+              id="hamburger-button"
               class="hamburger"
               aria-controls="mobile-nav"
               aria-expanded="false"
             >
               <span class="sr-only">Menu</span>
               <svg
-                class="w-6 h-6 fill-current"
+                class="w-6 h-6 fill-current text-gray-200"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -122,6 +123,23 @@
                 <rect y="18" width="24" height="2" />
               </svg>
             </button>
+
+            <!-- Mobile navigation -->
+            <nav
+              id="mobile-nav"
+              class="absolute top-full h-screen pb-16 z-20 left-0 w-full overflow-scroll bg-gray-900 hidden"
+            >
+              <ul class="px-5 py-2">
+                <li>
+                  <a
+                    href="/blog"
+                    class="flex hover:text-red-500 py-2"
+                  >
+                    Blog
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -309,6 +327,34 @@
           );
         }
       });
+
+      // Mobile menu toggle
+      const hamburgerButton = document.getElementById("hamburger-button");
+      const mobileNav = document.getElementById("mobile-nav");
+      
+      if (hamburgerButton && mobileNav) {
+        hamburgerButton.addEventListener("click", function () {
+          const isExpanded = hamburgerButton.getAttribute("aria-expanded") === "true";
+          
+          // Toggle aria-expanded
+          hamburgerButton.setAttribute("aria-expanded", !isExpanded);
+          
+          // Toggle active class on button
+          hamburgerButton.classList.toggle("active");
+          
+          // Toggle mobile nav visibility
+          mobileNav.classList.toggle("hidden");
+        });
+
+        // Close menu on escape key
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && !mobileNav.classList.contains("hidden")) {
+            hamburgerButton.setAttribute("aria-expanded", "false");
+            hamburgerButton.classList.remove("active");
+            mobileNav.classList.add("hidden");
+          }
+        });
+      }
     </script>
   </body>
 </html>

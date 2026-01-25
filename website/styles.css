@@ -128,6 +128,23 @@
     transition: y 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1), width 0.1s ease-out;
   }
 
+  /* Prose overflow fixes */
+  .prose pre {
+    @apply overflow-x-auto max-w-full;
+  }
+
+  .prose code {
+    @apply break-words;
+  }
+
+  .prose img {
+    @apply max-w-full h-auto;
+  }
+
+  .prose table {
+    @apply overflow-x-auto block max-w-full;
+  }
+
   .hljs {
     background: none !important;
   }
