@@ -15,7 +15,7 @@ const generateAtomFeed = async (): Promise<string> => {
     <updated>${posts[0].date}</updated>
     <author>
       <name>François Voron</name>
-      <email>contact@francoisvoron.com</email>
+      <email>hello@fvoron.com</email>
     </author>
     <id>${process.env.HOST}/blog</id>
     ${posts.map((post) => {
