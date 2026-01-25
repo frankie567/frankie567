@@ -38,15 +38,17 @@
       <div class="max-w-sm mx-auto md:max-w-none">
 
         <!-- Articles container -->
-        <div class="grid gap-12 md:grid-cols-3 md:gap-x-6 md:gap-y-8 items-start">
+        <div id="blog-grid" class="grid gap-12 md:grid-cols-3 md:gap-x-6 md:gap-y-8 items-start">
           {% for post in posts %}
-          <article class="flex flex-col h-full" data-aos="zoom-y-out">
+          <article class="flex flex-col h-full blog-post" data-aos="zoom-y-out" data-aos-anchor="#blog-grid">
             <header>
+              {% if post.thumbnail %}
               <a href="/blog/{{ post.slug }}" class="block mb-6">
-                <figure class="relative h-0 pb-9/16 overflow-hidden translate-z-0 rounded">
+                <figure class="relative h-0 pb-9/16 overflow-hidden translate-z-0 rounded" style="padding-bottom: 56.25%;">
                   <img class="absolute inset-0 w-full h-full object-cover transform scale-105 hover:-translate-y-1 transition duration-700 ease-out" src="{{ post.thumbnail }}" width="352" height="198" alt="{{ post.title }}">
                 </figure>
               </a>
+              {% endif %}
               <div class="mb-3">
                 <ul class="flex flex-wrap text-xs font-medium -m-1">
                   {% for tag in post.tags %}
@@ -61,6 +63,9 @@
               </h2>
             </header>
             <p class="text-gray-400 flex-grow">{{ post.excerpt }}</p>
+            <footer class="mt-4">
+              <div class="text-sm text-gray-500">{{ post.formatted_date }}</div>
+            </footer>
           </article>
           {% endfor %}
         </div>
@@ -69,4 +74,16 @@
     </div>
   </div>
 </section>
+
+<script>
+// Fix AOS animation bug when navigating between tags
+(function() {
+  // Reinitialize AOS after a short delay to ensure proper animation
+  setTimeout(function() {
+    if (typeof AOS !== 'undefined') {
+      AOS.refresh();
+    }
+  }, 100);
+})();
+</script>
 {% endblock %}

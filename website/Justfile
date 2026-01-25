@@ -57,7 +57,16 @@ dev:
         exit 1
     fi
 
-    cargo-watch -w src -w templates -s 'cargo run --release && simple-http-server -i -p 8000 dist'
+    # Start server in background
+    echo "Starting development server on http://localhost:8000"
+    simple-http-server -i -p 8000 dist &
+    SERVER_PID=$!
+
+    # Setup cleanup trap
+    trap "kill $SERVER_PID 2>/dev/null" EXIT
+
+    # Watch for changes and rebuild
+    cargo-watch -w src -w templates -w ../posts -w styles.css -s 'cargo run --release'
 
 # Clean build artifacts
 clean:
