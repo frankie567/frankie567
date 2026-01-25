@@ -9,6 +9,9 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
+use syntect::highlighting::ThemeSet;
+use syntect::html::highlighted_html_for_string;
+use syntect::parsing::SyntaxSet;
 use walkdir::WalkDir;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -36,6 +39,40 @@ struct Reference {
     thumbnail: String,
     content: String,
     html: String,
+}
+
+/// Apply syntax highlighting to code blocks in HTML
+fn apply_syntax_highlighting(html: &str) -> Result<String> {
+    let ps = SyntaxSet::load_defaults_newlines();
+    let ts = ThemeSet::load_defaults();
+    let theme = &ts.themes["base16-ocean.dark"];
+    
+    // Match <pre><code> blocks with or without language class
+    let code_pattern = regex::Regex::new(r#"<pre><code(?:\s+class="language-([^"]+)")?>([\s\S]*?)</code></pre>"#).unwrap();
+    
+    let result = code_pattern.replace_all(html, |caps: &regex::Captures| {
+        let lang = caps.get(1).map(|m| m.as_str()).unwrap_or("txt");
+        let code = caps.get(2).unwrap().as_str();
+        
+        // Decode HTML entities
+        let decoded = code
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&amp;", "&")
+            .replace("&quot;", "\"")
+            .replace("&#39;", "'");
+        
+        // Find syntax for the language
+        let syntax = ps.find_syntax_by_extension(lang)
+            .or_else(|| ps.find_syntax_by_token(lang))
+            .unwrap_or_else(|| ps.find_syntax_plain_text());
+        
+        // Generate highlighted HTML
+        highlighted_html_for_string(&decoded, &ps, syntax, theme)
+            .unwrap_or_else(|_| format!("<pre><code>{}</code></pre>", code))
+    });
+    
+    Ok(result.to_string())
 }
 
 fn parse_blog_post(path: &Path) -> Result<BlogPost> {
@@ -98,8 +135,11 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         },
     };
     
-    let html = to_html_with_options(&markdown_content, &options)
+    let mut html = to_html_with_options(&markdown_content, &options)
         .map_err(|e| anyhow::anyhow!("Failed to parse markdown: {:?}", e))?;
+    
+    // Apply syntax highlighting to code blocks
+    html = apply_syntax_highlighting(&html)?;
     
     Ok(BlogPost {
         title,
@@ -197,8 +237,11 @@ fn parse_reference(path: &Path) -> Result<Reference> {
         },
     };
     
-    let html = to_html_with_options(&markdown_content, &options)
+    let mut html = to_html_with_options(&markdown_content, &options)
         .map_err(|e| anyhow::anyhow!("Failed to parse markdown: {:?}", e))?;
+    
+    // Apply syntax highlighting to code blocks
+    html = apply_syntax_highlighting(&html)?;
     
     Ok(Reference {
         title,
