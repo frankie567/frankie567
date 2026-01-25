@@ -142,12 +142,7 @@
   }
 
   .prose table {
-    @apply block overflow-x-auto max-w-full;
-  }
-
-  .prose a {
-    @apply break-words;
-    overflow-wrap: break-word;
+    @apply max-w-full;
   }
 
   .hljs {

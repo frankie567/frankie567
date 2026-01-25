@@ -18,14 +18,14 @@
 
       <!-- Section tags -->
       <div class="border-b border-gray-800 pb-4 mb-12">
-        <ul class="flex flex-wrap justify-center md:justify-start font-medium -mx-5 -my-1">
-          <li class="mx-5 my-1">
+        <ul class="flex flex-wrap justify-center md:justify-start font-medium gap-4">
+          <li>
             <a href="/blog" class="{% if not current_tag %}text-red-500{% else %}hover:underline{% endif %}">
               All
             </a>
           </li>
           {% for tag in tags | sort %}
-          <li class="mx-5 my-1">
+          <li>
             <a href="/blog/tag/{{ tag }}" class="{% if tag == current_tag %}text-red-500{% else %}hover:underline{% endif %}">
               {{ tags[tag] }}
             </a>
