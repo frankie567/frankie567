@@ -3,39 +3,30 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-inter: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   
-  --color-gray-100: #FBFBFB;
-  --color-gray-200: #EAEAEA;
-  --color-gray-300: #DFDFDF;
-  --color-gray-400: #999999;
-  --color-gray-500: #7F7F7F;
-  --color-gray-600: #666666;
-  --color-gray-700: #4C4C4C;
-  --color-gray-800: #333333;
-  --color-gray-900: #191919;
+  /* Dark terminal color palette with red accents */
+  --color-terminal-bg: #0a0a0a;
+  --color-terminal-fg: #a0a0a0;
+  --color-terminal-border: #1a1a1a;
+  --color-terminal-accent: #ef4444;
+  --color-terminal-accent-dim: #dc2626;
+  --color-terminal-cyan: #6b7280;
+  --color-terminal-cyan-dim: #4b5563;
+  --color-terminal-yellow: #d29922;
+  --color-terminal-red: #ef4444;
   
-  --color-blue-100: #E6F0FD;
-  --color-blue-200: #CCE2FC;
-  --color-blue-300: #99C5FA;
-  --color-blue-400: #66A9F7;
-  --color-blue-500: #338CF5;
-  --color-blue-600: #0070F4;
-  --color-blue-700: #0064DA;
-  --color-blue-800: #0059C2;
-  --color-blue-900: #004391;
+  --color-gray-100: #e5e5e5;
+  --color-gray-200: #d4d4d4;
+  --color-gray-300: #a0a0a0;
+  --color-gray-400: #737373;
+  --color-gray-500: #525252;
+  --color-gray-600: #404040;
+  --color-gray-700: #262626;
+  --color-gray-800: #171717;
+  --color-gray-900: #0a0a0a;
   
-  --color-teal-100: #E6FFFA;
-  --color-teal-200: #B2F5EA;
-  --color-teal-300: #81E6D9;
-  --color-teal-400: #4FD1C5;
-  --color-teal-500: #3ABAB4;
-  --color-teal-600: #319795;
-  --color-teal-700: #2C7A7B;
-  --color-teal-800: #285E61;
-  --color-teal-900: #234E52;
-  
-  --font-family-inter: var(--font-inter);
+  --font-family-mono: var(--font-mono);
 }
 
 @layer base {
@@ -44,26 +35,59 @@
   }
 
   body {
-    @apply font-[family-name:var(--font-inter)] antialiased bg-gray-900 text-gray-200;
+    @apply font-[family-name:var(--font-mono)] antialiased text-gray-300;
+    background-color: var(--color-terminal-bg);
+    position: relative;
+    padding-bottom: 80px; /* Space for sticky footer on mobile */
+  }
+
+  @media (min-width: 640px) {
+    body {
+      padding-bottom: 60px; /* Less space on desktop */
+    }
+  }
+
+  /* Minimal scanline effect */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.2;
   }
 }
 
 @layer components {
   /* Typography */
   .h1 {
-    @apply text-4xl font-extrabold leading-tight tracking-tighter;
+    @apply text-4xl font-bold leading-tight tracking-tight;
+    color: var(--color-terminal-accent);
   }
 
   .h2 {
-    @apply text-3xl font-extrabold leading-tight tracking-tighter;
+    @apply text-3xl font-bold leading-tight tracking-tight;
+    color: var(--color-terminal-cyan);
   }
 
   .h3 {
-    @apply text-3xl font-bold leading-tight;
+    @apply text-2xl font-bold leading-tight;
+    color: var(--color-terminal-accent);
   }
 
   .h4 {
-    @apply text-2xl font-bold leading-snug tracking-tight;
+    @apply text-xl font-bold leading-snug tracking-tight;
+    color: var(--color-terminal-cyan);
   }
 
   @media (min-width: 768px) {
@@ -76,18 +100,122 @@
     }
   }
 
-  /* Buttons */
+  /* Minimal terminal box style - no glow */
+  .terminal-box {
+    @apply relative p-6 rounded-none;
+    background: rgba(22, 27, 34, 0.4);
+    border: 1px solid var(--color-terminal-border);
+    transition: border-color 0.3s ease;
+  }
+
+  .terminal-box:hover {
+    border-color: var(--color-terminal-accent-dim);
+  }
+
+  /* Terminal box header */
+  .terminal-header {
+    @apply flex items-center gap-2 mb-4 pb-2 border-b border-gray-700;
+  }
+
+  .terminal-header::before {
+    content: '> ';
+    color: var(--color-terminal-accent);
+    font-weight: bold;
+  }
+
+  /* Buttons - minimal style */
   .btn,
   .btn-sm {
-    @apply font-medium inline-flex items-center justify-center border border-transparent rounded leading-snug transition duration-150 ease-in-out;
+    @apply font-bold inline-flex items-center justify-center border rounded-none leading-snug transition duration-150 ease-in-out;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .btn {
-    @apply px-8 py-3 shadow-lg;
+    @apply px-6 py-3;
+    background: transparent;
+    border-color: var(--color-terminal-accent);
+    color: var(--color-terminal-accent);
+  }
+
+  .btn:hover {
+    background: var(--color-terminal-accent);
+    color: var(--color-terminal-bg);
   }
 
   .btn-sm {
-    @apply px-4 py-2 shadow;
+    @apply px-4 py-2;
+    background: transparent;
+    border-color: var(--color-terminal-cyan);
+    color: var(--color-terminal-cyan);
+  }
+
+  .btn-sm:hover {
+    background: var(--color-terminal-cyan);
+    color: var(--color-terminal-bg);
+  }
+
+  /* Prose styling for blog content */
+  .prose {
+    @apply text-gray-300;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: var(--color-terminal-accent);
+    font-weight: bold;
+  }
+
+  .prose a {
+    color: var(--color-terminal-cyan);
+    text-decoration: underline;
+  }
+
+  .prose a:hover {
+    color: var(--color-terminal-accent);
+  }
+
+  .prose code {
+    color: var(--color-terminal-cyan);
+    background: rgba(33, 38, 45, 0.5);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0;
+    font-size: 0.875em;
+  }
+
+  .prose pre {
+    background: rgba(22, 27, 34, 0.6);
+    border: 1px solid var(--color-terminal-border);
+    border-radius: 0;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .prose pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--color-terminal-fg);
+  }
+
+  .prose blockquote {
+    border-left: 2px solid var(--color-terminal-accent);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--color-terminal-fg);
+    opacity: 0.9;
+  }
+
+  .prose strong {
+    color: var(--color-terminal-cyan);
+    font-weight: bold;
+  }
+
+  .prose ul,
+  .prose ol {
+    color: var(--color-terminal-fg);
   }
 }
 

@@ -1,401 +1,105 @@
 {% extends "base" %} {% block content %}
 <!-- Hero Section -->
-<section class="relative">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <!-- Hero content -->
-    <div class="pt-32 pb-12 md:pt-40 md:pb-20">
-      <!-- Section header -->
-      <div class="text-center pb-12 md:pb-16">
-        <h1
-          class="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4"
-          data-aos="zoom-y-out"
-        >
-          Software engineer &
-          <span
-            class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-400"
-            >open-source maintainer</span
-          >
-        </h1>
-        <div class="max-w-3xl mx-auto">
-          <p
-            class="text-xl text-gray-400 mb-8"
-            data-aos="zoom-y-out"
-            data-aos-delay="150"
-          >
-            I'm a seasoned software developer maintaining open-source projects
-            useful for hundreds of businesses
+<section class="relative pt-12 pb-6 md:pt-16 md:pb-8">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="space-y-6">
+      <!-- Terminal-style header -->
+      <div class="terminal-box">
+        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+          init.sh
+        </div>
+        <div class="space-y-3">
+          <div>
+            <span style="color: var(--color-terminal-accent);">$</span>
+            <span class="ml-2" style="color: var(--color-terminal-fg);">whoami</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold ml-4" style="color: var(--color-terminal-accent);">
+            François Voron
+          </h1>
+          <div class="ml-4 space-y-1 text-sm opacity-90" style="color: var(--color-terminal-fg);">
+            <div><span style="color: var(--color-terminal-cyan);">role:</span> Software Engineer & Open-Source Maintainer</div>
+            <div><span style="color: var(--color-terminal-cyan);">location:</span> France 🇫🇷</div>
+            <div><span style="color: var(--color-terminal-cyan);">company:</span> <a href="https://polar.sh" class="hover:underline" style="color: var(--color-terminal-accent);">Polar</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Me Section -->
+      <div class="terminal-box">
+        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+          about.md
+        </div>
+        <div class="space-y-4">
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            I've {{ current_year - 2015 }}+ years of experience working as CTO and lead developer in top-level 
+            startups in the SaaS industry. My expertise allowed those companies to grow with solid 
+            technical foundations and generate thousands of dollars in revenue.
+          </p>
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            I'm a seasoned software developer maintaining open-source projects useful for hundreds of businesses.
           </p>
         </div>
       </div>
 
-      <!-- Logos -->
-      <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <div class="flex justify-center">
-          <img
-            src="/logos/polar.svg"
-            class="object-contain"
-            width="150"
-            height="100"
-            alt="Polar"
-          />
+      <!-- Expertises Section -->
+      <div class="terminal-box">
+        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+          skills.txt
         </div>
-        <div class="flex justify-center">
-          <img
-            src="/logos/fief.svg"
-            class="object-contain"
-            width="150"
-            height="100"
-            alt="Fief"
-          />
-        </div>
-        <div class="flex justify-center">
-          <img
-            src="/logos/fastapi-users.svg"
-            class="object-contain"
-            width="300"
-            height="100"
-            alt="FastAPI Users"
-          />
-        </div>
-        <div class="flex justify-center">
-          <img
-            src="/logos/packt.svg"
-            class="object-contain"
-            width="150"
-            height="100"
-            alt="Packt"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- About Me Section -->
-<section class="relative">
-  <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="grid grid grid-cols-12 md:gap-6 border-b border-gray-800">
-      <div
-        class="w-full max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-6 md:mt-6 order-last md:order-first"
-        data-aos="fade-right"
-      >
-        <img
-          src="/francois-voron-light.jpg"
-          width="1280"
-          height="1527"
-          alt="François Voron"
-        />
-      </div>
-      <div
-        class="max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-6 md:mt-6 text-center flex items-center order-first md:order-last"
-        data-aos="fade-left"
-      >
-        <div class="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
-          <h2 class="h2 mb-3">One of the best</h2>
-          <p class="text-xl text-gray-400">
-            I've {{ current_year - 2015 }} years of experience working as CTO
-            and lead developer in top-level startups in the SaaS industry. My
-            expertise allowed those companies to grow with solid technical
-            foundations and generate thousands of dollars in revenue.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="relative">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="pt-12 md:pt-20">
-      <!-- Section header -->
-      <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-        <h2 class="h2 mb-4">I'm trusted by the most innovative companies</h2>
-      </div>
-
-      <!-- Carousel area -->
-      <div class="max-w-3xl mx-auto">
-        <!-- Carousel -->
-        <div class="relative" data-aos="zoom-y-out">
-          <!-- Testimonials -->
-          <div
-            id="testimonials-container"
-            class="relative flex items-start ring-2 ring-opacity-75 ring-red-500 rounded z-10"
-          >
-            <div
-              class="testimonial text-center px-12 py-8 pt-20 mx-4 md:mx-0"
-              data-index="0"
-            >
-              <div
-                class="absolute top-0 -mt-12 left-1/2 transform -translate-x-1/2"
-              >
-                <img
-                  class="relative rounded-full"
-                  src="/testimonials/jade-camber.jpg"
-                  width="96"
-                  height="96"
-                  alt="Jade Chan - Camber Health"
-                />
-              </div>
-              <blockquote class="text-xl font-medium mb-4 whitespace-pre-line">
-                François has been tremendously helpful to the development of our
-                platform. Each of his responses has been extremely detailed and
-                thorough, with code snippets, examples, recommendations, and
-                hyperlinks to various resources. François is clearly a subject
-                matter expert in FastAPI and Python, and has been an incredible
-                value-add to our team.
-              </blockquote>
-              <cite class="block font-bold text-lg not-italic mb-1"
-                >Jade Chan</cite
-              >
-              <div class="text-gray-600">
-                <span>Head of Engineering</span> —
-                <a
-                  class="text-red-500 hover:underline"
-                  href="https://www.camber.health"
-                  >Camber Health</a
-                >
-              </div>
-            </div>
-            <div
-              class="testimonial text-center px-12 py-8 pt-20 mx-4 md:mx-0 hidden"
-              data-index="1"
-            >
-              <div
-                class="absolute top-0 -mt-12 left-1/2 transform -translate-x-1/2"
-              >
-                <img
-                  class="relative rounded-full"
-                  src="/testimonials/jeremie-datiplus.jpg"
-                  width="96"
-                  height="96"
-                  alt="Jérémie Bennegent - DatiPlus"
-                />
-              </div>
-              <blockquote class="text-xl font-medium mb-4 whitespace-pre-line">
-                Every mission with François was a success: high quality code and
-                documentation, deadlines met. François knows how to step back
-                and have a clear vision of our challenges to help us take the
-                best decisions.
-              </blockquote>
-              <cite class="block font-bold text-lg not-italic mb-1"
-                >Jérémie Bennegent</cite
-              >
-              <div class="text-gray-600">
-                <span>CTO</span> —
-                <a
-                  class="text-red-500 hover:underline"
-                  href="https://dati-plus.com"
-                  >DatiPlus</a
-                >
-              </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Backend:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">FastAPI • Django • Flask</span>
             </div>
           </div>
-
-          <!-- Arrows -->
-          <div class="absolute inset-0 flex items-center justify-between">
-            <button
-              id="testimonial-prev"
-              class="relative z-20 w-16 h-16 p-1 flex items-center justify-center bg-red-500 rounded-full shadow-md hover:shadow-lg transform -translate-x-2 md:-translate-x-1/2"
-              aria-label="Previous testimonial"
-            >
-              <span class="sr-only">Previous</span>
-              <svg
-                class="w-4 h-4 fill-current text-white"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.7 14.7l1.4-1.4L3.8 9H16V7H3.8l4.3-4.3-1.4-1.4L0 8z"
-                />
-              </svg>
-            </button>
-            <button
-              id="testimonial-next"
-              class="relative z-20 w-16 h-16 p-1 flex items-center justify-center bg-red-500 rounded-full shadow-md hover:shadow-lg transform translate-x-2 md:translate-x-1/2"
-              aria-label="Next testimonial"
-            >
-              <span class="sr-only">Next</span>
-              <svg
-                class="w-4 h-4 fill-current text-white"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.3 14.7l-1.4-1.4L12.2 9H0V7h12.2L7.9 2.7l1.4-1.4L16 8z"
-                />
-              </svg>
-            </button>
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Frontend:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">React • Next.js • Angular</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Cloud:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">AWS • GCP • Azure</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Data:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">Engineering • ML • NLP</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    let currentTestimonial = 0;
-    const testimonials = document.querySelectorAll(".testimonial");
-    const totalTestimonials = testimonials.length;
-
-    function showTestimonial(index) {
-      testimonials.forEach((testimonial, i) => {
-        if (i === index) {
-          testimonial.classList.remove("hidden");
-        } else {
-          testimonial.classList.add("hidden");
-        }
-      });
-    }
-
-    const prevButton = document.getElementById("testimonial-prev");
-    const nextButton = document.getElementById("testimonial-next");
-
-    if (prevButton && nextButton) {
-      prevButton.addEventListener("click", function () {
-        currentTestimonial =
-          currentTestimonial === 0
-            ? totalTestimonials - 1
-            : currentTestimonial - 1;
-        showTestimonial(currentTestimonial);
-      });
-
-      nextButton.addEventListener("click", function () {
-        currentTestimonial =
-          currentTestimonial === totalTestimonials - 1
-            ? 0
-            : currentTestimonial + 1;
-        showTestimonial(currentTestimonial);
-      });
-    }
-  });
-</script>
-
-<!-- Expertises Section -->
-<section class="relative">
-  <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="py-12 md:py-20">
-      <div class="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-        <h2 class="h2 mb-4">My area of expertises</h2>
-        <p class="text-xl text-gray-400">
-          Challenging startups environment allowed me to use and master the best
-          and latest technologies in ever-changing software development
-          ecosystems.
-        </p>
-      </div>
-
-      <div
-        class="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-none"
-      >
-        <div
-          class="relative flex flex-col items-center p-6 ring-2 ring-opacity-75 ring-red-500 rounded h-48"
-        >
-          <span class="text-4xl">⚙️</span>
-          <h3 class="text-xl font-bold leading-snug tracking-tight mb-1">
-            Backend development
-          </h3>
-          <p class="text-gray-400 text-center">FastAPI • Django • Flask</p>
+      <!-- FastAPI Book Section -->
+      <div class="terminal-box">
+        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+          fastapi-book.md
         </div>
-        <div
-          class="relative flex flex-col items-center p-6 ring-2 ring-opacity-75 ring-red-500 rounded h-48"
-        >
-          <span class="text-4xl">🎨</span>
-          <h3 class="text-xl font-bold leading-snug tracking-tight mb-1">
-            Frontend development
-          </h3>
-          <p class="text-gray-400 text-center">React • Next.js • Angular</p>
-        </div>
-        <div
-          class="relative flex flex-col items-center p-6 ring-2 ring-opacity-75 ring-red-500 rounded h-48"
-        >
-          <span class="text-4xl">☁️</span>
-          <h3 class="text-xl font-bold leading-snug tracking-tight mb-1">
-            Cloud computing
-          </h3>
-          <p class="text-gray-400 text-center">
-            Amazon Web Services • Google Cloud Platform • Microsoft Azure
+        <div class="space-y-4">
+          <h2 class="text-xl md:text-2xl font-bold" style="color: var(--color-terminal-accent);">
+            Building Data Science Applications with FastAPI
+          </h2>
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            I'm one of the top experts in the FastAPI community, the #3 most-used web Python 
+            framework behind Django and Flask. In collaboration with Packt, one of the leading 
+            tech book publishers in the UK, I've written a book to learn all the secrets of this 
+            framework and how data scientists can leverage its power.
           </p>
-        </div>
-        <div
-          class="relative flex flex-col items-center p-6 ring-2 ring-opacity-75 ring-red-500 rounded h-48"
-        >
-          <span class="text-4xl">💾</span>
-          <h3 class="text-xl font-bold leading-snug tracking-tight mb-1">
-            Data engineering
-          </h3>
-          <p class="text-gray-400 text-center">
-            Extraction • Processing • Storage
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            Since Summer 2023, a second edition is available with updated examples and a whole 
+            new project to build your very own generative AI system.
           </p>
-        </div>
-        <div
-          class="relative flex flex-col items-center p-6 ring-2 ring-opacity-75 ring-red-500 rounded h-48"
-        >
-          <span class="text-4xl">🧠</span>
-          <h3 class="text-xl font-bold leading-snug tracking-tight mb-1">
-            Machine learning
-          </h3>
-          <p class="text-gray-400 text-center">Scikit-learn • OpenCV</p>
-        </div>
-        <div
-          class="relative flex flex-col items-center p-6 ring-2 ring-opacity-75 ring-red-500 rounded h-48"
-        >
-          <span class="text-4xl">🔍</span>
-          <h3 class="text-xl font-bold leading-snug tracking-tight mb-1">
-            Information retrieval
-          </h3>
-          <p class="text-gray-400 text-center">
-            Natural Language Processing • Elasticsearch
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FastAPI Book Section -->
-<section class="relative">
-  <div class="pb-12 md:pb-20">
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid grid-cols-12 md:gap-6">
-        <div
-          class="max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-8 md:mt-6 text-center flex items-center"
-          data-aos="fade-right"
-        >
-          <div class="md:pr-4 lg:pr-12 xl:pr-16 mb-8">
-            <h2 class="h2 mb-3">
-              Author of the best-seller book about FastAPI
-            </h2>
-            <p class="text-xl text-gray-400">
-              I'm one of the top experts in the FastAPI community, the #3
-              most-used web Python framework behind Django and Flask. In
-              collaboration with Packt, one of the leading tech book publishers
-              in the UK, I've wrote a book to learn all the secrets of this
-              framework and how data scientists can leverage its power to build
-              efficient and reliable data science applications.
-            </p>
-            <p class="text-xl text-gray-400">
-              Since Summer 2023, a second edition is available with updated
-              examples and a whole new project to build your very own generative
-              AI system!
-            </p>
-            <a
-              href="https://amzn.to/3QD7Wby"
-              class="btn text-white bg-red-500 hover:bg-red-600 w-full mt-4 sm:w-auto"
-              >Learn more</a
-            >
-          </div>
-        </div>
-        <div
-          class="w-full max-w-xl md:max-w-none md:w-full mx-auto col-span-12 md:col-span-4 md:mt-6 order-last"
-          data-aos="fade-left"
-        >
-          <img
-            src="/fastapi-book-v2.png"
-            width="800"
-            height="988"
-            alt="Building Data Science Applications with FastAPI Second Edition"
-          />
+          <a href="https://amzn.to/3QD7Wby" class="btn inline-block">
+            Learn More
+          </a>
         </div>
       </div>
     </div>

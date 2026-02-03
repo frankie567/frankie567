@@ -509,6 +509,31 @@ fn generate_site() -> Result<()> {
     fs::write(terms_dir.join("index.html"), rendered)?;
     println!("Generated terms/index.html");
 
+    // Generate opensource page
+    let opensource_dir = dist_dir.join("open-source");
+    fs::create_dir_all(&opensource_dir)?;
+
+    let meta = Meta {
+        title: format!("{} - Open Source", DEFAULT_TITLE),
+        description: "Open-source projects I maintain and contribute to".to_string(),
+        image: Some(DEFAULT_IMAGE_PATH.to_string()),
+        url: "/open-source".to_string(),
+        canonical: Some(format!("{}/open-source", HOST)),
+    };
+    let template = env.get_template("opensource").context(
+        "Failed to load opensource template. Make sure it exists in the templates directory.",
+    )?;
+    let rendered = template.render(context! {
+        host => HOST,
+        title => meta.title,
+        description => meta.description,
+        image => meta.image,
+        url => meta.url,
+        canonical => meta.canonical,
+    })?;
+    fs::write(opensource_dir.join("index.html"), rendered)?;
+    println!("Generated open-source/index.html");
+
     // Generate Atom feed
     generate_atom_feed(&posts, dist_dir)?;
 
