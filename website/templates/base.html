@@ -192,8 +192,11 @@
         
         navLinks.forEach(link => {
           const href = link.getAttribute('href');
-          if ((href === '/' && path === '/') || 
-              (href !== '/' && path.startsWith(href))) {
+          // Exact match for home, or check if path starts with href followed by / or end
+          if (href === '/' && path === '/') {
+            link.style.color = 'var(--color-terminal-accent)';
+            link.style.borderBottom = '2px solid var(--color-terminal-accent)';
+          } else if (href !== '/' && (path === href || path.startsWith(href + '/'))) {
             link.style.color = 'var(--color-terminal-accent)';
             link.style.borderBottom = '2px solid var(--color-terminal-accent)';
           }
