@@ -27,19 +27,19 @@
         <div class="terminal-box py-3">
           <ul class="flex flex-wrap gap-3 text-sm font-medium">
             <li>
-              <a href="/blog" class="px-3 py-1 border-2 transition-all {% if not current_tag %}bg-opacity-20{% endif %}" 
+              <a href="/blog" class="px-3 py-1 border-2 transition-all {% if not current_tag %}active-tag bg-opacity-20{% endif %}" 
                  style="{% if not current_tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: var(--color-terminal-accent);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
-                 onmouseover="if(!'{% if not current_tag %}active{% endif %}') { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
-                 onmouseout="if(!'{% if not current_tag %}active{% endif %}') { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
+                 onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
+                 onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
                 [all]
               </a>
             </li>
             {% for tag in tags | sort %}
             <li>
-              <a href="/blog/tag/{{ tag }}" class="px-3 py-1 border-2 transition-all {% if current_tag == tag %}bg-opacity-20{% endif %}"
+              <a href="/blog/tag/{{ tag }}" class="px-3 py-1 border-2 transition-all {% if current_tag == tag %}active-tag bg-opacity-20{% endif %}"
                  style="{% if current_tag == tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: var(--color-terminal-accent);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
-                 onmouseover="if(!'{% if current_tag == tag %}active{% endif %}') { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
-                 onmouseout="if(!'{% if current_tag == tag %}active{% endif %}') { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
+                 onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
+                 onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
                 [{{ tags[tag] }}]
               </a>
             </li>

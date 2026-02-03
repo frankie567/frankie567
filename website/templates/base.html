@@ -330,14 +330,16 @@
         });
       }
 
-      // Keyboard navigation - press 'b' to go to blog
+      // Keyboard navigation - press Ctrl+H for home, Ctrl+B for blog
       document.addEventListener("keydown", function (event) {
-        // Only trigger if not in an input field
+        // Only trigger if not in an input field and Ctrl key is pressed
         if (event.target.tagName !== "INPUT" && event.target.tagName !== "TEXTAREA") {
-          if (event.key === "b" && !event.ctrlKey && !event.metaKey) {
+          if (event.ctrlKey && event.key === "b") {
+            event.preventDefault();
             window.location.href = "/blog";
           }
-          if (event.key === "h" && !event.ctrlKey && !event.metaKey) {
+          if (event.ctrlKey && event.key === "h") {
+            event.preventDefault();
             window.location.href = "/";
           }
         }
