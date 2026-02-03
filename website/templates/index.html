@@ -1,11 +1,10 @@
 {% extends "base" %} {% block content %}
 <!-- Hero Section -->
-<section class="relative">
+<section class="relative pt-12 pb-6 md:pt-16 md:pb-8">
   <div class="max-w-3xl mx-auto px-4 sm:px-6">
-    <!-- Hero content -->
-    <div class="py-6">
+    <div class="space-y-6">
       <!-- Terminal-style header -->
-      <div class="terminal-box mb-6">
+      <div class="terminal-box">
         <div class="terminal-header" style="color: var(--color-terminal-cyan);">
           init.sh
         </div>
@@ -24,96 +23,84 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- About Me Section -->
-<section class="relative py-6 md:py-8">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6">
-    <div class="terminal-box">
-      <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-        about.md
+      <!-- About Me Section -->
+      <div class="terminal-box">
+        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+          about.md
+        </div>
+        <div class="space-y-4">
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            I've {{ current_year - 2015 }}+ years of experience working as CTO and lead developer in top-level 
+            startups in the SaaS industry. My expertise allowed those companies to grow with solid 
+            technical foundations and generate thousands of dollars in revenue.
+          </p>
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            I'm a seasoned software developer maintaining open-source projects useful for hundreds of businesses.
+          </p>
+        </div>
       </div>
-      <div class="space-y-4">
-        <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
-          I've {{ current_year - 2015 }}+ years of experience working as CTO and lead developer in top-level 
-          startups in the SaaS industry. My expertise allowed those companies to grow with solid 
-          technical foundations and generate thousands of dollars in revenue.
-        </p>
-        <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
-          I'm a seasoned software developer maintaining open-source projects useful for hundreds of businesses.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Expertises Section -->
-<section class="relative py-6 md:py-8">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6">
-    <div class="terminal-box">
-      <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-        skills.txt
+      <!-- Expertises Section -->
+      <div class="terminal-box">
+        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+          skills.txt
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Backend:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">FastAPI • Django • Flask</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Frontend:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">React • Next.js • Angular</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Cloud:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">AWS • GCP • Azure</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
+            <div>
+              <span class="font-bold" style="color: var(--color-terminal-cyan);">Data:</span>
+              <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">Engineering • ML • NLP</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="space-y-3 text-sm">
-        <div class="flex items-start gap-3">
-          <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
-          <div>
-            <span class="font-bold" style="color: var(--color-terminal-cyan);">Backend:</span>
-            <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">FastAPI • Django • Flask</span>
-          </div>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
-          <div>
-            <span class="font-bold" style="color: var(--color-terminal-cyan);">Frontend:</span>
-            <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">React • Next.js • Angular</span>
-          </div>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
-          <div>
-            <span class="font-bold" style="color: var(--color-terminal-cyan);">Cloud:</span>
-            <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">AWS • GCP • Azure</span>
-          </div>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="opacity-50" style="color: var(--color-terminal-accent);">></span>
-          <div>
-            <span class="font-bold" style="color: var(--color-terminal-cyan);">Data:</span>
-            <span class="opacity-80 ml-2" style="color: var(--color-terminal-fg);">Engineering • ML • NLP</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- FastAPI Book Section -->
-<section class="relative py-6 md:py-8">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6">
-    <div class="terminal-box">
-      <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-        fastapi-book.md
-      </div>
-      <div class="space-y-4">
-        <h2 class="text-xl md:text-2xl font-bold" style="color: var(--color-terminal-accent);">
-          Building Data Science Applications with FastAPI
-        </h2>
-        <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
-          I'm one of the top experts in the FastAPI community, the #3 most-used web Python 
-          framework behind Django and Flask. In collaboration with Packt, one of the leading 
-          tech book publishers in the UK, I've written a book to learn all the secrets of this 
-          framework and how data scientists can leverage its power.
-        </p>
-        <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
-          Since Summer 2023, a second edition is available with updated examples and a whole 
-          new project to build your very own generative AI system.
-        </p>
-        <a href="https://amzn.to/3QD7Wby" class="btn inline-block">
-          Learn More
-        </a>
+      <!-- FastAPI Book Section -->
+      <div class="terminal-box">
+        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+          fastapi-book.md
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl md:text-2xl font-bold" style="color: var(--color-terminal-accent);">
+            Building Data Science Applications with FastAPI
+          </h2>
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            I'm one of the top experts in the FastAPI community, the #3 most-used web Python 
+            framework behind Django and Flask. In collaboration with Packt, one of the leading 
+            tech book publishers in the UK, I've written a book to learn all the secrets of this 
+            framework and how data scientists can leverage its power.
+          </p>
+          <p class="text-base opacity-90" style="color: var(--color-terminal-fg);">
+            Since Summer 2023, a second edition is available with updated examples and a whole 
+            new project to build your very own generative AI system.
+          </p>
+          <a href="https://amzn.to/3QD7Wby" class="btn inline-block">
+            Learn More
+          </a>
+        </div>
       </div>
     </div>
   </div>
