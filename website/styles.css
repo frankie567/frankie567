@@ -5,26 +5,26 @@
 @theme {
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   
-  /* Subtle terminal color palette - more muted */
-  --color-terminal-bg: #0d1117;
-  --color-terminal-fg: #8b949e;
-  --color-terminal-border: #21262d;
-  --color-terminal-accent: #58a6ff;
-  --color-terminal-accent-dim: #1f6feb;
-  --color-terminal-cyan: #79c0ff;
-  --color-terminal-cyan-dim: #58a6ff;
+  /* Dark terminal color palette with red accents */
+  --color-terminal-bg: #0a0a0a;
+  --color-terminal-fg: #a0a0a0;
+  --color-terminal-border: #1a1a1a;
+  --color-terminal-accent: #ef4444;
+  --color-terminal-accent-dim: #dc2626;
+  --color-terminal-cyan: #6b7280;
+  --color-terminal-cyan-dim: #4b5563;
   --color-terminal-yellow: #d29922;
-  --color-terminal-red: #f85149;
+  --color-terminal-red: #ef4444;
   
-  --color-gray-100: #e6e6e6;
-  --color-gray-200: #c9d1d9;
-  --color-gray-300: #8b949e;
-  --color-gray-400: #6e7681;
-  --color-gray-500: #484f58;
-  --color-gray-600: #30363d;
-  --color-gray-700: #21262d;
-  --color-gray-800: #161b22;
-  --color-gray-900: #0d1117;
+  --color-gray-100: #e5e5e5;
+  --color-gray-200: #d4d4d4;
+  --color-gray-300: #a0a0a0;
+  --color-gray-400: #737373;
+  --color-gray-500: #525252;
+  --color-gray-600: #404040;
+  --color-gray-700: #262626;
+  --color-gray-800: #171717;
+  --color-gray-900: #0a0a0a;
   
   --font-family-mono: var(--font-mono);
 }
@@ -38,9 +38,10 @@
     @apply font-[family-name:var(--font-mono)] antialiased text-gray-300;
     background-color: var(--color-terminal-bg);
     position: relative;
+    padding-bottom: 60px; /* Space for sticky footer */
   }
 
-  /* Subtle scanline effect - very minimal */
+  /* Minimal scanline effect */
   body::before {
     content: '';
     position: fixed;
@@ -57,7 +58,7 @@
     );
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.3;
+    opacity: 0.2;
   }
 }
 

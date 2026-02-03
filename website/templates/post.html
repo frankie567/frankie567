@@ -29,13 +29,13 @@
 
 <section>
   <div class="max-w-3xl mx-auto px-4 sm:px-6">
-    <div class="pt-32 pb-12 md:pt-40 md:pb-20">
+    <div class="pt-12 pb-6 md:pt-16 md:pb-8">
 
       <article>
 
         <!-- Article header -->
-        <header class="mb-8">
-          <div class="terminal-box" data-aos="fade-up">
+        <header class="mb-6">
+          <div class="terminal-box">
             <div class="terminal-header" style="color: var(--color-terminal-cyan);">
               blog/{{ post.slug }}.md
             </div>
@@ -59,11 +59,11 @@
         </header>
 
         <!-- Article content -->
-        <div class="space-y-8">
+        <div class="space-y-6">
           
           <!-- Table of contents -->
           {% if post.headings|length > 0 %}
-          <aside data-aos="fade-up" data-aos-delay="100">
+          <aside>
             <div class="terminal-box">
               <div class="terminal-header" style="color: var(--color-terminal-cyan);">
                 toc.txt
@@ -83,7 +83,7 @@
           {% endif %}
 
           <!-- Main content -->
-          <div data-aos="fade-up" data-aos-delay="200">
+          <div>
             <div class="terminal-box">
               <!-- Article body -->
               <div class="prose prose-invert max-w-full overflow-hidden text-sm" style="color: var(--color-terminal-fg);">

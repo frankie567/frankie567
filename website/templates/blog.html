@@ -3,10 +3,10 @@
 {% block content %}
 <section class="relative">
   <div class="max-w-3xl mx-auto px-4 sm:px-6">
-    <div class="pt-32 pb-12 md:pt-40 md:pb-20">
+    <div class="pt-12 pb-6 md:pt-16 md:pb-8">
 
       <!-- Page header -->
-      <div class="terminal-box mb-8" data-aos="fade-up">
+      <div class="terminal-box mb-6">
         <div class="terminal-header" style="color: var(--color-terminal-cyan);">
           blog/
         </div>
@@ -23,12 +23,12 @@
       </div>
 
       <!-- Section tags -->
-      <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
+      <div class="mb-6">
         <div class="terminal-box py-3">
           <ul class="flex flex-wrap gap-2 text-xs">
             <li>
               <a href="/blog" class="px-2 py-1 border transition-all {% if not current_tag %}active-tag{% endif %}" 
-                 style="{% if not current_tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(88, 166, 255, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
+                 style="{% if not current_tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
                  onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
                  onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
                 all
@@ -37,7 +37,7 @@
             {% for tag in tags | sort %}
             <li>
               <a href="/blog/tag/{{ tag }}" class="px-2 py-1 border transition-all {% if current_tag == tag %}active-tag{% endif %}"
-                 style="{% if current_tag == tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(88, 166, 255, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
+                 style="{% if current_tag == tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
                  onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
                  onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
                 {{ tags[tag] }}
@@ -50,7 +50,7 @@
 
       <!-- Articles list - minimal vertical list -->
       <div>
-        <div class="terminal-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="terminal-box">
           <div class="space-y-0">
             {% for post in posts %}
             <article class="blog-post py-4 {% if not loop.last %}border-b{% endif %}" style="border-color: var(--color-terminal-border);">
@@ -84,4 +84,3 @@
   </div>
 </section>
 {% endblock %}
-
