@@ -5,26 +5,26 @@
 @theme {
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   
-  /* Terminal color palette */
-  --color-terminal-bg: #0a0e14;
-  --color-terminal-fg: #b3b1ad;
-  --color-terminal-border: #1a1f29;
-  --color-terminal-accent: #39ff14;
-  --color-terminal-accent-dim: #2acc10;
-  --color-terminal-cyan: #00ffff;
-  --color-terminal-cyan-dim: #00cccc;
-  --color-terminal-yellow: #ffff00;
-  --color-terminal-red: #ff0066;
+  /* Subtle terminal color palette - more muted */
+  --color-terminal-bg: #0d1117;
+  --color-terminal-fg: #8b949e;
+  --color-terminal-border: #21262d;
+  --color-terminal-accent: #58a6ff;
+  --color-terminal-accent-dim: #1f6feb;
+  --color-terminal-cyan: #79c0ff;
+  --color-terminal-cyan-dim: #58a6ff;
+  --color-terminal-yellow: #d29922;
+  --color-terminal-red: #f85149;
   
   --color-gray-100: #e6e6e6;
-  --color-gray-200: #cccccc;
-  --color-gray-300: #b3b1ad;
-  --color-gray-400: #808080;
-  --color-gray-500: #666666;
-  --color-gray-600: #4d4d4d;
-  --color-gray-700: #333333;
-  --color-gray-800: #1a1f29;
-  --color-gray-900: #0a0e14;
+  --color-gray-200: #c9d1d9;
+  --color-gray-300: #8b949e;
+  --color-gray-400: #6e7681;
+  --color-gray-500: #484f58;
+  --color-gray-600: #30363d;
+  --color-gray-700: #21262d;
+  --color-gray-800: #161b22;
+  --color-gray-900: #0d1117;
   
   --font-family-mono: var(--font-mono);
 }
@@ -40,7 +40,7 @@
     position: relative;
   }
 
-  /* CRT effect overlay */
+  /* Subtle scanline effect - very minimal */
   body::before {
     content: '';
     position: fixed;
@@ -50,43 +50,14 @@
     height: 100%;
     background: repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15) 1px,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0.05) 1px,
       transparent 1px,
       transparent 2px
     );
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.5;
-  }
-
-  /* Scanline animation */
-  body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      transparent 50%,
-      rgba(57, 255, 20, 0.03) 51%,
-      transparent 52%
-    );
-    background-size: 100% 4px;
-    animation: scanline 8s linear infinite;
-    pointer-events: none;
-    z-index: 9998;
-  }
-
-  @keyframes scanline {
-    0% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: 0 100%;
-    }
+    opacity: 0.3;
   }
 }
 
@@ -95,13 +66,11 @@
   .h1 {
     @apply text-4xl font-bold leading-tight tracking-tight;
     color: var(--color-terminal-accent);
-    text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
   }
 
   .h2 {
     @apply text-3xl font-bold leading-tight tracking-tight;
     color: var(--color-terminal-cyan);
-    text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
   }
 
   .h3 {
@@ -124,27 +93,21 @@
     }
   }
 
-  /* Terminal box style */
+  /* Minimal terminal box style - no glow */
   .terminal-box {
     @apply relative p-6 rounded-none;
-    background: rgba(26, 31, 41, 0.6);
-    border: 2px solid var(--color-terminal-border);
-    box-shadow: 
-      0 0 20px rgba(57, 255, 20, 0.1),
-      inset 0 0 60px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    background: rgba(22, 27, 34, 0.4);
+    border: 1px solid var(--color-terminal-border);
+    transition: border-color 0.3s ease;
   }
 
   .terminal-box:hover {
-    border-color: var(--color-terminal-accent);
-    box-shadow: 
-      0 0 30px rgba(57, 255, 20, 0.2),
-      inset 0 0 60px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-terminal-accent-dim);
   }
 
   /* Terminal box header */
   .terminal-header {
-    @apply flex items-center gap-2 mb-4 pb-2 border-b border-gray-800;
+    @apply flex items-center gap-2 mb-4 pb-2 border-b border-gray-700;
   }
 
   .terminal-header::before {
@@ -153,10 +116,10 @@
     font-weight: bold;
   }
 
-  /* Buttons */
+  /* Buttons - minimal style */
   .btn,
   .btn-sm {
-    @apply font-bold inline-flex items-center justify-center border-2 rounded-none leading-snug transition duration-150 ease-in-out;
+    @apply font-bold inline-flex items-center justify-center border rounded-none leading-snug transition duration-150 ease-in-out;
     font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -167,13 +130,11 @@
     background: transparent;
     border-color: var(--color-terminal-accent);
     color: var(--color-terminal-accent);
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
   }
 
   .btn:hover {
     background: var(--color-terminal-accent);
     color: var(--color-terminal-bg);
-    box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
   }
 
   .btn-sm {
@@ -188,20 +149,66 @@
     color: var(--color-terminal-bg);
   }
 
-  /* Blink animation for cursor */
-  .cursor-blink::after {
-    content: '█';
-    animation: blink 1s infinite;
-    margin-left: 2px;
+  /* Prose styling for blog content */
+  .prose {
+    @apply text-gray-300;
   }
 
-  @keyframes blink {
-    0%, 49% {
-      opacity: 1;
-    }
-    50%, 100% {
-      opacity: 0;
-    }
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: var(--color-terminal-accent);
+    font-weight: bold;
+  }
+
+  .prose a {
+    color: var(--color-terminal-cyan);
+    text-decoration: underline;
+  }
+
+  .prose a:hover {
+    color: var(--color-terminal-accent);
+  }
+
+  .prose code {
+    color: var(--color-terminal-cyan);
+    background: rgba(33, 38, 45, 0.5);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0;
+    font-size: 0.875em;
+  }
+
+  .prose pre {
+    background: rgba(22, 27, 34, 0.6);
+    border: 1px solid var(--color-terminal-border);
+    border-radius: 0;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .prose pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--color-terminal-fg);
+  }
+
+  .prose blockquote {
+    border-left: 2px solid var(--color-terminal-accent);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--color-terminal-fg);
+    opacity: 0.9;
+  }
+
+  .prose strong {
+    color: var(--color-terminal-cyan);
+    font-weight: bold;
+  }
+
+  .prose ul,
+  .prose ol {
+    color: var(--color-terminal-fg);
   }
 }
 

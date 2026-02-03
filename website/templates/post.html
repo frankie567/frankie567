@@ -28,85 +28,82 @@
 </script>
 
 <section>
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
     <div class="pt-32 pb-12 md:pt-40 md:pb-20">
-      <div class="max-w-3xl mx-auto lg:max-w-none">
 
-        <article>
+      <article>
 
-          <!-- Article header -->
-          <header class="max-w-3xl mx-auto mb-12">
-            <div class="terminal-box" data-aos="fade-up">
+        <!-- Article header -->
+        <header class="mb-8">
+          <div class="terminal-box" data-aos="fade-up">
+            <div class="terminal-header" style="color: var(--color-terminal-cyan);">
+              {{ post.slug }}.md
+            </div>
+            <!-- Title -->
+            <h1 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-terminal-accent);">
+              {{ post.title }}
+            </h1>
+            <!-- Meta -->
+            <div class="flex flex-wrap items-center gap-3 text-xs border-t pt-3" style="border-color: var(--color-terminal-border);">
+              <span class="opacity-70" style="color: var(--color-terminal-fg);">{{ post.formatted_date }}</span>
+              {% if post.tags %}
+              <span style="color: var(--color-terminal-border);">|</span>
+              <div class="flex flex-wrap gap-2">
+                {% for tag in post.tags %}
+                <span class="opacity-70" style="color: var(--color-terminal-cyan);">#{{ tag }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </header>
+
+        <!-- Article content -->
+        <div class="space-y-8">
+          
+          <!-- Table of contents -->
+          {% if post.headings|length > 0 %}
+          <aside data-aos="fade-up" data-aos-delay="100">
+            <div class="terminal-box">
               <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-                blog/{{ post.slug }}.md
+                contents
               </div>
-              <!-- Title -->
-              <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-terminal-accent); text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);">
-                {{ post.title }}
-              </h1>
-              <!-- Meta -->
-              <div class="flex flex-wrap items-center gap-3 text-sm border-t pt-4" style="border-color: var(--color-terminal-border);">
-                <div class="flex flex-wrap gap-2">
-                  {% for tag in post.tags %}
-                  <span class="px-2 py-1 border text-xs" style="border-color: var(--color-terminal-cyan); color: var(--color-terminal-cyan);">#{{ tag }}</span>
-                  {% endfor %}
-                </div>
-                <span style="color: var(--color-terminal-border);">|</span>
-                <span class="opacity-70" style="color: var(--color-terminal-fg);">{{ post.formatted_date }}</span>
-              </div>
+              <ul class="text-sm space-y-2">
+                {% for heading in post.headings %}
+                <li class="{% if heading.level <= 2 %}pl-0{% elif heading.level == 3 %}pl-4{% elif heading.level == 4 %}pl-8{% else %}pl-12{% endif %}">
+                  <a class="flex items-center hover:underline opacity-70 hover:opacity-100 transition-opacity" href="#{{ heading.slug }}" style="color: var(--color-terminal-fg);">
+                    <span style="color: var(--color-terminal-accent);">></span>
+                    <span class="ml-2">{{ heading.text }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
             </div>
-          </header>
+          </aside>
+          {% endif %}
 
-          <!-- Article content -->
-          <div class="relative lg:flex lg:justify-between lg:gap-8">
-
-            <!-- Sidebar -->
-            {% if post.headings|length > 0 %}
-            <aside class="relative hidden lg:block w-64 flex-shrink-0">
-              <div class="sticky top-32">
-                <div class="terminal-box">
-                  <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-                    toc.txt
-                  </div>
-                  <ul class="text-sm space-y-2">
-                    {% for heading in post.headings %}
-                    <li class="{% if heading.level <= 2 %}pl-0{% elif heading.level == 3 %}pl-4{% elif heading.level == 4 %}pl-8{% elif heading.level == 5 %}pl-12{% else %}pl-16{% endif %}">
-                      <a class="flex items-center hover:underline opacity-80 hover:opacity-100 transition-opacity" href="#{{ heading.slug }}" style="color: var(--color-terminal-fg);">
-                        <span style="color: var(--color-terminal-accent);">></span>
-                        <span class="ml-2">{{ heading.text }}</span>
-                      </a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </aside>
-            {% endif %}
-
-            <!-- Main content -->
-            <div class="min-w-0 flex-1">
-              <div class="terminal-box" data-aos="fade-up" data-aos-delay="100">
-                <!-- Article body -->
-                <div class="prose prose-invert max-w-full overflow-hidden">
-                  {{ post.html | safe }}
-                  <div>
-                    <hr class="w-full h-px pt-px mt-8 border-0" style="background: var(--color-terminal-border);">
-                    <div class="mt-6">
-                      <a href="/blog" class="inline-flex items-center text-base font-medium hover:underline" style="color: var(--color-terminal-accent);">
-                        <span class="mr-2">&lt;</span>
-                        <span>Back to blog</span>
-                      </a>
-                    </div>
+          <!-- Main content -->
+          <div data-aos="fade-up" data-aos-delay="200">
+            <div class="terminal-box">
+              <!-- Article body -->
+              <div class="prose prose-invert max-w-full overflow-hidden text-sm" style="color: var(--color-terminal-fg);">
+                {{ post.html | safe }}
+                <div>
+                  <hr class="w-full h-px pt-px mt-8 border-0" style="background: var(--color-terminal-border);">
+                  <div class="mt-6">
+                    <a href="/blog" class="inline-flex items-center text-sm font-medium hover:underline" style="color: var(--color-terminal-accent);">
+                      <span class="mr-2">&lt;</span>
+                      <span>Back to blog</span>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
 
-        </article>
+        </div>
 
-      </div>
+      </article>
 
     </div>
   </div>
