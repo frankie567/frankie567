@@ -38,7 +38,13 @@
     @apply font-[family-name:var(--font-mono)] antialiased text-gray-300;
     background-color: var(--color-terminal-bg);
     position: relative;
-    padding-bottom: 60px; /* Space for sticky footer */
+    padding-bottom: 80px; /* Space for sticky footer on mobile */
+  }
+
+  @media (min-width: 640px) {
+    body {
+      padding-bottom: 60px; /* Less space on desktop */
+    }
   }
 
   /* Minimal scanline effect */

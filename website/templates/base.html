@@ -77,47 +77,52 @@
       style="background: rgba(10, 10, 10, 0.98); border-color: var(--color-terminal-border); backdrop-filter: blur(10px);"
     >
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="flex items-center justify-between h-14">
+        <div class="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-14 py-2 sm:py-0 gap-2 sm:gap-0">
           <!-- Left: Navigation tabs -->
-          <nav class="flex items-center gap-1">
+          <nav class="flex items-center gap-1 flex-wrap justify-center sm:justify-start">
             <a
               href="/"
-              class="px-4 py-2 text-sm font-medium transition-colors hover:text-gray-100"
+              class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors hover:text-gray-100 flex items-center gap-1 sm:gap-2"
               style="color: var(--color-terminal-fg);"
               data-nav="home"
             >
               <span style="color: var(--color-terminal-accent);">$</span>
-              <span class="ml-2">François Voron</span>
+              <span class="ml-1">François Voron</span>
+              <span class="hidden sm:inline text-xs opacity-50 ml-1" style="color: var(--color-terminal-cyan);">[ctrl+h]</span>
             </a>
             <a
               href="/blog"
-              class="px-4 py-2 text-sm font-medium transition-colors hover:text-gray-100"
+              class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors hover:text-gray-100 flex items-center gap-1 sm:gap-2"
               style="color: var(--color-terminal-fg);"
               data-nav="blog"
             >
-              blog
+              <span>blog</span>
+              <span class="hidden sm:inline text-xs opacity-50" style="color: var(--color-terminal-cyan);">[ctrl+b]</span>
             </a>
             <a
               href="/open-source"
-              class="px-4 py-2 text-sm font-medium transition-colors hover:text-gray-100"
+              class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors hover:text-gray-100 flex items-center gap-1 sm:gap-2"
               style="color: var(--color-terminal-fg);"
               data-nav="opensource"
             >
-              open source
+              <span>open source</span>
+              <span class="hidden sm:inline text-xs opacity-50" style="color: var(--color-terminal-cyan);">[ctrl+o]</span>
             </a>
           </nav>
 
           <!-- Right: Social links -->
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
             <a
               href="https://github.com/frankie567"
-              class="text-gray-400 hover:text-gray-100 transition-colors"
+              class="p-1.5 sm:p-2 border transition-all hover:border-gray-600"
+              style="border-color: var(--color-terminal-border); color: var(--color-terminal-fg);"
               aria-label="Github"
               target="_blank"
               rel="noopener"
+              title="GitHub"
             >
               <svg
-                class="w-5 h-5 fill-current"
+                class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -128,13 +133,15 @@
             </a>
             <a
               href="https://twitter.com/fvoron"
-              class="text-gray-400 hover:text-gray-100 transition-colors"
+              class="p-1.5 sm:p-2 border transition-all hover:border-gray-600"
+              style="border-color: var(--color-terminal-border); color: var(--color-terminal-fg);"
               aria-label="Twitter"
               target="_blank"
               rel="noopener"
+              title="Twitter"
             >
               <svg
-                class="w-5 h-5 fill-current"
+                class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -145,13 +152,15 @@
             </a>
             <a
               href="https://www.linkedin.com/in/fvoron/"
-              class="text-gray-400 hover:text-gray-100 transition-colors"
+              class="p-1.5 sm:p-2 border transition-all hover:border-gray-600"
+              style="border-color: var(--color-terminal-border); color: var(--color-terminal-fg);"
               aria-label="LinkedIn"
               target="_blank"
               rel="noopener"
+              title="LinkedIn"
             >
               <svg
-                class="w-5 h-5 fill-current"
+                class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -201,6 +210,50 @@
             link.style.borderBottom = '2px solid var(--color-terminal-accent)';
           }
         });
+
+        // Tab navigation for blog posts and projects
+        let currentItemIndex = -1;
+        const navigableItems = document.querySelectorAll('.blog-post a, .project-item a');
+        
+        if (navigableItems.length > 0) {
+          document.addEventListener('keydown', function(e) {
+            // Only if not in input fields
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            if (e.key === 'Tab' && !e.ctrlKey) {
+              e.preventDefault();
+              
+              if (e.shiftKey) {
+                // Shift+Tab: go backwards
+                currentItemIndex--;
+                if (currentItemIndex < 0) currentItemIndex = navigableItems.length - 1;
+              } else {
+                // Tab: go forwards
+                currentItemIndex++;
+                if (currentItemIndex >= navigableItems.length) currentItemIndex = 0;
+              }
+              
+              // Remove previous focus styling
+              navigableItems.forEach(item => {
+                item.style.outline = '';
+                item.style.backgroundColor = '';
+              });
+              
+              // Add focus styling to current item
+              if (navigableItems[currentItemIndex]) {
+                navigableItems[currentItemIndex].style.outline = '2px solid var(--color-terminal-accent)';
+                navigableItems[currentItemIndex].style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                navigableItems[currentItemIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            } else if (e.key === 'Enter' && currentItemIndex >= 0 && !e.ctrlKey) {
+              // Enter: open the focused item
+              e.preventDefault();
+              if (navigableItems[currentItemIndex]) {
+                navigableItems[currentItemIndex].click();
+              }
+            }
+          });
+        }
       });
     </script>
   </body>
