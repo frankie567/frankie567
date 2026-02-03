@@ -40,7 +40,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -68,36 +68,37 @@
       }
     </script>
   </head>
-  <body class="font-inter antialiased bg-gray-900 text-white tracking-tight">
+  <body class="font-mono antialiased text-gray-300 tracking-tight relative">
     <!-- Header -->
     <header
       id="header"
-      class="fixed w-full z-30 transition duration-300 ease-in-out"
+      class="fixed w-full z-30 transition duration-300 ease-in-out border-b-2"
+      style="border-color: var(--color-terminal-border); background: rgba(10, 14, 20, 0.95); backdrop-filter: blur(10px);"
     >
       <div class="max-w-6xl mx-auto px-5 sm:px-6 py-1">
         <div class="flex items-center justify-between h-16 md:h-20">
           <!-- Site branding -->
           <div class="flex-shrink-0 mr-4">
-            <!-- Logo -->
-            <a href="/" class="block">
-              <img
-                src="/logos/francois-voron.svg"
-                width="150"
-                height="56"
-                alt="François Voron Logo"
-              />
+            <!-- Terminal prompt style logo -->
+            <a href="/" class="block group">
+              <span class="text-2xl font-bold tracking-tight">
+                <span style="color: var(--color-terminal-accent);">$</span>
+                <span class="ml-2 group-hover:text-gray-100 transition-colors" style="color: var(--color-terminal-fg);">François Voron</span>
+                <span class="inline-block ml-1 opacity-0 group-hover:opacity-100 transition-opacity" style="color: var(--color-terminal-accent);">_</span>
+              </span>
             </a>
           </div>
 
           <!-- Site navigation -->
           <nav class="hidden md:flex md:flex-grow">
-            <ul class="flex flex-grow justify-end flex-wrap items-center">
+            <ul class="flex flex-grow justify-end flex-wrap items-center gap-1">
               <li>
                 <a
                   href="/blog"
-                  class="font-medium hover:text-red-500 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                  class="font-medium px-4 py-2 flex items-center transition duration-150 ease-in-out border-2 border-transparent hover:border-gray-800"
+                  style="color: var(--color-terminal-fg);"
                 >
-                  Blog
+                  <span style="color: var(--color-terminal-accent);">[</span>blog<span style="color: var(--color-terminal-accent);">]</span>
                 </a>
               </li>
             </ul>
@@ -108,34 +109,30 @@
             <!-- Hamburger button -->
             <button
               id="hamburger-button"
-              class="hamburger"
+              class="hamburger px-2 py-1 border-2"
+              style="border-color: var(--color-terminal-accent); color: var(--color-terminal-accent);"
               aria-controls="mobile-nav"
               aria-expanded="false"
             >
               <span class="sr-only">Menu</span>
-              <svg
-                class="w-6 h-6 fill-current text-gray-200"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect y="4" width="24" height="2" />
-                <rect y="11" width="24" height="2" />
-                <rect y="18" width="24" height="2" />
-              </svg>
+              <span class="text-sm font-bold">[|||]</span>
             </button>
 
             <!-- Mobile navigation -->
             <nav
               id="mobile-nav"
-              class="absolute top-full h-screen pb-16 z-20 left-0 w-full overflow-auto bg-gray-900 hidden"
+              class="absolute top-full h-screen pb-16 z-20 left-0 w-full overflow-auto hidden"
+              style="background-color: var(--color-terminal-bg); border-top: 2px solid var(--color-terminal-border);"
             >
               <ul class="px-5 py-2">
                 <li>
                   <a
                     href="/blog"
-                    class="flex hover:text-red-500 py-2"
+                    class="flex py-3 border-b border-gray-800"
+                    style="color: var(--color-terminal-fg);"
                   >
-                    Blog
+                    <span style="color: var(--color-terminal-accent);">></span>
+                    <span class="ml-2">blog</span>
                   </a>
                 </li>
               </ul>
@@ -149,26 +146,18 @@
     <main class="flex-grow">{% block content %}{% endblock %}</main>
 
     <!-- Footer -->
-    <footer>
+    <footer style="border-top: 2px solid var(--color-terminal-border);">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <!-- Top area: Blocks -->
         <div
-          class="grid sm:grid-cols-12 gap-8 py-8 md:py-12 border-t border-gray-800"
+          class="grid sm:grid-cols-12 gap-8 py-8 md:py-12"
         >
           <!-- 1st block -->
           <div class="sm:col-span-12 lg:col-span-3">
-            <div class="mb-2">
-              <!-- Logo -->
-              <a href="/" class="inline-block">
-                <img
-                  src="/logos/francois-voron.svg"
-                  width="150"
-                  height="56"
-                  alt="François Voron Logo"
-                />
-              </a>
+            <div class="mb-4">
+              <span class="text-xl font-bold" style="color: var(--color-terminal-accent);">$ whoami</span>
             </div>
-            <div class="text-sm text-justify text-gray-500">
+            <div class="text-sm text-justify opacity-80" style="color: var(--color-terminal-fg);">
               Full-stack web developer and data scientist, I've a proven track
               record working in SaaS industry, with a special focus on Python
               backends and REST API.
@@ -177,13 +166,14 @@
 
           <!-- 2nd block -->
           <div class="lg:col-start-7 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 class="text-gray-400 font-medium mb-2">About me</h3>
-            <ul class="text-sm">
-              <li class="mb-2">
+            <h3 class="font-bold mb-3" style="color: var(--color-terminal-cyan);">about_me/</h3>
+            <ul class="text-sm space-y-2">
+              <li>
                 <a
                   href="/blog"
-                  class="text-gray-500 hover:text-white transition duration-150 ease-in-out"
-                  >Blog</a
+                  class="opacity-80 hover:opacity-100 transition duration-150 ease-in-out"
+                  style="color: var(--color-terminal-fg);"
+                  ><span style="color: var(--color-terminal-accent);">></span> blog</a
                 >
               </li>
             </ul>
@@ -191,27 +181,30 @@
 
           <!-- 3rd block -->
           <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 class="text-gray-400 font-medium mb-2">Open source</h3>
-            <ul class="text-sm">
-              <li class="mb-2">
+            <h3 class="font-bold mb-3" style="color: var(--color-terminal-cyan);">open_source/</h3>
+            <ul class="text-sm space-y-2">
+              <li>
                 <a
                   href="https://www.fief.dev"
-                  class="text-gray-500 hover:text-white transition duration-150 ease-in-out"
-                  >Fief</a
+                  class="opacity-80 hover:opacity-100 transition duration-150 ease-in-out"
+                  style="color: var(--color-terminal-fg);"
+                  ><span style="color: var(--color-terminal-accent);">></span> fief</a
                 >
               </li>
-              <li class="mb-2">
+              <li>
                 <a
                   href="https://github.com/frankie567/fastapi-users"
-                  class="text-gray-500 hover:text-white transition duration-150 ease-in-out"
-                  >FastAPI Users</a
+                  class="opacity-80 hover:opacity-100 transition duration-150 ease-in-out"
+                  style="color: var(--color-terminal-fg);"
+                  ><span style="color: var(--color-terminal-accent);">></span> fastapi-users</a
                 >
               </li>
-              <li class="mb-2">
+              <li>
                 <a
                   href="https://github.com/frankie567/httpx-oauth"
-                  class="text-gray-500 hover:text-white transition duration-150 ease-in-out"
-                  >HTTPX OAuth</a
+                  class="opacity-80 hover:opacity-100 transition duration-150 ease-in-out"
+                  style="color: var(--color-terminal-fg);"
+                  ><span style="color: var(--color-terminal-accent);">></span> httpx-oauth</a
                 >
               </li>
             </ul>
@@ -219,13 +212,14 @@
 
           <!-- 4th block -->
           <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 class="text-gray-400 font-medium mb-2">Legal</h3>
-            <ul class="text-sm">
-              <li class="mb-2">
+            <h3 class="font-bold mb-3" style="color: var(--color-terminal-cyan);">legal/</h3>
+            <ul class="text-sm space-y-2">
+              <li>
                 <a
                   href="/terms"
-                  class="text-gray-500 hover:text-white transition duration-150 ease-in-out"
-                  >Terms</a
+                  class="opacity-80 hover:opacity-100 transition duration-150 ease-in-out"
+                  style="color: var(--color-terminal-fg);"
+                  ><span style="color: var(--color-terminal-accent);">></span> terms</a
                 >
               </li>
             </ul>
@@ -234,18 +228,20 @@
 
         <!-- Bottom area -->
         <div
-          class="md:flex md:items-center md:justify-between py-4 md:py-8 border-t border-gray-800"
+          class="md:flex md:items-center md:justify-between py-4 md:py-8"
+          style="border-top: 2px solid var(--color-terminal-border);"
         >
           <!-- Social links -->
-          <ul class="flex mb-4 md:order-1 md:ml-4 md:mb-0">
+          <ul class="flex mb-4 md:order-1 md:ml-4 md:mb-0 gap-3">
             <li>
               <a
                 href="https://github.com/frankie567"
-                class="flex justify-center items-center bg-gray-800 hover:bg-red-500 rounded-full shadow transition duration-150 ease-in-out"
+                class="flex justify-center items-center border-2 w-10 h-10 transition duration-150 ease-in-out hover:bg-opacity-20"
+                style="border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: transparent;"
                 aria-label="Github"
               >
                 <svg
-                  class="w-8 h-8 fill-current"
+                  class="w-5 h-5 fill-current"
                   viewBox="0 0 32 32"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -255,14 +251,15 @@
                 </svg>
               </a>
             </li>
-            <li class="ml-4">
+            <li>
               <a
                 href="https://twitter.com/fvoron"
-                class="flex justify-center items-center bg-gray-800 hover:bg-red-500 rounded-full shadow transition duration-150 ease-in-out"
+                class="flex justify-center items-center border-2 w-10 h-10 transition duration-150 ease-in-out hover:bg-opacity-20"
+                style="border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: transparent;"
                 aria-label="Twitter"
               >
                 <svg
-                  class="w-8 h-8 fill-current"
+                  class="w-5 h-5 fill-current"
                   viewBox="0 0 32 32"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -272,14 +269,15 @@
                 </svg>
               </a>
             </li>
-            <li class="ml-4">
+            <li>
               <a
                 href="https://www.linkedin.com/in/fvoron/"
-                class="flex justify-center items-center bg-gray-800 hover:bg-red-500 rounded-full shadow transition duration-150 ease-in-out"
+                class="flex justify-center items-center border-2 w-10 h-10 transition duration-150 ease-in-out hover:bg-opacity-20"
+                style="border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: transparent;"
                 aria-label="LinkedIn"
               >
                 <svg
-                  class="w-8 h-8 fill-current"
+                  class="w-5 h-5 fill-current"
                   viewBox="0 0 32 32"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -292,8 +290,8 @@
           </ul>
 
           <!-- Copyrights note -->
-          <div class="text-sm text-gray-500 mr-4">
-            Made with ❤️ from 🇫🇷 - François Voron
+          <div class="text-sm opacity-70 mr-4" style="color: var(--color-terminal-fg);">
+            <span style="color: var(--color-terminal-accent);">$</span> Made with ❤️ from 🇫🇷 - François Voron
           </div>
         </div>
       </div>
@@ -304,28 +302,8 @@
     <script>
       AOS.init({
         once: true,
-        duration: 700,
+        duration: 500,
         easing: "ease-out-cubic",
-      });
-
-      // Header background on scroll
-      window.addEventListener("scroll", function () {
-        const header = document.getElementById("header");
-        if (window.scrollY > 10) {
-          header.classList.add(
-            "bg-gray-900",
-            "bg-opacity-95",
-            "backdrop-blur-sm",
-            "shadow-lg",
-          );
-        } else {
-          header.classList.remove(
-            "bg-gray-900",
-            "bg-opacity-95",
-            "backdrop-blur-sm",
-            "shadow-lg",
-          );
-        }
       });
 
       // Mobile menu toggle
@@ -339,9 +317,6 @@
           // Toggle aria-expanded
           hamburgerButton.setAttribute("aria-expanded", !isExpanded);
           
-          // Toggle active class on button
-          hamburgerButton.classList.toggle("active");
-          
           // Toggle mobile nav visibility
           mobileNav.classList.toggle("hidden");
         });
@@ -350,11 +325,23 @@
         document.addEventListener("keydown", function (event) {
           if (event.key === "Escape" && !mobileNav.classList.contains("hidden")) {
             hamburgerButton.setAttribute("aria-expanded", "false");
-            hamburgerButton.classList.remove("active");
             mobileNav.classList.add("hidden");
           }
         });
       }
+
+      // Keyboard navigation - press 'b' to go to blog
+      document.addEventListener("keydown", function (event) {
+        // Only trigger if not in an input field
+        if (event.target.tagName !== "INPUT" && event.target.tagName !== "TEXTAREA") {
+          if (event.key === "b" && !event.ctrlKey && !event.metaKey) {
+            window.location.href = "/blog";
+          }
+          if (event.key === "h" && !event.ctrlKey && !event.metaKey) {
+            window.location.href = "/";
+          }
+        }
+      });
     </script>
   </body>
 </html>
