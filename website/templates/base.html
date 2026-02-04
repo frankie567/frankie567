@@ -66,56 +66,102 @@
     </script>
   </head>
   <body class="font-mono antialiased text-gray-300 tracking-tight relative">
+    <!-- CRT scanline effect overlay -->
+    <div
+      id="crt-overlay"
+      class="fixed inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.08),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-50 bg-[length:100%_2px,3px_100%]"
+    ></div>
+
     <!-- Main content -->
-    <main class="min-h-screen">
-      {% block content %}{% endblock %}
-    </main>
+    <main class="min-h-screen">{% block content %}{% endblock %}</main>
 
     <!-- Terminal-style sticky footer with navigation tabs -->
     <footer
       class="fixed bottom-0 left-0 right-0 z-50 border-t"
-      style="background: rgba(10, 10, 10, 0.98); border-color: var(--color-terminal-border); backdrop-filter: blur(10px);"
+      style="
+        background: rgba(10, 10, 10, 0.98);
+        border-color: var(--color-terminal-border);
+        backdrop-filter: blur(10px);
+      "
     >
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-14 py-2 sm:py-0 gap-2 sm:gap-0">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between h-auto sm:h-14 py-2 sm:py-0 gap-2 sm:gap-0"
+        >
           <!-- Left: Navigation tabs -->
-          <nav class="flex items-center gap-1 flex-wrap justify-center sm:justify-start">
+          <nav
+            class="flex items-center gap-1 flex-wrap justify-center sm:justify-start"
+          >
             <a
               href="/"
               class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors hover:text-gray-100 flex items-center gap-1 sm:gap-2"
-              style="color: var(--color-terminal-fg);"
+              style="color: var(--color-terminal-fg)"
               data-nav="home"
             >
-              <span style="color: var(--color-terminal-accent);">$</span>
+              <span style="color: var(--color-terminal-accent)">$</span>
               <span class="ml-1">fvoron</span>
-              <span class="hidden sm:inline text-xs opacity-50 ml-1" style="color: var(--color-terminal-cyan);">[h]</span>
+              <span
+                class="hidden sm:inline text-xs opacity-50 ml-1"
+                style="color: var(--color-terminal-cyan)"
+                >[h]</span
+              >
             </a>
             <a
               href="/blog"
               class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors hover:text-gray-100 flex items-center gap-1 sm:gap-2"
-              style="color: var(--color-terminal-fg);"
+              style="color: var(--color-terminal-fg)"
               data-nav="blog"
             >
               <span>blog</span>
-              <span class="hidden sm:inline text-xs opacity-50" style="color: var(--color-terminal-cyan);">[b]</span>
+              <span
+                class="hidden sm:inline text-xs opacity-50"
+                style="color: var(--color-terminal-cyan)"
+                >[b]</span
+              >
             </a>
             <a
               href="/open-source"
               class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors hover:text-gray-100 flex items-center gap-1 sm:gap-2"
-              style="color: var(--color-terminal-fg);"
+              style="color: var(--color-terminal-fg)"
               data-nav="opensource"
             >
               <span>open source</span>
-              <span class="hidden sm:inline text-xs opacity-50" style="color: var(--color-terminal-cyan);">[o]</span>
+              <span
+                class="hidden sm:inline text-xs opacity-50"
+                style="color: var(--color-terminal-cyan)"
+                >[o]</span
+              >
             </a>
           </nav>
 
-          <!-- Right: Social links -->
+          <!-- Right: CRT toggle + Social links -->
           <div class="flex items-center gap-2">
+            <!-- CRT Toggle -->
+            <button
+              id="crt-toggle"
+              class="p-1.5 sm:p-2 border transition-all hover:border-gray-600 flex items-center gap-1.5 text-xs"
+              style="
+                border-color: var(--color-terminal-border);
+                color: var(--color-terminal-fg);
+              "
+              title="Toggle CRT effect"
+              aria-label="Toggle CRT effect"
+            >
+              <span class="hidden sm:inline opacity-70">crt</span>
+              <span
+                id="crt-status"
+                class="font-bold"
+                style="color: var(--color-terminal-accent)"
+                >[on]</span
+              >
+            </button>
             <a
               href="https://github.com/frankie567"
               class="p-1.5 sm:p-2 border transition-all hover:border-gray-600"
-              style="border-color: var(--color-terminal-border); color: var(--color-terminal-fg);"
+              style="
+                border-color: var(--color-terminal-border);
+                color: var(--color-terminal-fg);
+              "
               aria-label="Github"
               target="_blank"
               rel="noopener"
@@ -134,7 +180,10 @@
             <a
               href="https://twitter.com/fvoron"
               class="p-1.5 sm:p-2 border transition-all hover:border-gray-600"
-              style="border-color: var(--color-terminal-border); color: var(--color-terminal-fg);"
+              style="
+                border-color: var(--color-terminal-border);
+                color: var(--color-terminal-fg);
+              "
               aria-label="Twitter"
               target="_blank"
               rel="noopener"
@@ -153,7 +202,10 @@
             <a
               href="https://www.linkedin.com/in/fvoron/"
               class="p-1.5 sm:p-2 border transition-all hover:border-gray-600"
-              style="border-color: var(--color-terminal-border); color: var(--color-terminal-fg);"
+              style="
+                border-color: var(--color-terminal-border);
+                color: var(--color-terminal-fg);
+              "
               aria-label="LinkedIn"
               target="_blank"
               rel="noopener"
@@ -177,17 +229,23 @@
     <!-- Keyboard navigation -->
     <script>
       document.addEventListener("keydown", function (event) {
-        // Only trigger if not in an input field and Ctrl key is pressed
-        if (event.target.tagName !== "INPUT" && event.target.tagName !== "TEXTAREA") {
-          if (event.ctrlKey && event.key === "h") {
+        // Only trigger if not in an input field
+        if (
+          event.target.tagName !== "INPUT" &&
+          event.target.tagName !== "TEXTAREA" &&
+          !event.ctrlKey &&
+          !event.metaKey &&
+          !event.altKey
+        ) {
+          if (event.key === "h") {
             event.preventDefault();
             window.location.href = "/";
           }
-          if (event.ctrlKey && event.key === "b") {
+          if (event.key === "b") {
             event.preventDefault();
             window.location.href = "/blog";
           }
-          if (event.ctrlKey && event.key === "o") {
+          if (event.key === "o") {
             event.preventDefault();
             window.location.href = "/open-source";
           }
@@ -195,57 +253,78 @@
       });
 
       // Highlight active nav tab
-      document.addEventListener("DOMContentLoaded", function() {
+      document.addEventListener("DOMContentLoaded", function () {
         const path = window.location.pathname;
-        const navLinks = document.querySelectorAll('[data-nav]');
-        
-        navLinks.forEach(link => {
-          const href = link.getAttribute('href');
+        const navLinks = document.querySelectorAll("[data-nav]");
+
+        navLinks.forEach((link) => {
+          const href = link.getAttribute("href");
           // Exact match for home, or check if path starts with href followed by / or end
-          if (href === '/' && path === '/') {
-            link.style.color = 'var(--color-terminal-accent)';
-            link.style.borderBottom = '2px solid var(--color-terminal-accent)';
-          } else if (href !== '/' && (path === href || path.startsWith(href + '/'))) {
-            link.style.color = 'var(--color-terminal-accent)';
-            link.style.borderBottom = '2px solid var(--color-terminal-accent)';
+          if (href === "/" && path === "/") {
+            link.style.color = "var(--color-terminal-accent)";
+            link.style.borderBottom = "2px solid var(--color-terminal-accent)";
+          } else if (
+            href !== "/" &&
+            (path === href || path.startsWith(href + "/"))
+          ) {
+            link.style.color = "var(--color-terminal-accent)";
+            link.style.borderBottom = "2px solid var(--color-terminal-accent)";
           }
         });
 
         // Tab navigation for blog posts and projects
         let currentItemIndex = -1;
-        const navigableItems = document.querySelectorAll('.blog-post a, .project-item a');
-        
+        const navigableItems = document.querySelectorAll(
+          ".blog-post a, .project-item a",
+        );
+
         if (navigableItems.length > 0) {
-          document.addEventListener('keydown', function(e) {
+          document.addEventListener("keydown", function (e) {
             // Only if not in input fields
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            
-            if (e.key === 'Tab' && !e.ctrlKey) {
+            if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+              return;
+
+            if (
+              (e.key === "Tab" && !e.ctrlKey) ||
+              e.key === "ArrowDown" ||
+              e.key === "ArrowUp"
+            ) {
               e.preventDefault();
-              
-              if (e.shiftKey) {
-                // Shift+Tab: go backwards
+
+              if (e.shiftKey || e.key === "ArrowUp") {
+                // Shift+Tab or ArrowUp: go backwards
                 currentItemIndex--;
-                if (currentItemIndex < 0) currentItemIndex = navigableItems.length - 1;
+                if (currentItemIndex < 0)
+                  currentItemIndex = navigableItems.length - 1;
               } else {
-                // Tab: go forwards
+                // Tab or ArrowDown: go forwards
                 currentItemIndex++;
-                if (currentItemIndex >= navigableItems.length) currentItemIndex = 0;
+                if (currentItemIndex >= navigableItems.length)
+                  currentItemIndex = 0;
               }
-              
+
               // Remove previous focus styling
-              navigableItems.forEach(item => {
-                item.style.outline = '';
-                item.style.backgroundColor = '';
+              navigableItems.forEach((item) => {
+                item.style.outline = "";
+                item.style.backgroundColor = "";
               });
-              
+
               // Add focus styling to current item
               if (navigableItems[currentItemIndex]) {
-                navigableItems[currentItemIndex].style.outline = '2px solid var(--color-terminal-accent)';
-                navigableItems[currentItemIndex].style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-                navigableItems[currentItemIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                navigableItems[currentItemIndex].style.outline =
+                  "2px solid var(--color-terminal-accent)";
+                navigableItems[currentItemIndex].style.backgroundColor =
+                  "rgba(239, 68, 68, 0.1)";
+                navigableItems[currentItemIndex].scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
               }
-            } else if (e.key === 'Enter' && currentItemIndex >= 0 && !e.ctrlKey) {
+            } else if (
+              e.key === "Enter" &&
+              currentItemIndex >= 0 &&
+              !e.ctrlKey
+            ) {
               // Enter: open the focused item
               e.preventDefault();
               if (navigableItems[currentItemIndex]) {
@@ -254,6 +333,33 @@
             }
           });
         }
+
+        // CRT toggle functionality
+        const crtOverlay = document.getElementById("crt-overlay");
+        const crtToggle = document.getElementById("crt-toggle");
+        const crtStatus = document.getElementById("crt-status");
+
+        // Check localStorage for saved preference
+        const crtEnabled = localStorage.getItem("crt-enabled");
+        if (crtEnabled === "false") {
+          crtOverlay.style.display = "none";
+          crtStatus.textContent = "[off]";
+          crtStatus.style.color = "var(--color-terminal-fg)";
+        }
+
+        crtToggle.addEventListener("click", function () {
+          if (crtOverlay.style.display === "none") {
+            crtOverlay.style.display = "";
+            crtStatus.textContent = "[on]";
+            crtStatus.style.color = "var(--color-terminal-accent)";
+            localStorage.setItem("crt-enabled", "true");
+          } else {
+            crtOverlay.style.display = "none";
+            crtStatus.textContent = "[off]";
+            crtStatus.style.color = "var(--color-terminal-fg)";
+            localStorage.setItem("crt-enabled", "false");
+          }
+        });
       });
     </script>
   </body>

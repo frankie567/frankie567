@@ -54,9 +54,18 @@ struct Heading {
 
 /// Apply syntax highlighting to code blocks in HTML
 fn apply_syntax_highlighting(html: &str) -> Result<String> {
+    use syntect::highlighting::Color;
+
     let ps = SyntaxSet::load_defaults_newlines();
     let ts = ThemeSet::load_defaults();
-    let theme = &ts.themes["base16-ocean.dark"];
+    let mut theme = ts.themes["base16-eighties.dark"].clone();
+    // Set background to match terminal background color #0a0a0a
+    theme.settings.background = Some(Color {
+        r: 10,
+        g: 10,
+        b: 10,
+        a: 255,
+    });
 
     // Match <pre><code> blocks with or without language class
     let code_pattern =
@@ -87,7 +96,7 @@ fn apply_syntax_highlighting(html: &str) -> Result<String> {
             .unwrap_or_else(|| ps.find_syntax_plain_text());
 
         // Generate highlighted HTML
-        highlighted_html_for_string(&decoded, &ps, syntax, theme)
+        highlighted_html_for_string(&decoded, &ps, syntax, &theme)
             .unwrap_or_else(|_| format!("<pre><code>{}</code></pre>", code))
     });
 
@@ -198,11 +207,11 @@ fn parse_blog_post(path: &Path) -> Result<BlogPost> {
         .ok_or_else(|| anyhow::anyhow!("Missing date"))?
         .to_string();
 
-    // Format the date for display
+    // Format the date for display (ISO format YYYY-MM-DD)
     let formatted_date = if let Ok(parsed_datetime) = chrono::DateTime::parse_from_rfc3339(&date) {
-        parsed_datetime.format("%B %d, %Y").to_string()
+        parsed_datetime.format("%Y-%m-%d").to_string()
     } else if let Ok(parsed_date) = chrono::NaiveDate::parse_from_str(&date, "%Y-%m-%d") {
-        parsed_date.format("%B %d, %Y").to_string()
+        parsed_date.format("%Y-%m-%d").to_string()
     } else {
         date.clone()
     };
@@ -476,7 +485,8 @@ fn generate_site() -> Result<()> {
             host => HOST,
             posts => tag_posts,
             tags => &tags,
-            current_tag => tag,
+            current_tag => normalized_tag,
+            current_tag_name => tag,
             title => meta.title,
             description => meta.description,
             image => meta.image,

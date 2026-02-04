@@ -3,8 +3,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  
+  --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+
   /* Dark terminal color palette with red accents */
   --color-terminal-bg: #0a0a0a;
   --color-terminal-fg: #a0a0a0;
@@ -15,7 +15,7 @@
   --color-terminal-cyan-dim: #4b5563;
   --color-terminal-yellow: #d29922;
   --color-terminal-red: #ef4444;
-  
+
   --color-gray-100: #e5e5e5;
   --color-gray-200: #d4d4d4;
   --color-gray-300: #a0a0a0;
@@ -25,7 +25,7 @@
   --color-gray-700: #262626;
   --color-gray-800: #171717;
   --color-gray-900: #0a0a0a;
-  
+
   --font-family-mono: var(--font-mono);
 }
 
@@ -49,7 +49,7 @@
 
   /* Minimal scanline effect */
   body::before {
-    content: '';
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
@@ -105,11 +105,6 @@
     @apply relative p-6 rounded-none;
     background: rgba(22, 27, 34, 0.4);
     border: 1px solid var(--color-terminal-border);
-    transition: border-color 0.3s ease;
-  }
-
-  .terminal-box:hover {
-    border-color: var(--color-terminal-accent-dim);
   }
 
   /* Terminal box header */
@@ -118,7 +113,7 @@
   }
 
   .terminal-header::before {
-    content: '> ';
+    content: "> ";
     color: var(--color-terminal-accent);
     font-weight: bold;
   }
@@ -180,16 +175,24 @@
 
   .prose code {
     color: var(--color-terminal-cyan);
-    background: rgba(33, 38, 45, 0.5);
+    background: #0d1117;
     padding: 0.125rem 0.25rem;
-    border-radius: 0;
     font-size: 0.875em;
   }
 
+  .prose
+    :where(code):not(
+      :where([class~="not-prose"], [class~="not-prose"] *)
+    )::before,
+  .prose
+    :where(code):not(
+      :where([class~="not-prose"], [class~="not-prose"] *)
+    )::after {
+    content: none !important;
+  }
+
   .prose pre {
-    background: rgba(22, 27, 34, 0.6);
     border: 1px solid var(--color-terminal-border);
-    border-radius: 0;
     padding: 1rem;
     overflow-x: auto;
   }
@@ -227,7 +230,10 @@
   }
 
   .hamburger svg > *:nth-child(1) {
-    transition: y 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19), opacity 0.1s ease-in;
+    transition:
+      y 0.1s 0.25s ease-in,
+      transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19),
+      opacity 0.1s ease-in;
   }
 
   .hamburger svg > *:nth-child(2) {
@@ -235,14 +241,20 @@
   }
 
   .hamburger svg > *:nth-child(3) {
-    transition: y 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19), width 0.1s 0.25s ease-in;
+    transition:
+      y 0.1s 0.25s ease-in,
+      transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19),
+      width 0.1s 0.25s ease-in;
   }
 
   .hamburger.active svg > *:nth-child(1) {
     opacity: 0;
     y: 11;
     transform: rotate(225deg);
-    transition: y 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.1s 0.12s ease-out;
+    transition:
+      y 0.1s ease-out,
+      transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1),
+      opacity 0.1s 0.12s ease-out;
   }
 
   .hamburger.active svg > *:nth-child(2) {
@@ -253,7 +265,10 @@
   .hamburger.active svg > *:nth-child(3) {
     y: 11;
     transform: rotate(135deg);
-    transition: y 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1), width 0.1s ease-out;
+    transition:
+      y 0.1s ease-out,
+      transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1),
+      width 0.1s ease-out;
   }
 
   /* Prose overflow fixes */

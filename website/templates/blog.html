@@ -1,23 +1,23 @@
-{% extends "base" %}
-
-{% block content %}
+{% extends "base" %} {% block content %}
 <section class="relative">
   <div class="max-w-3xl mx-auto px-4 sm:px-6">
     <div class="pt-12 pb-6 md:pt-16 md:pb-8">
-
       <!-- Page header -->
       <div class="terminal-box mb-6">
-        <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-          blog/
+        <div class="terminal-header" style="color: var(--color-terminal-cyan)">
+          {% if current_tag %}/blog/tag/{{ current_tag }}{% else %}/blog{% endif
+          %}
         </div>
-        <h1 class="text-2xl md:text-3xl font-bold" style="color: var(--color-terminal-accent);">
-          {% if current_tag %}
-            <span style="color: var(--color-terminal-cyan);">#</span>{{ tags[current_tag] }}
-          {% else %}
-            Posts
-          {% endif %}
+        <h1
+          class="text-2xl md:text-3xl font-bold"
+          style="color: var(--color-terminal-accent)"
+        >
+          {% if current_tag %}{{ current_tag_name }}{% else %}Blog{% endif %}
         </h1>
-        <p class="mt-2 text-sm opacity-70" style="color: var(--color-terminal-fg);">
+        <p
+          class="mt-2 text-sm opacity-70"
+          style="color: var(--color-terminal-fg)"
+        >
           Experiments, thoughts and stories about my work
         </p>
       </div>
@@ -25,26 +25,28 @@
       <!-- Section tags -->
       <div class="mb-6">
         <div class="terminal-box py-3">
-          <ul class="flex flex-wrap gap-2 text-xs">
-            <li>
-              <a href="/blog" class="px-2 py-1 border transition-all {% if not current_tag %}active-tag{% endif %}" 
-                 style="{% if not current_tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
-                 onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
-                 onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
-                all
-              </a>
-            </li>
+          <div class="flex flex-wrap gap-x-3 gap-y-2 text-xs">
+            <a
+              href="/blog"
+              class="inline-block px-2 py-1 border transition-all whitespace-nowrap {% if not current_tag %}active-tag{% endif %}"
+              style="{% if not current_tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
+              onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
+              onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }"
+            >
+              all
+            </a>
             {% for tag in tags | sort %}
-            <li>
-              <a href="/blog/tag/{{ tag }}" class="px-2 py-1 border transition-all {% if current_tag == tag %}active-tag{% endif %}"
-                 style="{% if current_tag == tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
-                 onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
-                 onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }">
-                {{ tags[tag] }}
-              </a>
-            </li>
+            <a
+              href="/blog/tag/{{ tag }}"
+              class="inline-block px-2 py-1 border transition-all whitespace-nowrap {% if current_tag == tag %}active-tag{% endif %}"
+              style="{% if current_tag == tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
+              onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
+              onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }"
+            >
+              {{ tags[tag] }}
+            </a>
             {% endfor %}
-          </ul>
+          </div>
         </div>
       </div>
 
@@ -53,21 +55,44 @@
         <div class="terminal-box">
           <div class="space-y-0">
             {% for post in posts %}
-            <article class="blog-post py-4 {% if not loop.last %}border-b{% endif %}" style="border-color: var(--color-terminal-border);">
+            <article
+              class="blog-post py-4 {% if not loop.last %}border-b{% endif %}"
+              style="border-color: var(--color-terminal-border)"
+            >
               <div class="flex items-start justify-between gap-4">
                 <div class="flex-1 min-w-0">
                   <h2 class="text-base font-bold leading-snug mb-2">
-                    <a href="/blog/{{ post.slug }}" class="hover:underline" style="color: var(--color-terminal-accent);">
-                      <span style="color: var(--color-terminal-cyan);">></span> {{ post.title }}
+                    <a
+                      href="/blog/{{ post.slug }}"
+                      class="hover:underline"
+                      style="color: var(--color-terminal-accent)"
+                    >
+                      <span style="color: var(--color-terminal-cyan)">></span>
+                      {{ post.title }}
                     </a>
                   </h2>
-                  <p class="text-sm opacity-70 mb-2" style="color: var(--color-terminal-fg);">{{ post.excerpt }}</p>
-                  <div class="flex items-center gap-3 text-xs">
-                    <span class="opacity-50" style="color: var(--color-terminal-fg);">{{ post.formatted_date }}</span>
+                  <p
+                    class="text-sm opacity-70 mb-2"
+                    style="color: var(--color-terminal-fg)"
+                  >
+                    {{ post.excerpt }}
+                  </p>
+                  <div
+                    class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs"
+                  >
+                    <span
+                      class="opacity-50 shrink-0"
+                      style="color: var(--color-terminal-fg)"
+                      >{{ post.formatted_date }}</span
+                    >
                     {% if post.tags %}
-                    <div class="flex gap-1">
+                    <div class="flex flex-wrap gap-1">
                       {% for tag in post.tags %}
-                      <span class="opacity-50" style="color: var(--color-terminal-cyan);">#{{ tag }}</span>
+                      <span
+                        class="opacity-50"
+                        style="color: var(--color-terminal-cyan)"
+                        >#{{ tag }}</span
+                      >
                       {% endfor %}
                     </div>
                     {% endif %}
@@ -79,7 +104,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>

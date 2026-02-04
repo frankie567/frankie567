@@ -1,56 +1,65 @@
-{% extends "base" %}
-
-{% block content %}
+{% extends "base" %} {% block content %}
 <script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
   mermaid.initialize({
     startOnLoad: true,
-    theme: 'dark',
+    theme: "dark",
   });
 </script>
 
 <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "headline": "{{ post.title }}",
-  "image": [
-    "{{ post.thumbnail }}"
-  ],
-  "datePublished": "{{ post.date }}",
-  "dateModified": "{{ post.date }}",
-  "author": {
-    "@type": "Person",
-    "name": "François Voron",
-    "url": "https://www.francoisvoron.com"
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "{{ post.title }}",
+    "image": ["{{ post.thumbnail }}"],
+    "datePublished": "{{ post.date }}",
+    "dateModified": "{{ post.date }}",
+    "author": {
+      "@type": "Person",
+      "name": "François Voron",
+      "url": "https://www.francoisvoron.com"
+    }
   }
-}
 </script>
 
 <section>
   <div class="max-w-3xl mx-auto px-4 sm:px-6">
     <div class="pt-12 pb-6 md:pt-16 md:pb-8">
-
       <article>
-
         <!-- Article header -->
         <header class="mb-6">
           <div class="terminal-box">
-            <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-              blog/{{ post.slug }}.md
+            <div
+              class="terminal-header"
+              style="color: var(--color-terminal-cyan)"
+            >
+              /blog/{{ post.slug }}
             </div>
             <!-- Title -->
-            <h1 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--color-terminal-accent);">
+            <h1
+              class="text-2xl md:text-3xl font-bold mb-4"
+              style="color: var(--color-terminal-accent)"
+            >
               {{ post.title }}
             </h1>
             <!-- Meta -->
-            <div class="flex flex-wrap items-center gap-3 text-xs border-t pt-3" style="border-color: var(--color-terminal-border);">
-              <span class="opacity-70" style="color: var(--color-terminal-fg);">{{ post.formatted_date }}</span>
+            <div
+              class="flex flex-wrap items-center gap-3 text-xs border-t pt-3"
+              style="border-color: var(--color-terminal-border)"
+            >
+              <span class="opacity-70" style="color: var(--color-terminal-fg)"
+                >{{ post.formatted_date }}</span
+              >
               {% if post.tags %}
-              <span style="color: var(--color-terminal-border);">|</span>
+              <span style="color: var(--color-terminal-border)">|</span>
               <div class="flex flex-wrap gap-2">
                 {% for tag in post.tags %}
-                <span class="opacity-70" style="color: var(--color-terminal-cyan);">#{{ tag }}</span>
+                <span
+                  class="opacity-70"
+                  style="color: var(--color-terminal-cyan)"
+                  >#{{ tag }}</span
+                >
                 {% endfor %}
               </div>
               {% endif %}
@@ -60,19 +69,27 @@
 
         <!-- Article content -->
         <div class="space-y-6">
-          
           <!-- Table of contents -->
           {% if post.headings|length > 0 %}
           <aside>
             <div class="terminal-box">
-              <div class="terminal-header" style="color: var(--color-terminal-cyan);">
-                toc.txt
+              <div
+                class="terminal-header"
+                style="color: var(--color-terminal-cyan)"
+              >
+                toc.md
               </div>
               <ul class="text-sm space-y-2">
                 {% for heading in post.headings %}
-                <li class="{% if heading.level <= 2 %}pl-0{% elif heading.level == 3 %}pl-4{% elif heading.level == 4 %}pl-8{% else %}pl-12{% endif %}">
-                  <a class="flex items-center hover:underline opacity-70 hover:opacity-100 transition-opacity" href="#{{ heading.slug }}" style="color: var(--color-terminal-fg);">
-                    <span style="color: var(--color-terminal-accent);">></span>
+                <li
+                  class="{% if heading.level <= 2 %}pl-0{% elif heading.level == 3 %}pl-4{% elif heading.level == 4 %}pl-8{% else %}pl-12{% endif %}"
+                >
+                  <a
+                    class="flex items-center hover:underline opacity-70 hover:opacity-100 transition-opacity"
+                    href="#{{ heading.slug }}"
+                    style="color: var(--color-terminal-fg)"
+                  >
+                    <span style="color: var(--color-terminal-accent)">></span>
                     <span class="ml-2">{{ heading.text }}</span>
                   </a>
                 </li>
@@ -86,12 +103,22 @@
           <div>
             <div class="terminal-box">
               <!-- Article body -->
-              <div class="prose prose-invert max-w-full overflow-hidden text-sm" style="color: var(--color-terminal-fg);">
+              <div
+                class="prose prose-invert prose-pre:rounded-none prose-pre:bg-[#0a0a0a] prose-code:rounded-none max-w-full overflow-hidden text-sm"
+                style="color: var(--color-terminal-fg)"
+              >
                 {{ post.html | safe }}
                 <div>
-                  <hr class="w-full h-px pt-px mt-8 border-0" style="background: var(--color-terminal-border);">
+                  <hr
+                    class="w-full h-px pt-px mt-8 border-0"
+                    style="background: var(--color-terminal-border)"
+                  />
                   <div class="mt-6">
-                    <a href="/blog" class="inline-flex items-center text-sm font-medium hover:underline" style="color: var(--color-terminal-accent);">
+                    <a
+                      href="/blog"
+                      class="inline-flex items-center text-sm font-medium hover:underline"
+                      style="color: var(--color-terminal-accent)"
+                    >
                       <span class="mr-2">&lt;</span>
                       <span>Back to blog</span>
                     </a>
@@ -100,11 +127,8 @@
               </div>
             </div>
           </div>
-
         </div>
-
       </article>
-
     </div>
   </div>
 </section>
