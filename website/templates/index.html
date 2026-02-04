@@ -1,4 +1,7 @@
-{% extends "base" %} {% block content %}
+{% extends "base" %} {% block head %}
+<!-- Preload hero image -->
+<link rel="preload" as="image" href="/francois-voron.jpg" />
+{% endblock %} {% block content %}
 <!-- Hero Section -->
 <section
   class="relative pt-12 pb-6 md:pt-16 md:pb-8"

@@ -47,24 +47,26 @@
     }
   }
 
-  /* Minimal scanline effect */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.05),
-      rgba(0, 0, 0, 0.05) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.2;
+  /* CRT overlay optimization */
+  #crt-overlay {
+    will-change: opacity;
+  }
+
+  /* Tag link styles for blog filtering */
+  .tag-link {
+    border-color: var(--color-terminal-border);
+    color: var(--color-terminal-fg);
+  }
+
+  .tag-link:hover:not(.active-tag) {
+    border-color: var(--color-terminal-cyan);
+    color: var(--color-terminal-cyan);
+  }
+
+  .tag-link.active-tag {
+    border-color: var(--color-terminal-accent);
+    color: var(--color-terminal-accent);
+    background: rgba(239, 68, 68, 0.1);
   }
 }
 

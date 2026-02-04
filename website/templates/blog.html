@@ -64,10 +64,7 @@
           <div class="flex flex-wrap gap-x-3 gap-y-2 text-xs" role="list">
             <a
               href="/blog"
-              class="inline-block px-2 py-1 border transition-all whitespace-nowrap {% if not current_tag %}active-tag{% endif %}"
-              style="{% if not current_tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
-              onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
-              onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }"
+              class="tag-link inline-block px-2 py-1 border transition-all whitespace-nowrap {% if not current_tag %}active-tag{% endif %}"
               role="listitem"
               {% if not current_tag %}aria-current="page"{% endif %}
             >
@@ -76,10 +73,7 @@
             {% for tag in tags | sort %}
             <a
               href="/blog/tag/{{ tag }}"
-              class="inline-block px-2 py-1 border transition-all whitespace-nowrap {% if current_tag == tag %}active-tag{% endif %}"
-              style="{% if current_tag == tag %}border-color: var(--color-terminal-accent); color: var(--color-terminal-accent); background: rgba(239, 68, 68, 0.1);{% else %}border-color: var(--color-terminal-border); color: var(--color-terminal-fg);{% endif %}"
-              onmouseover="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-cyan)'; this.style.color='var(--color-terminal-cyan)'; }"
-              onmouseout="if(!this.classList.contains('active-tag')) { this.style.borderColor='var(--color-terminal-border)'; this.style.color='var(--color-terminal-fg)'; }"
+              class="tag-link inline-block px-2 py-1 border transition-all whitespace-nowrap {% if current_tag == tag %}active-tag{% endif %}"
               role="listitem"
               {% if current_tag == tag %}aria-current="page"{% endif %}
             >
