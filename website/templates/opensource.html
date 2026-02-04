@@ -1,13 +1,18 @@
 {% extends "base" %} {% block content %}
-<section class="relative">
+<section class="relative" aria-labelledby="projects-heading">
   <div class="max-w-3xl mx-auto px-4 sm:px-6">
     <div class="pt-12 pb-6 md:pt-16 md:pb-8">
       <!-- Page header -->
-      <div class="terminal-box mb-6">
-        <div class="terminal-header" style="color: var(--color-terminal-cyan)">
+      <header class="terminal-box mb-6">
+        <div
+          class="terminal-header"
+          style="color: var(--color-terminal-cyan)"
+          aria-hidden="true"
+        >
           /open-source
         </div>
         <h1
+          id="projects-heading"
           class="text-2xl md:text-3xl font-bold"
           style="color: var(--color-terminal-accent)"
         >
@@ -19,183 +24,225 @@
         >
           Open-source projects I maintain and contribute to
         </p>
-      </div>
+      </header>
 
       <!-- Projects list -->
-      <div>
-        <div class="terminal-box">
-          <div class="space-y-0">
-            <article
-              class="py-4 border-b project-item"
-              style="border-color: var(--color-terminal-border)"
-            >
-              <div class="flex-1 min-w-0">
-                <h2 class="text-base font-bold leading-snug mb-2">
-                  <a
-                    href="https://github.com/frankie567/httpx-ws"
-                    target="_blank"
-                    rel="noopener"
-                    class="hover:underline"
-                    style="color: var(--color-terminal-accent)"
-                  >
-                    <span style="color: var(--color-terminal-cyan)">></span>
-                    HTTPX WS
-                  </a>
-                </h2>
-                <p
-                  class="text-sm opacity-70 mb-2"
-                  style="color: var(--color-terminal-fg)"
+      <div class="terminal-box">
+        <ul class="space-y-0" role="list" aria-label="Open source projects">
+          <li
+            class="py-4 border-b project-item"
+            style="border-color: var(--color-terminal-border)"
+          >
+            <article>
+              <h2 class="text-base font-bold leading-snug mb-2">
+                <a
+                  href="https://github.com/frankie567/httpx-ws"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                  style="color: var(--color-terminal-accent)"
                 >
-                  A WebSocket client for HTTPX.
-                </p>
-                <div class="flex items-center gap-3 text-xs">
                   <span
-                    class="opacity-50"
                     style="color: var(--color-terminal-cyan)"
-                    >#Python</span
+                    aria-hidden="true"
+                    >></span
                   >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#HTTPX</span
-                  >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#WebSocket</span
-                  >
-                </div>
+                  HTTPX WS<span class="sr-only"> (opens in new tab)</span>
+                </a>
+              </h2>
+              <p
+                class="text-sm opacity-70 mb-2"
+                style="color: var(--color-terminal-fg)"
+              >
+                A WebSocket client for HTTPX.
+              </p>
+              <div
+                class="flex items-center gap-3 text-xs"
+                role="list"
+                aria-label="Technologies"
+              >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#Python</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#HTTPX</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#WebSocket</span
+                >
               </div>
             </article>
+          </li>
 
-            <article
-              class="py-4 border-b project-item"
-              style="border-color: var(--color-terminal-border)"
-            >
-              <div class="flex-1 min-w-0">
-                <h2 class="text-base font-bold leading-snug mb-2">
-                  <a
-                    href="https://github.com/frankie567/httpx-oauth"
-                    target="_blank"
-                    rel="noopener"
-                    class="hover:underline"
-                    style="color: var(--color-terminal-accent)"
-                  >
-                    <span style="color: var(--color-terminal-cyan)">></span>
-                    HTTPX OAuth
-                  </a>
-                </h2>
-                <p
-                  class="text-sm opacity-70 mb-2"
-                  style="color: var(--color-terminal-fg)"
+          <li
+            class="py-4 border-b project-item"
+            style="border-color: var(--color-terminal-border)"
+          >
+            <article>
+              <h2 class="text-base font-bold leading-snug mb-2">
+                <a
+                  href="https://github.com/frankie567/httpx-oauth"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                  style="color: var(--color-terminal-accent)"
                 >
-                  An async OAuth client using HTTPX.
-                </p>
-                <div class="flex items-center gap-3 text-xs">
                   <span
-                    class="opacity-50"
                     style="color: var(--color-terminal-cyan)"
-                    >#Python</span
+                    aria-hidden="true"
+                    >></span
                   >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#HTTPX</span
-                  >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#OAuth</span
-                  >
-                </div>
+                  HTTPX OAuth<span class="sr-only"> (opens in new tab)</span>
+                </a>
+              </h2>
+              <p
+                class="text-sm opacity-70 mb-2"
+                style="color: var(--color-terminal-fg)"
+              >
+                An async OAuth client using HTTPX.
+              </p>
+              <div
+                class="flex items-center gap-3 text-xs"
+                role="list"
+                aria-label="Technologies"
+              >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#Python</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#HTTPX</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#OAuth</span
+                >
               </div>
             </article>
+          </li>
 
-            <article
-              class="py-4 border-b project-item"
-              style="border-color: var(--color-terminal-border)"
-            >
-              <div class="flex-1 min-w-0">
-                <h2 class="text-base font-bold leading-snug mb-2">
-                  <a
-                    href="https://frankie567.github.io/pwdlib/"
-                    target="_blank"
-                    rel="noopener"
-                    class="hover:underline"
-                    style="color: var(--color-terminal-accent)"
-                  >
-                    <span style="color: var(--color-terminal-cyan)">></span>
-                    pwdlib
-                  </a>
-                </h2>
-                <p
-                  class="text-sm opacity-70 mb-2"
-                  style="color: var(--color-terminal-fg)"
+          <li
+            class="py-4 border-b project-item"
+            style="border-color: var(--color-terminal-border)"
+          >
+            <article>
+              <h2 class="text-base font-bold leading-snug mb-2">
+                <a
+                  href="https://frankie567.github.io/pwdlib/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                  style="color: var(--color-terminal-accent)"
                 >
-                  A modern password hashing library.
-                </p>
-                <div class="flex items-center gap-3 text-xs">
                   <span
-                    class="opacity-50"
                     style="color: var(--color-terminal-cyan)"
-                    >#Python</span
+                    aria-hidden="true"
+                    >></span
                   >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#Security</span
-                  >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#Passwords</span
-                  >
-                </div>
+                  pwdlib<span class="sr-only"> (opens in new tab)</span>
+                </a>
+              </h2>
+              <p
+                class="text-sm opacity-70 mb-2"
+                style="color: var(--color-terminal-fg)"
+              >
+                A modern password hashing library.
+              </p>
+              <div
+                class="flex items-center gap-3 text-xs"
+                role="list"
+                aria-label="Technologies"
+              >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#Python</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#Security</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#Passwords</span
+                >
               </div>
             </article>
+          </li>
 
-            <article class="py-4 project-item">
-              <div class="flex-1 min-w-0">
-                <h2 class="text-base font-bold leading-snug mb-2">
-                  <a
-                    href="https://github.com/frankie567/fastapi-users"
-                    target="_blank"
-                    rel="noopener"
-                    class="hover:underline"
-                    style="color: var(--color-terminal-accent)"
-                  >
-                    <span style="color: var(--color-terminal-cyan)">></span>
-                    FastAPI Users
-                  </a>
-                </h2>
-                <p
-                  class="text-sm opacity-70 mb-2"
-                  style="color: var(--color-terminal-fg)"
+          <li class="py-4 project-item">
+            <article>
+              <h2 class="text-base font-bold leading-snug mb-2">
+                <a
+                  href="https://github.com/frankie567/fastapi-users"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                  style="color: var(--color-terminal-accent)"
                 >
-                  The #1 authentication library for FastAPI. Ready-to-use and
-                  customizable users management for FastAPI.
-                </p>
-                <div class="flex items-center gap-3 text-xs">
                   <span
-                    class="opacity-50"
                     style="color: var(--color-terminal-cyan)"
-                    >#Python</span
+                    aria-hidden="true"
+                    >></span
                   >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#FastAPI</span
-                  >
-                  <span
-                    class="opacity-50"
-                    style="color: var(--color-terminal-cyan)"
-                    >#Authentication</span
-                  >
-                </div>
+                  FastAPI Users<span class="sr-only"> (opens in new tab)</span>
+                </a>
+              </h2>
+              <p
+                class="text-sm opacity-70 mb-2"
+                style="color: var(--color-terminal-fg)"
+              >
+                The #1 authentication library for FastAPI. Ready-to-use and
+                customizable users management for FastAPI.
+              </p>
+              <div
+                class="flex items-center gap-3 text-xs"
+                role="list"
+                aria-label="Technologies"
+              >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#Python</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#FastAPI</span
+                >
+                <span
+                  class="opacity-50"
+                  style="color: var(--color-terminal-cyan)"
+                  role="listitem"
+                  >#Authentication</span
+                >
               </div>
             </article>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

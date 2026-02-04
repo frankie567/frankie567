@@ -315,3 +315,61 @@
     display: none;
   }
 }
+
+/* Focus styles for keyboard accessibility */
+@layer base {
+  /* Ensure all interactive elements have visible focus */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-terminal-accent);
+    outline-offset: 2px;
+  }
+
+  /* Remove default focus outline for mouse users */
+  a:focus:not(:focus-visible),
+  button:focus:not(:focus-visible),
+  input:focus:not(:focus-visible),
+  textarea:focus:not(:focus-visible),
+  select:focus:not(:focus-visible),
+  [tabindex]:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Main content focus style when skipped to */
+  main:focus {
+    outline: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  :root {
+    --color-terminal-fg: #d4d4d4;
+    --color-terminal-border: #404040;
+  }
+
+  .opacity-50,
+  .opacity-70 {
+    opacity: 1 !important;
+  }
+}
