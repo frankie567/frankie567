@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="{{ description }}" />
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bookinou Geek" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="{{ host }}/bookinou-geek" />
+    <meta property="og:image" content="{{ host }}/bookinou-geek-image.jpg" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="{{ title }}" />
+    <meta property="twitter:description" content="{{ description }}" />
+    <meta
+      property="twitter:image"
+      content="{{ host }}/bookinou-geek-image.jpg"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/bookinou-favicon.png" type="image/png" />
+
+    <!-- Fonts: Quicksand for bold headings, Inter for clean body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #018090; /* Couleur officielle Bookinou */
+        --secondary-color: #016a75; /* Version plus foncée pour contraste */
+        --background-color: #e6f7f8; /* Fond bleu-vert très pastel */
+        --text-color: #2c3e50;
+        --accent-color: #b2ebf2; /* Bleu-vert très clair pour accents */
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.7;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .content {
+        background-color: white;
+        border-radius: 12px;
+        padding: 50px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Anchor link container - positioned relative for absolute children */
+      h1,
+      h2,
+      h3 {
+        position: relative;
+        padding-right: 40px;
+      }
+
+      /* Actual clickable anchor links */
+      .anchor-link {
+        position: absolute;
+        right: 0;
+        color: var(--accent-color);
+        opacity: 0;
+        transition: opacity 0.2s;
+        text-decoration: none;
+        font-size: 1.2em;
+      }
+
+      h1:hover .anchor-link,
+      h2:hover .anchor-link,
+      h3:hover .anchor-link {
+        opacity: 1;
+      }
+
+      h1 {
+        font-family: "Quicksand", sans-serif;
+        font-size: 2.6rem;
+        color: var(--primary-color);
+        margin: 0 0 30px 0;
+        font-weight: 700; /* Bold comme demandé */
+        letter-spacing: -0.5px;
+      }
+
+      h2 {
+        font-family: "Quicksand", sans-serif;
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin: 40px 0 25px 0;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--accent-color);
+        font-weight: 700; /* Bold pour cohérence */
+      }
+
+      h3 {
+        font-family: "Quicksand", sans-serif;
+        color: var(--secondary-color);
+        font-size: 1.3rem;
+        font-weight: 600; /* Semi-bold pour hiérarchie */
+        margin: 25px 0 15px 0;
+      }
+
+      a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      a:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+      }
+
+      code {
+        background-color: var(--accent-color);
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: block;
+        margin: 20px auto;
+        border: 1px solid var(--accent-color);
+      }
+
+      pre {
+        background-color: var(--accent-color);
+        padding: 20px;
+        border-radius: 6px;
+        overflow-x: auto;
+        border-left: 3px solid var(--primary-color);
+        margin: 20px 0;
+      }
+
+      ul,
+      ol {
+        padding-left: 25px;
+        margin: 15px 0;
+      }
+
+      li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+      }
+
+      p {
+        margin-bottom: 18px;
+      }
+
+      blockquote {
+        border-left: 3px solid var(--primary-color);
+        padding: 12px 20px;
+        margin: 20px 0;
+        color: var(--secondary-color);
+        font-style: italic;
+        background-color: rgba(178, 235, 242, 0.3); /* More transparent */
+        border-radius: 4px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 30px;
+        padding: 15px 0;
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+      }
+
+      .contact-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.2s;
+        font-weight: 500;
+      }
+
+      .contact-link:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 25px 15px;
+        }
+
+        .content {
+          padding: 30px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">{{ content | safe }}</div>
+
+      <footer>
+        <p>Besoin d'aide ou envie de partager vos astuces ? <a href="mailto:hello@fvoron.com" class="contact-link">Contactez-moi</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

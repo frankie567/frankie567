@@ -544,6 +544,86 @@ fn generate_site() -> Result<()> {
     fs::write(opensource_dir.join("index.html"), rendered)?;
     println!("Generated open-source/index.html");
 
+    // Generate Bookinou Geek page
+    let bookinou_dir = dist_dir.join("bookinou-geek");
+    fs::create_dir_all(&bookinou_dir)?;
+
+    // Copy bookinou-geek assets
+    let bookinou_assets_dir = Path::new("../bookinou-geek/assets");
+    if bookinou_assets_dir.exists() {
+        copy_dir_recursive(bookinou_assets_dir, &bookinou_dir)?;
+        println!("Copied bookinou-geek assets");
+    }
+
+    // Parse the bookinou-geek markdown file
+    let bookinou_content = fs::read_to_string("../bookinou-geek/content.md")
+        .context("Failed to read bookinou-geek/content.md")?;
+    
+    let matter = Matter::<YAML>::new();
+    let result = matter.parse(&bookinou_content);
+    
+    let data: Value = result
+        .data
+        .ok_or_else(|| anyhow::anyhow!("Missing frontmatter in bookinou-geek.md"))?
+        .deserialize()?;
+    
+    let title = data["title"].as_str().unwrap_or("Bookinou Geek").to_string();
+    let description = data["description"].as_str().unwrap_or("Astuces techniques pour Bookinou").to_string();
+    
+    let mut html = to_html_with_options(&result.content, 
+        &Options {
+            parse: ParseOptions::default(),
+            compile: CompileOptions {
+                allow_dangerous_html: true,
+                allow_dangerous_protocol: true,
+                ..CompileOptions::default()
+            }
+        }
+    ).map_err(|e| anyhow::anyhow!("Failed to convert bookinou-geek.md to HTML: {:?}", e))?;
+    
+    // Create a function to add anchor IDs and links to headings properly
+    fn add_anchor_ids(html: &str) -> String {
+        use regex::Regex;
+        use slug::slugify;
+        
+        let re_h1 = Regex::new(r#"<h1>(.*?)</h1>"#).unwrap();
+        let re_h2 = Regex::new(r#"<h2>(.*?)</h2>"#).unwrap();
+        let re_h3 = Regex::new(r#"<h3>(.*?)</h3>"#).unwrap();
+        
+        let html = re_h1.replace_all(&html, |caps: &regex::Captures| {
+            let content = &caps[1];
+            let id = slugify(content);
+            format!("<h1 id=\"{}\">{}<a href=\"#{}\" class=\"anchor-link\" aria-hidden=\"true\">#</a></h1>", id, content, id)
+        }).to_string();
+        
+        let html = re_h2.replace_all(&html, |caps: &regex::Captures| {
+            let content = &caps[1];
+            let id = slugify(content);
+            format!("<h2 id=\"{}\">{}<a href=\"#{}\" class=\"anchor-link\" aria-hidden=\"true\">#</a></h2>", id, content, id)
+        }).to_string();
+        
+        re_h3.replace_all(&html, |caps: &regex::Captures| {
+            let content = &caps[1];
+            let id = slugify(content);
+            format!("<h3 id=\"{}\">{}<a href=\"#{}\" class=\"anchor-link\" aria-hidden=\"true\">#</a></h3>", id, content, id)
+        }).to_string()
+    }
+    
+    html = add_anchor_ids(&html).to_string();
+    
+    let template = env.get_template("bookinou-geek")
+        .context("Failed to load bookinou-geek template")?;
+    
+    let rendered = template.render(context! {
+        host => HOST,
+        title => title,
+        description => description,
+        content => html,
+    })?;
+    
+    fs::write(bookinou_dir.join("index.html"), rendered)?;
+    println!("Generated bookinou-geek/index.html");
+
     // Generate Atom feed
     generate_atom_feed(&posts, dist_dir)?;
 
