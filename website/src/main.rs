@@ -45,6 +45,14 @@ struct BlogPost {
     headings: Vec<Heading>,
 }
 
+#[derive(Serialize)]
+struct SitemapUrl {
+    path: String,
+    lastmod: String,
+    changefreq: &'static str,
+    priority: f32,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct Heading {
     text: String,
@@ -352,7 +360,8 @@ fn setup_templates() -> Result<Environment<'static>> {
             if name == "base" {
                 continue; // Skip base, already loaded
             }
-            if path.extension().and_then(|s| s.to_str()) == Some("html") {
+            let ext = path.extension().and_then(|s| s.to_str());
+            if ext == Some("html") || ext == Some("xml") {
                 let content = fs::read_to_string(&path)?;
                 env.add_template_owned(name, content)?;
             }
@@ -627,6 +636,9 @@ fn generate_site() -> Result<()> {
     // Generate Atom feed
     generate_atom_feed(&posts, dist_dir)?;
 
+    // Generate sitemap
+    generate_sitemap(&posts, dist_dir, &env)?;
+
     // Copy static files
     copy_static_files()?;
 
@@ -686,6 +698,55 @@ fn generate_atom_feed(posts: &[BlogPost], dist_dir: &Path) -> Result<()> {
     fs::write(dist_dir.join("feed.xml"), feed)?;
     println!("Generated feed.xml");
 
+    Ok(())
+}
+
+fn generate_sitemap(posts: &[BlogPost], dist_dir: &Path, env: &Environment<'static>) -> Result<()> {
+    let mut urls = Vec::new();
+    
+    // Homepage
+    urls.push(SitemapUrl {
+        path: "/".to_string(),
+        lastmod: chrono::Utc::now().format("%Y-%m-%d").to_string(),
+        changefreq: "weekly",
+        priority: 1.0,
+    });
+    
+    // Blog posts
+    for post in posts {
+        urls.push(SitemapUrl {
+            path: format!("/blog/{}", post.slug),
+            lastmod: post.formatted_date.clone(),
+            changefreq: "monthly",
+            priority: 0.8,
+        });
+    }
+    
+    // Special pages
+    urls.push(SitemapUrl {
+        path: "/bookinou-geek/".to_string(),
+        lastmod: chrono::Utc::now().format("%Y-%m-%d").to_string(),
+        changefreq: "monthly",
+        priority: 0.9,
+    });
+    
+    urls.push(SitemapUrl {
+        path: "/open-source/".to_string(),
+        lastmod: chrono::Utc::now().format("%Y-%m-%d").to_string(),
+        changefreq: "monthly",
+        priority: 0.7,
+    });
+    
+    // Render template
+    let template = env.get_template("sitemap")?;
+    let rendered = template.render(context! {
+        host => HOST,
+        urls => &urls,
+    })?;
+    
+    fs::write(dist_dir.join("sitemap.xml"), rendered)?;
+    println!("Generated sitemap.xml");
+    
     Ok(())
 }
 
