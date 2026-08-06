@@ -68,6 +68,16 @@
     color: var(--color-terminal-accent);
     background: rgba(239, 68, 68, 0.1);
   }
+
+  .active-nav {
+    color: var(--color-terminal-accent) !important;
+    border-bottom: 2px solid var(--color-terminal-accent);
+  }
+
+  .keyboard-active {
+    outline: 2px solid var(--color-terminal-accent);
+    background-color: rgba(239, 68, 68, 0.1);
+  }
 }
 
 @layer components {

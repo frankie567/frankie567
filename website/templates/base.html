@@ -12,22 +12,22 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="François Voron" />
     <meta property="og:locale" content="en" />
-    <meta property="og:url" content="{{ host }}{{ url }}" />
+    <meta property="og:url" content="{{ host | safe }}{{ url | safe }}" />
     {% if image %}
     <meta property="og:image" content="{{ image }}" />
-    <meta property="twitter:image" content="{{ image }}" />
+    <meta name="twitter:image" content="{{ image }}" />
     {% else %}
     <meta property="og:image" content="{{ host }}/meta-image.jpg" />
-    <meta property="twitter:image" content="{{ host }}/meta-image.jpg" />
+    <meta name="twitter:image" content="{{ host }}/meta-image.jpg" />
     {% endif %}
-    <meta property="twitter:card" content="summary" />
-    <meta property="twitter:title" content="{{ title }}" />
-    <meta property="twitter:description" content="{{ description }}" />
-    <meta property="twitter:creator" content="@fvoron" />
-    <meta property="twitter:site" content="@fvoron" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ title }}" />
+    <meta name="twitter:description" content="{{ description }}" />
+    <meta name="twitter:creator" content="@fvoron" />
+    <meta name="twitter:site" content="@fvoron" />
 
     {% if canonical %}
-    <link rel="canonical" href="{{ canonical }}" />
+    <link rel="canonical" href="{{ canonical | safe }}" />
     {% endif %}
 
     <!-- Favicon and Icons -->
@@ -40,7 +40,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap"
       rel="stylesheet"
     />
 
@@ -64,11 +64,11 @@
         "@type": "WebSite",
         "name": "François Voron",
         "description": "Software engineer & open-source maintainer",
-        "url": "{{ host }}",
+        "url": "{{ host | safe }}",
         "author": {
           "@type": "Person",
           "name": "François Voron",
-          "url": "{{ host }}",
+          "url": "{{ host | safe }}",
           "sameAs": [
             "https://github.com/frankie567",
             "https://twitter.com/fvoron",
@@ -282,166 +282,6 @@
       </div>
     </footer>
 
-    <!-- Keyboard navigation -->
-    <script>
-      document.addEventListener("keydown", function (event) {
-        // Only trigger if not in an input field and no modifiers
-        if (
-          event.target.tagName !== "INPUT" &&
-          event.target.tagName !== "TEXTAREA" &&
-          !event.target.isContentEditable &&
-          !event.ctrlKey &&
-          !event.metaKey &&
-          !event.altKey
-        ) {
-          if (event.key === "h") {
-            event.preventDefault();
-            window.location.href = "/";
-          }
-          if (event.key === "b") {
-            event.preventDefault();
-            window.location.href = "/blog";
-          }
-          if (event.key === "o") {
-            event.preventDefault();
-            window.location.href = "/open-source";
-          }
-        }
-      });
-
-      // Highlight active nav tab and set aria-current
-      document.addEventListener("DOMContentLoaded", function () {
-        const path = window.location.pathname;
-        const navLinks = document.querySelectorAll("[data-nav]");
-
-        navLinks.forEach((link) => {
-          const href = link.getAttribute("href");
-          let isActive = false;
-
-          // Exact match for home, or check if path starts with href followed by / or end
-          if (href === "/" && path === "/") {
-            isActive = true;
-          } else if (
-            href !== "/" &&
-            (path === href || path.startsWith(href + "/"))
-          ) {
-            isActive = true;
-          }
-
-          if (isActive) {
-            link.style.color = "var(--color-terminal-accent)";
-            link.style.borderBottom = "2px solid var(--color-terminal-accent)";
-            link.setAttribute("aria-current", "page");
-          }
-        });
-
-        // Arrow key navigation for blog posts and projects
-        // (Tab is not intercepted to maintain standard keyboard accessibility)
-        let currentItemIndex = -1;
-        const navigableItems = document.querySelectorAll(
-          ".blog-post a, .project-item a",
-        );
-
-        if (navigableItems.length > 0) {
-          document.addEventListener("keydown", function (e) {
-            // Only if not in input fields
-            if (
-              e.target.tagName === "INPUT" ||
-              e.target.tagName === "TEXTAREA" ||
-              e.target.isContentEditable
-            )
-              return;
-
-            if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-              e.preventDefault();
-
-              if (e.key === "ArrowUp") {
-                // ArrowUp: go backwards
-                currentItemIndex--;
-                if (currentItemIndex < 0)
-                  currentItemIndex = navigableItems.length - 1;
-              } else {
-                // ArrowDown: go forwards
-                currentItemIndex++;
-                if (currentItemIndex >= navigableItems.length)
-                  currentItemIndex = 0;
-              }
-
-              // Remove previous focus styling
-              navigableItems.forEach((item) => {
-                item.style.outline = "";
-                item.style.backgroundColor = "";
-              });
-
-              // Add focus styling to current item and focus it
-              if (navigableItems[currentItemIndex]) {
-                navigableItems[currentItemIndex].focus();
-                navigableItems[currentItemIndex].style.outline =
-                  "2px solid var(--color-terminal-accent)";
-                navigableItems[currentItemIndex].style.backgroundColor =
-                  "rgba(239, 68, 68, 0.1)";
-                navigableItems[currentItemIndex].scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                });
-              }
-            } else if (
-              e.key === "Enter" &&
-              currentItemIndex >= 0 &&
-              !e.ctrlKey &&
-              !e.metaKey
-            ) {
-              // Enter: open the focused item
-              e.preventDefault();
-              if (navigableItems[currentItemIndex]) {
-                navigableItems[currentItemIndex].click();
-              }
-            }
-          });
-
-          // Reset styling when clicking elsewhere or tabbing away
-          document.addEventListener("click", function () {
-            navigableItems.forEach((item) => {
-              item.style.outline = "";
-              item.style.backgroundColor = "";
-            });
-            currentItemIndex = -1;
-          });
-        }
-
-        // CRT toggle functionality
-        const crtOverlay = document.getElementById("crt-overlay");
-        const crtToggle = document.getElementById("crt-toggle");
-        const crtStatus = document.getElementById("crt-status");
-
-        // Check localStorage for saved preference
-        const crtEnabled = localStorage.getItem("crt-enabled");
-        if (crtEnabled === "false") {
-          crtOverlay.style.display = "none";
-          crtStatus.textContent = "[off]";
-          crtStatus.style.color = "var(--color-terminal-fg)";
-          crtToggle.setAttribute("aria-pressed", "false");
-        }
-
-        crtToggle.addEventListener("click", function () {
-          const isCurrentlyOn =
-            crtToggle.getAttribute("aria-pressed") === "true";
-
-          if (isCurrentlyOn) {
-            crtOverlay.style.display = "none";
-            crtStatus.textContent = "[off]";
-            crtStatus.style.color = "var(--color-terminal-fg)";
-            crtToggle.setAttribute("aria-pressed", "false");
-            localStorage.setItem("crt-enabled", "false");
-          } else {
-            crtOverlay.style.display = "";
-            crtStatus.textContent = "[on]";
-            crtStatus.style.color = "var(--color-terminal-accent)";
-            crtToggle.setAttribute("aria-pressed", "true");
-            localStorage.setItem("crt-enabled", "true");
-          }
-        });
-      });
-    </script>
+    <script src="/site.js" defer></script>
   </body>
 </html>
